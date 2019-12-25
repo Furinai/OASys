@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.linter.blog.mapper.RoleMapper">
+    <insert id="insertRoleToUser">
+        insert into user_role(user_id, role_id)
+        values (#{userId}, #{roleId})
+    </insert>
+
+    <delete id="deleteRoleFromUser">
+        delete
+        from user_role
+        where user_id = #{userId}
+          and role_id = #{roleId}
+    </delete>
+
+    <select id="selectRolesByUserId" resultType="Role">
+        select role.*
+        from role,
+             user_role
+        where user_role.role_id = role.id
+          and user_role.user_id = #{userId};
+    </select>
+</mapper>

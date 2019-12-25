@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.linter.blog.mapper.UserMapper">
+    <insert id="insertUser" parameterType="User">
+        insert into user(email, username, password)
+        values (#{email}, #{username}, #{password})
+    </insert>
+
+    <delete id="deleteUser">
+        delete
+        from user
+        where id = #{id}
+    </delete>
+
+    <select id="selectUserById" resultType="User">
+        select *
+        from user
+        where Id = #{Id}
+    </select>
+
+    <select id="selectUserByEmail" resultType="User">
+        select *
+        from user
+        where email = #{email}
+    </select>
+
+    <select id="selectUserByUsername" resultType="User">
+        select *
+        from user
+        where username = #{username}
+    </select>
+</mapper>
