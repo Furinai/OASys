@@ -8,9 +8,5 @@ import java.util.List;
 
 @Mapper
 public interface RoleMapper {
-    void insertRoleToUser(@Param("userId") int userId, @Param("roleId") int roleId);
-
-    int deleteRoleFromUser(@Param("userId") int userId, @Param("roleId") int roleId);
-
-    List<Role> selectRolesByUserId(@Param("userId") int userId);
+    Role selectRoleById(@Param("id") int id);
 }
