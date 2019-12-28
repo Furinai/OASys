@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.linter.oasys.mapper.AttendanceMapper">
+    <select id="selectAttendance" resultType="Attendance">
+        select * from attendance
+        where user_id = #{userId}
+          and sign_in_date = #{date}
+    </select>
+
+    <select id="selectAttendances" resultType="string">
+        select sign_in_date from attendance
+        where user_id = #{userId}
+    </select>
+
+    <insert id="signIn">
+        insert into attendance(user_id, sign_in_date, sign_in_time, sign_out_time, sign_out)
+        values (#{userId}, #{date}, #{time}, #{time}, 0)
+    </insert>
+
+    <update id="signOut">
+        update attendance
+        set sign_out_time=#{time},
+            sign_out=1
+        where user_id = #{userId}
+          and sign_in_date = #{date}
+    </update>
+</mapper>
