@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class AttendanceServiceImpl implements AttendanceService {
@@ -22,6 +23,16 @@ public class AttendanceServiceImpl implements AttendanceService {
     @Override
     public List<String> getAttendances(int userId) {
         return attendanceMapper.selectAttendances(userId);
+    }
+
+    @Override
+    public void setAttendanceTime(String begin, String end) {
+        attendanceMapper.updateAttendanceTime(begin, end);
+    }
+
+    @Override
+    public Map<String, String> getAttendanceTime() {
+        return attendanceMapper.selectAttendanceTime();
     }
 
     @Override

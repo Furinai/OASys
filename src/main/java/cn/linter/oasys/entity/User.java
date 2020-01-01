@@ -1,12 +1,12 @@
 package cn.linter.oasys.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.ibatis.type.Alias;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Alias("User")
@@ -69,32 +69,27 @@ public class User implements UserDetails {
     }
 
     @Override
-    @JsonIgnore
     public boolean isEnabled() {
         return true;
     }
 
     @Override
-    @JsonIgnore
     public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
-    @JsonIgnore
     public boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
-    @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
     @Override
-    @JsonIgnore
-    public List<GrantedAuthority> getAuthorities() {
+    public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
         return authorities;

@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.linter.oasys.mapper.AttendanceMapper">
+    <update id="updateAttendanceTime">
+        update attendance_time
+        set begin=#{begin}, end  = #{end}
+        where id = 1
+    </update>
+
+    <select id="selectAttendanceTime" resultType="map">
+        select begin,end from attendance_time
+    </select>
+
     <select id="selectAttendance" resultType="Attendance">
         select * from attendance
         where user_id = #{userId}

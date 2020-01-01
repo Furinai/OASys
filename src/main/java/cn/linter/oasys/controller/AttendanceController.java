@@ -8,12 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api")
@@ -25,10 +25,20 @@ public class AttendanceController {
         this.attendanceService = attendanceService;
     }
 
-    @GetMapping("/attendances")
-    public Response getAttendances(@AuthenticationPrincipal User user) {
-        List<String> attendances = attendanceService.getAttendances(user.getId());
-        return new Response("success", attendances);
+    @GetMapping("/getAttendanceTime")
+    public Response getAttendanceTime() {
+        Map<String, String> map = attendanceService.getAttendanceTime();
+        List<String> list = new ArrayList<>();
+        list.add(map.get("begin"));
+        list.add(map.get("end"));
+        return new Response("success", list);
+    }
+
+    @GetMapping("/setAttendanceTime")
+    public Response setAttendanceTime(@RequestParam("begin") String begin,
+                                      @RequestParam("end") String end) {
+        attendanceService.setAttendanceTime(begin, end);
+        return new Response("success", "设置成功！");
     }
 
     @GetMapping("/attendance")
@@ -37,13 +47,25 @@ public class AttendanceController {
         return new Response("success", attendance);
     }
 
+    @GetMapping("/attendances")
+    public Response getAttendances(@AuthenticationPrincipal User user) {
+        List<String> attendances = attendanceService.getAttendances(user.getId());
+        return new Response("success", attendances);
+    }
+
     @GetMapping("/signIn")
     public Response signIn(@AuthenticationPrincipal User user) throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
-        Date date = new Date();
-        if (date.before(format.parse("08:00:00"))) {
+        Map<String, String> map = attendanceService.getAttendanceTime();
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+        Date time = format.parse(format.format(new Date()));
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(format.parse(map.get("begin")));
+        calendar.add(Calendar.HOUR_OF_DAY, -1);
+        if (time.before(calendar.getTime())) {
             return new Response("error", "还未到签到时间！");
-        } else if (date.after(format.parse("10:00:00"))) {
+        }
+        calendar.add(Calendar.HOUR_OF_DAY, 2);
+        if (time.after(calendar.getTime())) {
             return new Response("error", "已超过签到时间！");
         }
         attendanceService.signIn(user.getId());
@@ -52,11 +74,20 @@ public class AttendanceController {
 
     @GetMapping("/signOut")
     public Response signOut(@AuthenticationPrincipal User user) throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
-        Date date = new Date();
-        if (date.before(format.parse("16:00:00"))) {
+        if (attendanceService.getAttendance(user.getId()) == null) {
+            return new Response("error", "您未签到，不能签退！");
+        }
+        Map<String, String> map = attendanceService.getAttendanceTime();
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+        Date time = format.parse(format.format(new Date()));
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(format.parse(map.get("end")));
+        calendar.add(Calendar.HOUR_OF_DAY, -1);
+        if (time.before(calendar.getTime())) {
             return new Response("error", "还未到签退时间！");
-        } else if (date.after(format.parse("18:00:00"))) {
+        }
+        calendar.add(Calendar.HOUR_OF_DAY, 2);
+        if (time.after(calendar.getTime())) {
             return new Response("error", "已超过签退时间！");
         }
         attendanceService.signOut(user.getId());
