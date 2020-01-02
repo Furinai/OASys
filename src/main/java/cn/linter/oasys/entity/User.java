@@ -17,6 +17,7 @@ public class User implements UserDetails {
     private String password;
     private String synopsis;
     private String picture;
+    private static final long serialVersionUID = -9186413484533669282L;
 
     public int getId() {
         return id;

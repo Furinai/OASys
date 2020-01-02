@@ -14,7 +14,7 @@
     </resultMap>
 
     <insert id="insertUser" parameterType="User">
-        insert into user(username, password, synopsis, picture, role_Id)
+        insert into user(username, password, synopsis, picture, role_id)
         values (#{username}, #{password}, #{synopsis}, #{picture}, #{role.id})
     </insert>
 
