@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.linter.oasys.mapper.FileMapper">
+    <select id="selectFiles" resultType="File">
+        select * from file
+        where user_id = #{userId}
+          and parent_id = #{parentId}
+    </select>
+</mapper>

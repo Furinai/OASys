@@ -21,14 +21,14 @@
     <select id="selectUserById" resultMap="UserResultMap">
         select user.*, role.id as role_id, role.name
         from user, role
-        where user.role_Id = role.id
+        where user.role_id = role.id
           and role.id = #{id}
     </select>
 
     <select id="selectUserByUsername" resultMap="UserResultMap">
         select user.*, role.id as role_id, role.name
         from user, role
-        where user.role_Id = role.id
+        where user.role_id = role.id
           and username = #{username}
     </select>
 </mapper>
