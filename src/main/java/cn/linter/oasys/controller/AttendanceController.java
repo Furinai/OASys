@@ -41,13 +41,13 @@ public class AttendanceController {
         return new Response("success", "设置成功！");
     }
 
-    @GetMapping("/attendance")
+    @GetMapping("/getAttendance")
     public Response getAttendance(@AuthenticationPrincipal User user) {
         Attendance attendance = attendanceService.getAttendance(user.getId());
         return new Response("success", attendance);
     }
 
-    @GetMapping("/attendances")
+    @GetMapping("/getAttendances")
     public Response getAttendances(@AuthenticationPrincipal User user) {
         List<String> attendances = attendanceService.getAttendances(user.getId());
         return new Response("success", attendances);

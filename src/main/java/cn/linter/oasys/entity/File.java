@@ -11,8 +11,9 @@ public class File {
     private String path;
     private String type;
     private String size;
-    private int userID;
+    private User user;
     private int parentId;
+    private boolean personal;
     private Timestamp createTime;
 
     public int getId() {
@@ -55,12 +56,12 @@ public class File {
         this.size = size;
     }
 
-    public int getUserID() {
-        return userID;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public int getParentId() {
@@ -69,6 +70,14 @@ public class File {
 
     public void setParentId(int parentId) {
         this.parentId = parentId;
+    }
+
+    public boolean isPersonal() {
+        return personal;
+    }
+
+    public void setPersonal(boolean personal) {
+        this.personal = personal;
     }
 
     public Timestamp getCreateTime() {

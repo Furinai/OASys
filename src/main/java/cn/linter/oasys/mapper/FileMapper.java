@@ -8,5 +8,7 @@ import java.util.List;
 
 @Mapper
 public interface FileMapper {
-    List<File> selectFiles(@Param("userId") int userId, @Param("parentId") int parentId);
+    List<File> selectFiles(@Param("userId") int userId, @Param("parentId") int parentId, @Param("personal") boolean personal);
+
+    void insertFolder(File folder);
 }
