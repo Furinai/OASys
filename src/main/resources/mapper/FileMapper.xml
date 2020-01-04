@@ -16,17 +16,36 @@
         </association>
     </resultMap>
 
-    <insert id="insertFolder">
+    <insert id="insertFile">
         insert into file(name, path, type, size, user_id, parent_id, personal, create_time)
         values (#{name}, #{path}, #{type}, #{size}, #{user.id}, #{parentId}, #{personal}, #{createTime})
     </insert>
+
+    <update id="updateFile">
+        update file set name = #{newName}
+        where id = #{id}
+    </update>
+
+    <delete id="deleteFile">
+        delete from file where id in
+        <foreach collection="ids" item="item" open="(" separator="," close=")" >
+            #{item}
+        </foreach>
+    </delete>
+
+    <select id="selectFile" resultMap="FileResultMap">
+        select * from file
+        where id = #{id}
+    </select>
 
     <select id="selectFiles" resultMap="FileResultMap">
         select file.*, user.id, user.username
         from file, user
         where file.user_id = user.id
-          and file.user_id = #{userId}
           and file.parent_id = #{parentId}
           and file.personal = #{personal}
+        <if test="personal == true">
+            and file.user_id = #{userId}
+        </if>
     </select>
 </mapper>

@@ -10,5 +10,11 @@ import java.util.List;
 public interface FileMapper {
     List<File> selectFiles(@Param("userId") int userId, @Param("parentId") int parentId, @Param("personal") boolean personal);
 
-    void insertFolder(File folder);
+    File selectFile(@Param("id") int id);
+
+    void insertFile(File file);
+
+    void updateFile(@Param("id") int id, @Param("newName") String newName);
+
+    void deleteFile(@Param("ids") Integer[] ids);
 }
