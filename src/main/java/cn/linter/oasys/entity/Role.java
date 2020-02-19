@@ -2,10 +2,13 @@ package cn.linter.oasys.entity;
 
 import org.apache.ibatis.type.Alias;
 
+import java.io.Serializable;
+
 @Alias("Role")
-public class Role {
+public class Role implements Serializable {
     private int id;
     private String name;
+    private static final long serialVersionUID = 1L;
 
     public int getId() {
         return id;

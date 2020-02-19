@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : Mysql
+ Source Server         : localhost
  Source Server Type    : MySQL
- Source Server Version : 80018
+ Source Server Version : 80019
  Source Host           : localhost:3306
  Source Schema         : oasys
 
  Target Server Type    : MySQL
- Target Server Version : 80018
+ Target Server Version : 80019
  File Encoding         : 65001
 
- Date: 18/01/2020 09:14:25
+ Date: 14/02/2020 22:01:15
 */
 
 SET NAMES utf8mb4;
@@ -22,8 +22,8 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `attendance`;
 CREATE TABLE `attendance`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
+  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `user_id` int(0) NOT NULL,
   `sign_in_date` date NOT NULL,
   `sign_in_time` time(0) NOT NULL,
   `sign_out_time` time(0) NOT NULL,
@@ -51,7 +51,7 @@ INSERT INTO `attendance` VALUES (14, 1, '2020-01-02', '09:34:18', '09:34:18', 0)
 -- ----------------------------
 DROP TABLE IF EXISTS `attendance_time`;
 CREATE TABLE `attendance_time`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(0) NOT NULL AUTO_INCREMENT,
   `begin` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `end` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
@@ -67,13 +67,13 @@ INSERT INTO `attendance_time` VALUES (1, '09:00', '17:00');
 -- ----------------------------
 DROP TABLE IF EXISTS `file`;
 CREATE TABLE `file`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(0) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `size` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `parent_id` int(11) NOT NULL,
+  `user_id` int(0) NOT NULL,
+  `parent_id` int(0) NOT NULL,
   `personal` tinyint(1) NOT NULL,
   `create_time` datetime(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
@@ -118,22 +118,21 @@ INSERT INTO `file` VALUES (50, 'devcpp', '/file/devcpp.exe', 'exe', '2MB', 1, 47
 -- ----------------------------
 DROP TABLE IF EXISTS `leave`;
 CREATE TABLE `leave`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
+  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `user_id` int(0) NOT NULL,
   `begin_date` date NOT NULL,
   `end_date` date NOT NULL,
   `reason` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `comment` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `type` varchar(4) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `enable` tinyint(4) DEFAULT NULL,
+  `status` tinyint(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of leave
 -- ----------------------------
-INSERT INTO `leave` VALUES (1, 1, '2020-01-16', '2020-02-19', '别的好办法 ', '婚假', NULL);
-INSERT INTO `leave` VALUES (2, 1, '2020-01-23', '2020-02-20', '定位的', '事假', NULL);
-INSERT INTO `leave` VALUES (3, 1, '2020-01-09', '2020-02-20', 'sssss', '婚假', NULL);
+INSERT INTO `leave` VALUES (1, 1, '2020-02-05', '2020-03-10', '哈佛案件发放马拉松免费空间你上课方式发马上发是发发发', '看法兰克福马拉科夫能看见三分喀什开发商', '婚假', 1);
 
 -- ----------------------------
 -- Table structure for persistent_logins
@@ -148,11 +147,15 @@ CREATE TABLE `persistent_logins`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of persistent_logins
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for role
 -- ----------------------------
 DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(0) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
@@ -169,12 +172,12 @@ INSERT INTO `role` VALUES (3, '经理');
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(0) NOT NULL AUTO_INCREMENT,
   `username` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `synopsis` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `picture` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `role_id` int(11) NOT NULL,
+  `role_id` int(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
