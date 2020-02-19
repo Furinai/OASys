@@ -1,42 +1,64 @@
 package cn.linter.oasys.controller;
 
+import cn.linter.oasys.entity.User;
+import cn.linter.oasys.service.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
-import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 @Component
 @ServerEndpoint("/chat")
 public class ChatWebSocket {
-    private static CopyOnWriteArraySet<ChatWebSocket> webSockets = new CopyOnWriteArraySet<>();
-    private Session session;
+    public static ConcurrentMap<String,ChatWebSocket> webSockets = new ConcurrentHashMap<>();
+    public static Map<String,Object> map = new HashMap<>();
+    public static ObjectMapper objectMapper;
+    public static UserService userService;
+    public static int number;
+    public Session session;
+    public User user;
+
+    @Autowired
+    public void setChatWebSocket(ObjectMapper objectMapper,UserService userService) {
+        ChatWebSocket.userService = userService;
+        ChatWebSocket.objectMapper=objectMapper;
+    }
 
     @OnOpen
     public void onOpen(Session session) {
         session.setMaxIdleTimeout(3600000);
+        String username = session.getUserPrincipal().getName();
+        this.user = (User) userService.loadUserByUsername(username);
         this.session = session;
-        webSockets.add(this);
+        webSockets.put(username,this);
     }
 
     @OnClose
-    public void onClose() {
-        webSockets.remove(this);
+    public void onClose(Session session) {
+        webSockets.remove(session.getUserPrincipal().getName());
     }
 
     @OnMessage
-    public void onMessage(String message) {
-        for (ChatWebSocket webSocket : webSockets) {
-            webSocket.sendMessage(message);
+    public void onMessage(String message) throws JsonProcessingException {
+        map.put("id",number++);
+        map.put("username",user.getUsername());
+        map.put("picture", user.getPicture());
+        map.put("text",message);
+        message = objectMapper.writeValueAsString(map);
+        for (ChatWebSocket webSocket : webSockets.values()) {
+            webSocket.session.getAsyncRemote().sendText(message);
         }
     }
 
     @OnError
     public void onError(Throwable error) {
         error.printStackTrace();
-    }
-
-    public void sendMessage(String message) {
-        this.session.getAsyncRemote().sendText(message);
     }
 }
