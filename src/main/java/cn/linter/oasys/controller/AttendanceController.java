@@ -5,6 +5,7 @@ import cn.linter.oasys.entity.Response;
 import cn.linter.oasys.entity.User;
 import cn.linter.oasys.service.AttendanceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +36,7 @@ public class AttendanceController {
     }
 
     @GetMapping("/setAttendanceTime")
+    @PreAuthorize("hasAnyRole('主管','经理')")
     public Response setAttendanceTime(@RequestParam("begin") String begin,
                                       @RequestParam("end") String end) {
         attendanceService.setAttendanceTime(begin, end);
