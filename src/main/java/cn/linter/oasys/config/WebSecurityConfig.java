@@ -66,10 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     out.flush();
                     out.close();
                 })
-                .and().rememberMe()
-                .rememberMeParameter("remember")
-                .userDetailsService(userService)
-                .and().csrf()
-                .disable();
+                .and().userDetailsService(userService)
+                .csrf() .disable();
     }
 }
