@@ -43,7 +43,7 @@ public class NoticeServiceImpl implements NoticeService {
 
 
     @Override
-    public void sendMessage(String message, String username) {
+    public void sendMessage(String username, String message) {
         ConcurrentMap<String, NoticeWebSocket> webSockets = NoticeWebSocket.webSockets;
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         Notice notice = new Notice(message, timestamp, username);
