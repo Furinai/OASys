@@ -16,11 +16,13 @@ import java.util.concurrent.ConcurrentMap;
 public class NoticeServiceImpl implements NoticeService {
     private final NoticeMapper noticeMapper;
     private final ObjectMapper objectMapper;
+    private final UserService userService;
 
     @Autowired
-    public NoticeServiceImpl(NoticeMapper noticeMapper, ObjectMapper objectMapper) {
+    public NoticeServiceImpl(NoticeMapper noticeMapper, ObjectMapper objectMapper, UserService userService) {
         this.noticeMapper = noticeMapper;
         this.objectMapper = objectMapper;
+        this.userService = userService;
     }
 
     @Override
@@ -29,7 +31,19 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
-    public void sendNotice(String message, String username) {
+    public void sendNotice(int id, String message) {
+        String username = userService.getUserById(id).getUsername();
+        sendMessage(username, message);
+    }
+
+    @Override
+    public void sendNotice(String username, String message) {
+        sendMessage(username, message);
+    }
+
+
+    @Override
+    public void sendMessage(String message, String username) {
         ConcurrentMap<String, NoticeWebSocket> webSockets = NoticeWebSocket.webSockets;
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         Notice notice = new Notice(message, timestamp, username);
