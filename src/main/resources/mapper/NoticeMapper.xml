@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.linter.oasys.mapper.NoticeMapper">
+    <insert id="insetNotice" useGeneratedKeys="true" keyProperty="id">
+        insert into notice(content, has_read, create_time, receiver_name)
+        values (#{content}, #{hasRead}, #{createTime}, #{receiverName})
+    </insert>
+
+    <update id="markRead">
+        update notice
+        set has_read=1
+        where id in
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <select id="selectNotices" resultType="cn.linter.oasys.entity.Notice">
+        select *
+        from notice
+        where has_read = 0
+          and receiver_name = #{username}
+    </select>
+
+</mapper>

@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class OAsysApplication {
+public class OASysApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(OAsysApplication.class, args);
+        SpringApplication.run(OASysApplication.class, args);
     }
 
 }

@@ -11,11 +11,28 @@
  Target Server Version : 80019
  File Encoding         : 65001
 
- Date: 14/02/2020 22:01:15
+ Date: 22/02/2020 17:28:49
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for article
+-- ----------------------------
+DROP TABLE IF EXISTS `article`;
+CREATE TABLE `article`  (
+  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `create_time` datetime(0) NOT NULL,
+  `allow_comment` tinyint(0) NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of article
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for attendance
@@ -61,6 +78,23 @@ CREATE TABLE `attendance_time`  (
 -- Records of attendance_time
 -- ----------------------------
 INSERT INTO `attendance_time` VALUES (1, '09:00', '17:00');
+
+-- ----------------------------
+-- Table structure for comment
+-- ----------------------------
+DROP TABLE IF EXISTS `comment`;
+CREATE TABLE `comment`  (
+  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `user_id` int(0) NOT NULL,
+  `article_id` int(0) NOT NULL,
+  `create_time` datetime(0) NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of comment
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for file
@@ -127,27 +161,29 @@ CREATE TABLE `leave`  (
   `type` varchar(4) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `status` tinyint(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of leave
 -- ----------------------------
 INSERT INTO `leave` VALUES (1, 1, '2020-02-05', '2020-03-10', '哈佛案件发放马拉松免费空间你上课方式发马上发是发发发', '看法兰克福马拉科夫能看见三分喀什开发商', '婚假', 1);
+INSERT INTO `leave` VALUES (2, 1, '2020-02-19', '2020-03-19', '结构设计刚开始美国纳斯达克刚开始的功能发了好人卡爱了就会卡斯能否尽快离开', '交给老师的开关打开柜门燃烧的玫瑰打开了婚纱法布雷加斯咖啡离开', '婚假', 2);
 
 -- ----------------------------
--- Table structure for persistent_logins
+-- Table structure for notice
 -- ----------------------------
-DROP TABLE IF EXISTS `persistent_logins`;
-CREATE TABLE `persistent_logins`  (
-  `username` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `series` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `token` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `last_used` timestamp(0) NOT NULL,
-  PRIMARY KEY (`series`) USING BTREE
+DROP TABLE IF EXISTS `notice`;
+CREATE TABLE `notice`  (
+  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `has_read` tinyint(0) NOT NULL,
+  `create_date` datetime(0) NOT NULL,
+  `receiver_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of persistent_logins
+-- Records of notice
 -- ----------------------------
 
 -- ----------------------------
