@@ -1,5 +1,6 @@
 package cn.linter.oasys.controller;
 
+import cn.linter.oasys.entity.User;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.OnClose;
@@ -7,6 +8,7 @@ import javax.websocket.OnError;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
+import java.security.Principal;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -18,15 +20,20 @@ public class NoticeWebSocket {
 
     @OnOpen
     public void onOpen(Session session) {
-        session.setMaxIdleTimeout(3600000);
-        String username = session.getUserPrincipal().getName();
-        this.session = session;
-        webSockets.put(username, this);
+        Principal principal = session.getUserPrincipal();
+        if (principal != null) {
+            String username = principal.getName();
+            this.session = session;
+            webSockets.put(username, this);
+        }
     }
 
     @OnClose
     public void onClose(Session session) {
-        webSockets.remove(session.getUserPrincipal().getName());
+        Principal principal = session.getUserPrincipal();
+        if (principal != null) {
+            webSockets.remove(principal.getName());
+        }
     }
 
     @OnError
