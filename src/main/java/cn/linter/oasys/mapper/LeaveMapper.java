@@ -11,5 +11,5 @@ public interface LeaveMapper {
 
     void checkLeave(Leave leave);
 
-    List<Leave> selectLeave();
+    List<Leave> selectLeaves();
 }

@@ -21,7 +21,7 @@
         values (#{user.id}, #{beginDate}, #{endDate}, #{reason}, #{type}, #{status})
     </insert>
 
-    <select id="selectLeave" resultMap="LeaveResultMap">
+    <select id="selectLeaves" resultMap="LeaveResultMap">
         select l.*, u.id, u.username from `leave` l, user u
         where l.user_id = u.id
         order by l.status
