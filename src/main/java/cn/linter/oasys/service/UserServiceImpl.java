@@ -1,8 +1,11 @@
 package cn.linter.oasys.service;
 
+import cn.linter.oasys.entity.Role;
 import cn.linter.oasys.entity.User;
 import cn.linter.oasys.mapper.RoleMapper;
 import cn.linter.oasys.mapper.UserMapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,14 +16,14 @@ public class UserServiceImpl implements UserService {
 
     private final UserMapper userMapper;
 
-    private final RoleMapper rolesMapper;
+    private final RoleMapper roleMapper;
 
     private final BCryptPasswordEncoder encoder;
 
     @Autowired
-    public UserServiceImpl(UserMapper userMapper, RoleMapper rolesMapper, BCryptPasswordEncoder encoder) {
+    public UserServiceImpl(UserMapper userMapper, RoleMapper roleMapper, BCryptPasswordEncoder encoder) {
         this.userMapper = userMapper;
-        this.rolesMapper = rolesMapper;
+        this.roleMapper = roleMapper;
         this.encoder = encoder;
     }
 
@@ -34,13 +37,45 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addUser(User user) {
-        user.setPassword(encoder.encode(user.getPassword()));
-        int result = userMapper.insertUser(user);
+    public User getUserById(int id) {
+        return userMapper.selectUserById(id);
     }
 
     @Override
-    public User getUserById(int id) {
-        return userMapper.selectUserById(id);
+    public PageInfo<?> getUsers(int pageNumber, int pageSize) {
+        PageHelper.startPage(pageNumber, pageSize);
+        return new PageInfo<>(userMapper.selectUsers());
+    }
+
+    @Override
+    public int updateUser(User user) {
+        User u = userMapper.selectUserByUsername(user.getUsername());
+        if (u != null && u.getId() != user.getId()) {
+            return -1;
+        }
+        if (user.getPassword() != null) {
+            user.setPassword(encoder.encode(user.getPassword()));
+        }
+        return userMapper.updateUser(user);
+    }
+
+    @Override
+    public int addUser(User user) {
+        if (userMapper.selectUserByUsername(user.getUsername()) != null) {
+            return -1;
+        }
+        Role role=new Role();
+        role.setId(1);
+        user.setRole(role);
+        user.setPicture("/img/picture/default.jpg");
+        user.setSynopsis("这个人还没有填写个人介绍！");
+        user.setPassword(encoder.encode(user.getPassword()));
+        int result = userMapper.insertUser(user);
+        return result;
+    }
+
+    @Override
+    public void deleteUser(Integer[] ids) {
+        userMapper.deleteUser(ids);
     }
 }

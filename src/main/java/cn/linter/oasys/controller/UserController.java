@@ -3,12 +3,10 @@ package cn.linter.oasys.controller;
 import cn.linter.oasys.entity.Response;
 import cn.linter.oasys.entity.User;
 import cn.linter.oasys.service.UserService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
@@ -34,5 +32,37 @@ public class UserController {
             return new Response("error", "此用户不存在！");
         }
         return new Response("success", user);
+    }
+
+    @GetMapping("/getUsers")
+    public Response getUsers(@RequestParam(value = "pageNumber", defaultValue = "1") int pageNumber,
+                             @RequestParam(value = "pageSize", defaultValue = "8") int pageSize) {
+        PageInfo<?> pageInfo = userService.getUsers(pageNumber, pageSize);
+        return new Response("success", pageInfo.getTotal(), pageInfo.getList());
+    }
+
+    @PostMapping("/updateUser")
+    public Response updateUser(@RequestBody User user) {
+        int result = userService.updateUser(user);
+        if (result == -1) {
+            System.out.println("ss");
+            return new Response("error", "用户名已存在！");
+        }
+        return new Response("success", "更新成功！");
+    }
+
+    @PostMapping("/addUser")
+    public Response addUser(@RequestBody User user) {
+        int result = userService.addUser(user);
+        if (result == -1) {
+            return new Response("error", "用户名已存在！");
+        }
+        return new Response("success", "添加成功！");
+    }
+
+    @PostMapping("/deleteUser")
+    public Response deleteUser(@RequestBody Integer[] ids) {
+        userService.deleteUser(ids);
+        return new Response("success", "删除成功！");
     }
 }

@@ -7,6 +7,7 @@
         <result property="password" column="password"/>
         <result property="synopsis" column="synopsis"/>
         <result property="picture" column="picture"/>
+        <result property="email" column="email"/>
         <association property="role" javaType="Role">
             <id property="id" column="role_id"/>
             <result property="name" column="name"/>
@@ -14,21 +15,47 @@
     </resultMap>
 
     <insert id="insertUser" parameterType="User">
-        insert into user(username, password, synopsis, picture, role_id)
-        values (#{username}, #{password}, #{synopsis}, #{picture}, #{role.id})
+        insert into user(username, password, synopsis, picture, email, role_id)
+        values (#{username}, #{password}, #{synopsis}, #{picture}, #{email}, #{role.id})
     </insert>
+
+    <update id="updateUser">
+        update user
+        set username=#{username},
+        role_id=#{role.id}
+        <if test="password!=null">
+            ,password=#{password}
+        </if>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteUser">
+        delete from user where id in
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
 
     <select id="selectUserById" resultMap="UserResultMap">
         select user.*, role.id as role_id, role.name
-        from user, role
+        from user,
+             role
         where user.role_id = role.id
           and role.id = #{id}
     </select>
 
     <select id="selectUserByUsername" resultMap="UserResultMap">
         select user.*, role.id as role_id, role.name
-        from user, role
+        from user,
+             role
         where user.role_id = role.id
           and username = #{username}
+    </select>
+
+    <select id="selectUsers" resultMap="UserResultMap">
+        select user.*, role.id as role_id, role.name
+        from user,
+             role
+        where user.role_id = role.id
     </select>
 </mapper>

@@ -19,6 +19,7 @@ public class User implements UserDetails, Serializable {
     private String password;
     private String synopsis;
     private String picture;
+    private String email;
     private static final long serialVersionUID = 1L;
 
     public int getId() {
@@ -69,6 +70,14 @@ public class User implements UserDetails, Serializable {
 
     public void setPicture(String picture) {
         this.picture = picture;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

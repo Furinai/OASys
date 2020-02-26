@@ -9,4 +9,6 @@ import java.util.List;
 @Mapper
 public interface RoleMapper {
     Role selectRoleById(@Param("id") int id);
+
+    List<Role> selectRoles();
 }

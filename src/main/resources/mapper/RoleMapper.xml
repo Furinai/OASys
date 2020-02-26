@@ -5,4 +5,7 @@
         select * from role
         where id = #{id}
     </select>
+    <select id="selectRoles" resultType="Role">
+        select * from role
+    </select>
 </mapper>
