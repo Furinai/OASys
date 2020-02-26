@@ -11,7 +11,7 @@
  Target Server Version : 80019
  File Encoding         : 65001
 
- Date: 22/02/2020 17:28:49
+ Date: 24/02/2020 19:22:25
 */
 
 SET NAMES utf8mb4;
@@ -111,7 +111,7 @@ CREATE TABLE `file`  (
   `personal` tinyint(1) NOT NULL,
   `create_time` datetime(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 51 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 50 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of file
@@ -161,12 +161,12 @@ CREATE TABLE `leave`  (
   `type` varchar(4) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `status` tinyint(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of leave
 -- ----------------------------
-INSERT INTO `leave` VALUES (1, 1, '2020-02-05', '2020-03-10', '哈佛案件发放马拉松免费空间你上课方式发马上发是发发发', '看法兰克福马拉科夫能看见三分喀什开发商', '婚假', 1);
+INSERT INTO `leave` VALUES (1, 1, '2020-02-05', '2020-03-10', '哈佛案件发放马拉松免费空间你上课方式发马上发是发发发', '看法兰克福马拉科夫能看见三分喀什开发商看法兰克福马分喀什开发商', '婚假', 1);
 INSERT INTO `leave` VALUES (2, 1, '2020-02-19', '2020-03-19', '结构设计刚开始美国纳斯达克刚开始的功能发了好人卡爱了就会卡斯能否尽快离开', '交给老师的开关打开柜门燃烧的玫瑰打开了婚纱法布雷加斯咖啡离开', '婚假', 2);
 
 -- ----------------------------
@@ -177,14 +177,37 @@ CREATE TABLE `notice`  (
   `id` int(0) NOT NULL AUTO_INCREMENT,
   `content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `has_read` tinyint(0) NOT NULL,
-  `create_date` datetime(0) NOT NULL,
+  `create_time` datetime(0) NOT NULL,
   `receiver_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of notice
 -- ----------------------------
+INSERT INTO `notice` VALUES (1, '阿基咯撒可怜见拉萨机ask', 1, '2020-02-24 15:21:42', 'citru');
+INSERT INTO `notice` VALUES (2, '啊打算过段时间打算看到看见撒旦', 0, '2020-02-24 15:38:05', 'citru');
+INSERT INTO `notice` VALUES (3, '啊打算过段时间打算看到看见撒旦', 0, '2020-02-24 15:53:47', 'citru');
+INSERT INTO `notice` VALUES (4, '啊打算过段时间打算看到看见撒旦', 0, '2020-02-24 15:53:47', 'citru');
+INSERT INTO `notice` VALUES (5, '啊打算过段时间打算看到看见撒旦', 0, '2020-02-24 15:53:47', 'citru');
+INSERT INTO `notice` VALUES (6, '啊打算过段时间打算看到看见撒旦', 0, '2020-02-24 15:53:47', 'citru');
+INSERT INTO `notice` VALUES (7, '啊打算过段时间打算看到看见撒旦', 0, '2020-02-24 15:53:47', 'citru');
+INSERT INTO `notice` VALUES (8, '啊打算过段时间打算看到看见撒旦', 0, '2020-02-24 15:53:47', 'citru');
+INSERT INTO `notice` VALUES (9, '啊打算过段时间打算看到看见撒旦', 0, '2020-02-24 15:53:47', 'citru');
+INSERT INTO `notice` VALUES (10, '啊打算过段时间打算看到看见撒旦', 0, '2020-02-24 15:53:47', 'citru');
+INSERT INTO `notice` VALUES (11, '啊打算过段时间打算看到看见撒旦', 0, '2020-02-24 15:53:47', 'citru');
+INSERT INTO `notice` VALUES (12, '啊打算过段时间打算看到看见撒旦', 0, '2020-02-24 15:53:47', 'citru');
+INSERT INTO `notice` VALUES (13, '啊打算过段时间打算看到看见撒旦', 0, '2020-02-24 15:53:47', 'citru');
+INSERT INTO `notice` VALUES (14, '啊打算过段时间打算看到看见撒旦', 0, '2020-02-24 15:53:47', 'citru');
+INSERT INTO `notice` VALUES (15, '啊打算过段时间打算看到看见撒旦', 0, '2020-02-24 15:53:47', 'citru');
+INSERT INTO `notice` VALUES (16, '你的请假已通过！', 0, '2020-02-24 18:16:33', 'citru');
+INSERT INTO `notice` VALUES (17, '你的请假已通过！', 0, '2020-02-24 18:16:43', 'citru');
+INSERT INTO `notice` VALUES (18, '你的请假已通过！', 1, '2020-02-24 18:17:09', 'citru');
+INSERT INTO `notice` VALUES (19, '你的请假已通过！', 1, '2020-02-24 18:17:13', 'citru');
+INSERT INTO `notice` VALUES (20, '员工二', 0, '2020-02-24 19:06:52', '你的请假通过了审核！');
+INSERT INTO `notice` VALUES (21, '你的请假通过了审核！', 0, '2020-02-24 19:10:07', '主管一');
+INSERT INTO `notice` VALUES (22, '你的请假通过了审核！', 0, '2020-02-24 19:16:38', 'citru');
+INSERT INTO `notice` VALUES (23, '你的请假没有通过审核！', 0, '2020-02-24 19:16:56', 'citru');
 
 -- ----------------------------
 -- Table structure for role
