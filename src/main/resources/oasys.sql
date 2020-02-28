@@ -11,7 +11,7 @@
  Target Server Version : 80019
  File Encoding         : 65001
 
- Date: 24/02/2020 19:22:25
+ Date: 28/02/2020 22:15:23
 */
 
 SET NAMES utf8mb4;
@@ -111,7 +111,7 @@ CREATE TABLE `file`  (
   `personal` tinyint(1) NOT NULL,
   `create_time` datetime(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 50 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 51 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of file
@@ -180,7 +180,7 @@ CREATE TABLE `notice`  (
   `create_time` datetime(0) NOT NULL,
   `receiver_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of notice
@@ -204,10 +204,11 @@ INSERT INTO `notice` VALUES (16, '你的请假已通过！', 0, '2020-02-24 18:1
 INSERT INTO `notice` VALUES (17, '你的请假已通过！', 0, '2020-02-24 18:16:43', 'citru');
 INSERT INTO `notice` VALUES (18, '你的请假已通过！', 1, '2020-02-24 18:17:09', 'citru');
 INSERT INTO `notice` VALUES (19, '你的请假已通过！', 1, '2020-02-24 18:17:13', 'citru');
-INSERT INTO `notice` VALUES (20, '员工二', 0, '2020-02-24 19:06:52', '你的请假通过了审核！');
 INSERT INTO `notice` VALUES (21, '你的请假通过了审核！', 0, '2020-02-24 19:10:07', '主管一');
 INSERT INTO `notice` VALUES (22, '你的请假通过了审核！', 0, '2020-02-24 19:16:38', 'citru');
 INSERT INTO `notice` VALUES (23, '你的请假没有通过审核！', 0, '2020-02-24 19:16:56', 'citru');
+INSERT INTO `notice` VALUES (24, '你的请假通过了审核！', 0, '2020-02-28 13:51:26', 'citru');
+INSERT INTO `notice` VALUES (25, '你的请假通过了审核！', 0, '2020-02-28 14:01:27', 'citru');
 
 -- ----------------------------
 -- Table structure for role
@@ -236,16 +237,24 @@ CREATE TABLE `user`  (
   `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `synopsis` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `picture` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `role_id` int(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, 'citru', '$2a$10$en2JxasguDAPugsYRPdHGOTazazkihMqq3gC9yi8a8yBeQhpwFgCu', '一个普通员工', '/img/picture/1.jpg', 3);
-INSERT INTO `user` VALUES (2, '主管一', '$2a$10$en2JxasguDAPugsYRPdHGOTazazkihMqq3gC9yi8a8yBeQhpwFgCu', '一个主管', '/img/picture/2.jpg', 2);
-INSERT INTO `user` VALUES (3, '经理一', '$2a$10$en2JxasguDAPugsYRPdHGOTazazkihMqq3gC9yi8a8yBeQhpwFgCu', '一个经理', '/img/picture/3.jpg', 3);
-INSERT INTO `user` VALUES (4, '员工二', '$2a$10$7nBcD/d6Z3P7Lec0UinZDuncdJJpS8VVwYzhsz8NlCl09HaWIffyS', '这是员工一', '/img/picture/4.jpg', 1);
+INSERT INTO `user` VALUES (1, 'citru', '$2a$10$en2JxasguDAPugsYRPdHGOTazazkihMqq3gC9yi8a8yBeQhpwFgCu', '一个普通员工', '/img/picture/1.jpg', '8561653156@qq.com', 3);
+INSERT INTO `user` VALUES (2, '主管一', '$2a$10$en2JxasguDAPugsYRPdHGOTazazkihMqq3gC9yi8a8yBeQhpwFgCu', '一个主管', '/img/picture/2.jpg', '6233616156@qq.com', 2);
+INSERT INTO `user` VALUES (3, '经理一', '$2a$10$en2JxasguDAPugsYRPdHGOTazazkihMqq3gC9yi8a8yBeQhpwFgCu', '一个经理', '/img/picture/3.jpg', '4613316156@qq.com', 3);
+INSERT INTO `user` VALUES (4, '员工二', '$2a$10$7nBcD/d6Z3P7Lec0UinZDuncdJJpS8VVwYzhsz8NlCl09HaWIffyS', '这是员工一', '/img/picture/4.jpg', '92+5466424@qq.com', 1);
+INSERT INTO `user` VALUES (5, '测试账号', '$10$en2JxasguDAPugsYRPdHGOTazazkihMqq3gC9yi8a8yBeQhpwFgCu', '号抵达看是否对啊和对方丢我hi', '/img/picture/default.jpg', '9861615616@qq.com', 1);
+INSERT INTO `user` VALUES (6, '测试账号', '$10$en2JxasguDAPugsYRPdHGOTazazkihMqq3gC9yi8a8yBeQhpwFgCu', '号抵达看是否对啊和对方丢我hi', '/img/picture/default.jpg', '9861615616@qq.com', 1);
+INSERT INTO `user` VALUES (7, '测试账号', '$10$en2JxasguDAPugsYRPdHGOTazazkihMqq3gC9yi8a8yBeQhpwFgCu', '号抵达看是否对啊和对方丢我hi', '/img/picture/default.jpg', '9861615616@qq.com', 1);
+INSERT INTO `user` VALUES (8, 'linter', '$2a$10$BfytaDghoDtXXiekiK71duKUrLoepB9tlODSOwoJFIMAFANeXMKJ.', '号抵达看是否对啊和对方丢我hi', '/img/picture/default.jpg', '9861615616@qq.com', 2);
+INSERT INTO `user` VALUES (9, '测试账号', '$10$en2JxasguDAPugsYRPdHGOTazazkihMqq3gC9yi8a8yBeQhpwFgCu', '号抵达看是否对啊和对方丢我hi', '/img/picture/default.jpg', '9861615616@qq.com', 1);
+INSERT INTO `user` VALUES (10, '测试账号', '$10$en2JxasguDAPugsYRPdHGOTazazkihMqq3gC9yi8a8yBeQhpwFgCu', '号抵达看是否对啊和对方丢我hi', '/img/picture/default.jpg', '9861615616@qq.com', 1);
+INSERT INTO `user` VALUES (15, '888', '$2a$10$aMzr8dXrgixN2sm7oG47Qu9t6GmdFG2i4zyoWf/60Uw02d5ituhA2', '这个人还没有填写个人介绍！', '/img/picture/default.jpg', 'kwxy1314@qq.com', 1);
 
 SET FOREIGN_KEY_CHECKS = 1;
