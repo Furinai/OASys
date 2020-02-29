@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
         if (userMapper.selectUserByUsername(user.getUsername()) != null) {
             return -1;
         }
-        Role role=new Role();
+        Role role = new Role();
         role.setId(1);
         user.setRole(role);
         user.setPicture("/img/picture/default.jpg");

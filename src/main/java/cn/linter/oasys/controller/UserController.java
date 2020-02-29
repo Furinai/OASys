@@ -45,7 +45,6 @@ public class UserController {
     public Response updateUser(@RequestBody User user) {
         int result = userService.updateUser(user);
         if (result == -1) {
-            System.out.println("ss");
             return new Response("error", "用户名已存在！");
         }
         return new Response("success", "更新成功！");

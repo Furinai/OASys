@@ -72,7 +72,7 @@ public class FileServiceImpl implements FileService {
             if (!file.getType().equals("文件夹")) {
                 String path = rootPath + "/static" + file.getPath();
                 java.io.File physicalFile = new java.io.File(path);
-                System.out.println(physicalFile.delete());
+                physicalFile.delete();
             }
         }
         fileMapper.deleteFile(ids);
