@@ -6,7 +6,7 @@ https://github.com/citrucn/OASys-Frontend
 https://gitee.com/iwxy/OASys
 ## 功能模块截图
 #### 登录
-![登陆页面](https://gitee.com/iwxy/OASys/raw/master/screenshot/登录.png)
+![登陆页面](screenshot/登录.png)
 #### 签到签退
 ![签到签退页面](screenshot/签到签退.png)
 #### 签到记录
