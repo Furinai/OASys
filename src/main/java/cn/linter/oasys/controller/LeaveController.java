@@ -29,7 +29,7 @@ public class LeaveController {
     }
 
     @PostMapping("checkLeave")
-    @PreAuthorize("hasAnyRole('主管','经理')")
+    @PreAuthorize("hasRole('经理')")
     public Response checkLeave(@RequestBody Leave leave) {
         leaveService.checkLeave(leave);
         return new Response("success", "提交成功！");

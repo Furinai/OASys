@@ -5,6 +5,7 @@ import cn.linter.oasys.entity.User;
 import cn.linter.oasys.service.UserService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +35,7 @@ public class UserController {
         return new Response("success", user);
     }
 
+    @PreAuthorize("hasRole('经理')")
     @GetMapping("/getUsers")
     public Response getUsers(@RequestParam(value = "pageNumber", defaultValue = "1") int pageNumber,
                              @RequestParam(value = "pageSize", defaultValue = "8") int pageSize) {
@@ -41,6 +43,7 @@ public class UserController {
         return new Response("success", pageInfo.getTotal(), pageInfo.getList());
     }
 
+    @PreAuthorize("hasRole('经理')")
     @PostMapping("/updateUser")
     public Response updateUser(@RequestBody User user) {
         int result = userService.updateUser(user);
@@ -50,6 +53,7 @@ public class UserController {
         return new Response("success", "更新成功！");
     }
 
+    @PreAuthorize("hasRole('经理')")
     @PostMapping("/addUser")
     public Response addUser(@RequestBody User user) {
         int result = userService.addUser(user);
@@ -59,6 +63,7 @@ public class UserController {
         return new Response("success", "添加成功！");
     }
 
+    @PreAuthorize("hasRole('经理')")
     @PostMapping("/deleteUser")
     public Response deleteUser(@RequestBody Integer[] ids) {
         userService.deleteUser(ids);
