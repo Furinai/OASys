@@ -80,11 +80,11 @@ public class FileServiceImpl implements FileService {
 
     public String formatSize(long size) {
         if (size < 1024) {
-            return String.valueOf(size) + "B";
+            return size + "B";
         } else if (size < 1048576) {
-            return String.valueOf(size >>= 10) + "KB";
+            return (size >>= 10) + "KB";
         } else {
-            return String.valueOf(size >>= 20) + "MB";
+            return (size >>= 20) + "MB";
         }
     }
 }

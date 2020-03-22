@@ -43,7 +43,13 @@ public class FileController {
     @PostMapping("/uploadFile")
     public Response uploadFile(@RequestParam("parentId") int parentId, @RequestParam("personal") boolean personal,
                                @AuthenticationPrincipal User user, @RequestParam("file") MultipartFile multipartFile) throws IOException {
-        String rootPath = new ApplicationHome(getClass()).getSource().getPath();
+        String rootPath;
+        String os = System.getProperty("os.name");
+        if (os.toLowerCase().startsWith("win")) {
+            rootPath = new ApplicationHome(getClass()).getSource().getPath();
+        } else {
+            rootPath = new ApplicationHome(getClass()).getSource().getParent();
+        }
         String fileName = multipartFile.getOriginalFilename();
         String filePath = rootPath + "/static/file/" + fileName;
         long fileSize = multipartFile.getSize();
