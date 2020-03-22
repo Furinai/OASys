@@ -2,6 +2,8 @@
 基于SpringBoot和Vue的OA办公管理系统
 ## 前端项目地址
 https://github.com/citrucn/OASys-Frontend
+## 码云仓库地址
+https://gitee.com/iwxy/OASys
 ## 功能模块截图
 #### 登录
 ![登陆页面](screenshot/登录.png)
