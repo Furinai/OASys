@@ -3,10 +3,11 @@ package cn.linter.oasys.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.ibatis.type.Alias;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Alias("Leave")
-public class Leave {
+public class Leave implements Serializable {
     private int id;
     private User user;
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -17,6 +18,7 @@ public class Leave {
     private String comment;
     private String type;
     private int status;
+    private static final long serialVersionUID = 1L;
 
     public int getId() {
         return id;

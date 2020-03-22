@@ -2,10 +2,11 @@ package cn.linter.oasys.entity;
 
 import org.apache.ibatis.type.Alias;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Alias("File")
-public class File {
+public class File implements Serializable {
     private int id;
     private String name;
     private String path;
@@ -15,6 +16,7 @@ public class File {
     private int parentId;
     private boolean personal;
     private Timestamp createTime;
+    private static final long serialVersionUID = 1L;
 
     public int getId() {
         return id;

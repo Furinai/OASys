@@ -1,10 +1,13 @@
 package cn.linter.oasys.entity;
 
-public class Response {
+import java.io.Serializable;
+
+public class Response implements Serializable {
     private String status;
     private String message;
     private Long total;
     private Object object;
+    private static final long serialVersionUID = 1L;
 
     public Response() {
     }
