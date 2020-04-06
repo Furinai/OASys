@@ -4,6 +4,10 @@
 https://github.com/citrucn/OASys-Frontend
 ## 码云仓库地址
 https://gitee.com/iwxy/OASys
+## 数据库SQL文件
+src/main/resources/oasys.sql 
+## 初始账号密码
+账号: admin 密码: admin
 ## 功能模块截图
 #### 登录
 ![登陆页面](screenshot/登录.png)
