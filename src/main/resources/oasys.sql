@@ -11,28 +11,11 @@
  Target Server Version : 80019
  File Encoding         : 65001
 
- Date: 28/02/2020 22:15:23
+ Date: 06/04/2020 11:07:00
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
-
--- ----------------------------
--- Table structure for article
--- ----------------------------
-DROP TABLE IF EXISTS `article`;
-CREATE TABLE `article`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
-  `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `create_time` datetime(0) NOT NULL,
-  `allow_comment` tinyint(0) NOT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of article
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for attendance
@@ -46,22 +29,22 @@ CREATE TABLE `attendance`  (
   `sign_out_time` time(0) NOT NULL,
   `sign_out` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of attendance
 -- ----------------------------
-INSERT INTO `attendance` VALUES (1, 1, '2019-12-04', '04:40:05', '04:51:49', 1);
-INSERT INTO `attendance` VALUES (2, 1, '2019-12-06', '04:40:05', '04:40:05', 1);
-INSERT INTO `attendance` VALUES (3, 1, '2019-12-08', '04:40:05', '04:40:05', 1);
-INSERT INTO `attendance` VALUES (4, 1, '2019-12-20', '04:40:05', '04:40:05', 0);
-INSERT INTO `attendance` VALUES (8, 1, '2019-12-22', '04:40:05', '04:40:05', 1);
-INSERT INTO `attendance` VALUES (9, 1, '2019-12-24', '04:40:05', '04:40:05', 1);
-INSERT INTO `attendance` VALUES (10, 1, '2019-12-25', '04:40:05', '04:40:05', 0);
-INSERT INTO `attendance` VALUES (11, 1, '2019-12-30', '04:40:05', '04:40:05', 1);
-INSERT INTO `attendance` VALUES (12, 1, '2019-12-31', '09:12:20', '09:12:49', 1);
-INSERT INTO `attendance` VALUES (13, 1, '2020-01-01', '11:09:16', '11:09:20', 1);
-INSERT INTO `attendance` VALUES (14, 1, '2020-01-02', '09:34:18', '09:34:18', 0);
+INSERT INTO `attendance` VALUES (1, 1, '2020-03-04', '04:40:05', '04:51:49', 1);
+INSERT INTO `attendance` VALUES (2, 1, '2020-03-05', '04:40:05', '04:40:05', 1);
+INSERT INTO `attendance` VALUES (3, 1, '2020-03-06', '04:40:05', '04:40:05', 1);
+INSERT INTO `attendance` VALUES (4, 1, '2020-03-07', '04:40:05', '04:40:05', 0);
+INSERT INTO `attendance` VALUES (8, 1, '2020-03-08', '04:40:05', '04:40:05', 1);
+INSERT INTO `attendance` VALUES (9, 1, '2020-03-09', '04:40:05', '04:40:05', 1);
+INSERT INTO `attendance` VALUES (10, 1, '2020-03-10', '04:40:05', '04:40:05', 0);
+INSERT INTO `attendance` VALUES (11, 1, '2020-03-11', '04:40:05', '04:40:05', 1);
+INSERT INTO `attendance` VALUES (12, 1, '2020-03-12', '09:12:20', '09:12:49', 1);
+INSERT INTO `attendance` VALUES (13, 1, '2020-03-16', '11:09:16', '11:09:20', 1);
+INSERT INTO `attendance` VALUES (14, 1, '2020-03-18', '09:34:18', '09:34:18', 0);
 
 -- ----------------------------
 -- Table structure for attendance_time
@@ -72,29 +55,12 @@ CREATE TABLE `attendance_time`  (
   `begin` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `end` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of attendance_time
 -- ----------------------------
 INSERT INTO `attendance_time` VALUES (1, '09:00', '17:00');
-
--- ----------------------------
--- Table structure for comment
--- ----------------------------
-DROP TABLE IF EXISTS `comment`;
-CREATE TABLE `comment`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
-  `content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `user_id` int(0) NOT NULL,
-  `article_id` int(0) NOT NULL,
-  `create_time` datetime(0) NOT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of comment
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for file
@@ -111,7 +77,7 @@ CREATE TABLE `file`  (
   `personal` tinyint(1) NOT NULL,
   `create_time` datetime(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 51 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 50 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of file
@@ -161,13 +127,15 @@ CREATE TABLE `leave`  (
   `type` varchar(4) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `status` tinyint(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of leave
 -- ----------------------------
 INSERT INTO `leave` VALUES (1, 1, '2020-02-05', '2020-03-10', '哈佛案件发放马拉松免费空间你上课方式发马上发是发发发', '看法兰克福马拉科夫能看见三分喀什开发商看法兰克福马分喀什开发商', '婚假', 1);
 INSERT INTO `leave` VALUES (2, 1, '2020-02-19', '2020-03-19', '结构设计刚开始美国纳斯达克刚开始的功能发了好人卡爱了就会卡斯能否尽快离开', '交给老师的开关打开柜门燃烧的玫瑰打开了婚纱法布雷加斯咖啡离开', '婚假', 2);
+INSERT INTO `leave` VALUES (3, 1, '2020-02-06', '2020-03-25', '公司感到深深的感动', '和法国哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈', '病假', 2);
+INSERT INTO `leave` VALUES (4, 1, '2020-01-29', '2020-03-25', '时代的速度速度和', '的撒大大大水水水水水水水水水水水水水水', '病假', 1);
 
 -- ----------------------------
 -- Table structure for notice
@@ -180,7 +148,7 @@ CREATE TABLE `notice`  (
   `create_time` datetime(0) NOT NULL,
   `receiver_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 35 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of notice
@@ -209,6 +177,8 @@ INSERT INTO `notice` VALUES (22, '你的请假通过了审核！', 0, '2020-02-2
 INSERT INTO `notice` VALUES (23, '你的请假没有通过审核！', 0, '2020-02-24 19:16:56', 'citru');
 INSERT INTO `notice` VALUES (24, '你的请假通过了审核！', 0, '2020-02-28 13:51:26', 'citru');
 INSERT INTO `notice` VALUES (25, '你的请假通过了审核！', 0, '2020-02-28 14:01:27', 'citru');
+INSERT INTO `notice` VALUES (34, '你的请假通过了审核！', 0, '2020-03-20 20:31:41', 'admin');
+INSERT INTO `notice` VALUES (35, '你的请假没有通过审核！', 0, '2020-03-20 20:31:56', 'admin');
 
 -- ----------------------------
 -- Table structure for role
@@ -218,7 +188,7 @@ CREATE TABLE `role`  (
   `id` int(0) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of role
@@ -245,16 +215,17 @@ CREATE TABLE `user`  (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, 'citru', '$2a$10$en2JxasguDAPugsYRPdHGOTazazkihMqq3gC9yi8a8yBeQhpwFgCu', '一个普通员工', '/img/picture/1.jpg', '8561653156@qq.com', 3);
-INSERT INTO `user` VALUES (2, '主管一', '$2a$10$en2JxasguDAPugsYRPdHGOTazazkihMqq3gC9yi8a8yBeQhpwFgCu', '一个主管', '/img/picture/2.jpg', '6233616156@qq.com', 2);
+INSERT INTO `user` VALUES (1, 'admin', '$2a$10$VPnyJP6ogfN/uY/l8uUqOOvwtX4NSJ9rvhQFs8FvWuIeH3QPNGxky', '不i啊师傅沙漠好人卡麻烦', '/img/picture/1.jpg', 'kwxy1314@qq.com', 3);
+INSERT INTO `user` VALUES (2, '主管一', '$2a$10$en2JxasguDAPugsYRPdHGOTazazkihMqq3gC9yi8a8yBeQhpwFgCu', '一个主管', '/img/picture/2.jpg', '6233616156@qq.com', 1);
 INSERT INTO `user` VALUES (3, '经理一', '$2a$10$en2JxasguDAPugsYRPdHGOTazazkihMqq3gC9yi8a8yBeQhpwFgCu', '一个经理', '/img/picture/3.jpg', '4613316156@qq.com', 3);
-INSERT INTO `user` VALUES (4, '员工二', '$2a$10$7nBcD/d6Z3P7Lec0UinZDuncdJJpS8VVwYzhsz8NlCl09HaWIffyS', '这是员工一', '/img/picture/4.jpg', '92+5466424@qq.com', 1);
+INSERT INTO `user` VALUES (4, '员工二', '$2a$10$8aCXT4BWn17MEZ38hyGyQe5C3hS/lWRSf5agD0uleqs4QGOYek9Jm', '这是员工一', '/img/picture/4.jpg', '92+5466424@qq.com', 2);
 INSERT INTO `user` VALUES (5, '测试账号', '$10$en2JxasguDAPugsYRPdHGOTazazkihMqq3gC9yi8a8yBeQhpwFgCu', '号抵达看是否对啊和对方丢我hi', '/img/picture/default.jpg', '9861615616@qq.com', 1);
 INSERT INTO `user` VALUES (6, '测试账号', '$10$en2JxasguDAPugsYRPdHGOTazazkihMqq3gC9yi8a8yBeQhpwFgCu', '号抵达看是否对啊和对方丢我hi', '/img/picture/default.jpg', '9861615616@qq.com', 1);
-INSERT INTO `user` VALUES (7, '测试账号', '$10$en2JxasguDAPugsYRPdHGOTazazkihMqq3gC9yi8a8yBeQhpwFgCu', '号抵达看是否对啊和对方丢我hi', '/img/picture/default.jpg', '9861615616@qq.com', 1);
-INSERT INTO `user` VALUES (8, 'linter', '$2a$10$BfytaDghoDtXXiekiK71duKUrLoepB9tlODSOwoJFIMAFANeXMKJ.', '号抵达看是否对啊和对方丢我hi', '/img/picture/default.jpg', '9861615616@qq.com', 2);
+INSERT INTO `user` VALUES (7, '测试账号', '$10$en2JxasguDAPugsYRPdHGOTazazkihMqq3gC9yi8a8yBeQhpwFgCu', '号抵达看是否对啊和对方丢我hi', '/img/picture/default.jpg', '9861615616@qq.com', 3);
+INSERT INTO `user` VALUES (8, 'linter', '$2a$10$BfytaDghoDtXXiekiK71duKUrLoepB9tlODSOwoJFIMAFANeXMKJ.', '号抵达看是否对啊和对方丢我hi', '/img/picture/default.jpg', '9861615616@qq.com', 3);
 INSERT INTO `user` VALUES (9, '测试账号', '$10$en2JxasguDAPugsYRPdHGOTazazkihMqq3gC9yi8a8yBeQhpwFgCu', '号抵达看是否对啊和对方丢我hi', '/img/picture/default.jpg', '9861615616@qq.com', 1);
 INSERT INTO `user` VALUES (10, '测试账号', '$10$en2JxasguDAPugsYRPdHGOTazazkihMqq3gC9yi8a8yBeQhpwFgCu', '号抵达看是否对啊和对方丢我hi', '/img/picture/default.jpg', '9861615616@qq.com', 1);
 INSERT INTO `user` VALUES (15, '888', '$2a$10$aMzr8dXrgixN2sm7oG47Qu9t6GmdFG2i4zyoWf/60Uw02d5ituhA2', '这个人还没有填写个人介绍！', '/img/picture/default.jpg', 'kwxy1314@qq.com', 1);
+INSERT INTO `user` VALUES (16, '管理员', '$2a$10$8aCXT4BWn17MEZ38hyGyQe5C3hS/lWRSf5agD0uleqs4QGOYek9Jm', '78777777777', '/img/picture/default.jpg', 'kwxy1314@qq.com', 3);
 
 SET FOREIGN_KEY_CHECKS = 1;
