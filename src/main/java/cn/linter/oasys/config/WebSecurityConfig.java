@@ -22,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/api/setAttendanceTime").hasAnyRole("主s管","经理")
+                .antMatchers("/api/setAttendanceTime").hasAnyRole("主管","经理")
                 .antMatchers("/api/**").authenticated()
                 .and().formLogin()
                 .loginProcessingUrl("/api/login")
