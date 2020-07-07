@@ -18,10 +18,6 @@ class OasysApplicationTests {
     }
 
     @Test
-    void contextLoads() {
-    }
-
-    @Test
     void addUser() {
         Role role = new Role();
         role.setId(1);
