@@ -1,6 +1,5 @@
 package cn.linter.oasys.controller;
 
-import cn.linter.oasys.entity.User;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.OnClose;
