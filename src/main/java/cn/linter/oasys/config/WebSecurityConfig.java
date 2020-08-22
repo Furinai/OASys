@@ -1,8 +1,8 @@
 package cn.linter.oasys.config;
 
 import cn.linter.oasys.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
@@ -10,11 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 
 @Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserService userService;
 
-    @Autowired
     public WebSecurityConfig(UserService userService) {
         this.userService = userService;
     }
@@ -22,7 +22,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/api/setAttendanceTime").hasAnyRole("主管","经理")
                 .antMatchers("/api/**").authenticated()
                 .and().formLogin()
                 .loginProcessingUrl("/api/login")
@@ -67,6 +66,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     out.close();
                 })
                 .and().userDetailsService(userService)
-                .csrf() .disable();
+                .csrf().disable();
     }
 }
