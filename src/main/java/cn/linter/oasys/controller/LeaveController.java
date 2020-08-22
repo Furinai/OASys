@@ -16,7 +16,6 @@ public class LeaveController {
 
     private final LeaveService leaveService;
 
-    @Autowired
     public LeaveController(LeaveService leaveService) {
         this.leaveService = leaveService;
     }

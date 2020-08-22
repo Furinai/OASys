@@ -12,7 +12,6 @@ public class RoleServiceImpl implements RoleService {
 
     private final RoleMapper roleMapper;
 
-    @Autowired
     public RoleServiceImpl(RoleMapper roleMapper) {
         this.roleMapper = roleMapper;
     }

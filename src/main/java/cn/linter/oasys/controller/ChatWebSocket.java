@@ -26,7 +26,6 @@ public class ChatWebSocket {
     public Session session;
     public User user;
 
-    @Autowired
     public void setChatWebSocket(ObjectMapper objectMapper, UserService userService) {
         ChatWebSocket.userService = userService;
         ChatWebSocket.objectMapper = objectMapper;

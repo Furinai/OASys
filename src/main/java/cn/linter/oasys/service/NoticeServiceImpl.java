@@ -18,7 +18,6 @@ public class NoticeServiceImpl implements NoticeService {
     private final ObjectMapper objectMapper;
     private final UserService userService;
 
-    @Autowired
     public NoticeServiceImpl(NoticeMapper noticeMapper, ObjectMapper objectMapper, UserService userService) {
         this.noticeMapper = noticeMapper;
         this.objectMapper = objectMapper;

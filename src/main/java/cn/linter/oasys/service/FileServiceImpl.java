@@ -15,7 +15,6 @@ import java.sql.Timestamp;
 public class FileServiceImpl implements FileService {
     private final FileMapper fileMapper;
 
-    @Autowired
     public FileServiceImpl(FileMapper fileMapper) {
         this.fileMapper = fileMapper;
     }

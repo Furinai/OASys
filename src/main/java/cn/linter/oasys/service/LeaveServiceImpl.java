@@ -13,7 +13,6 @@ public class LeaveServiceImpl implements LeaveService {
     private final LeaveMapper leaveMapper;
     private final NoticeService noticeService;
 
-    @Autowired
     public LeaveServiceImpl(LeaveMapper leaveMapper, NoticeService noticeService) {
         this.leaveMapper = leaveMapper;
         this.noticeService = noticeService;

@@ -15,7 +15,6 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     private final AttendanceMapper attendanceMapper;
 
-    @Autowired
     public AttendanceServiceImpl(AttendanceMapper attendanceMapper) {
         this.attendanceMapper = attendanceMapper;
     }

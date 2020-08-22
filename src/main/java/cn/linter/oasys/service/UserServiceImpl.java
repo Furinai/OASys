@@ -20,7 +20,6 @@ public class UserServiceImpl implements UserService {
 
     private final BCryptPasswordEncoder encoder;
 
-    @Autowired
     public UserServiceImpl(UserMapper userMapper, RoleMapper roleMapper, BCryptPasswordEncoder encoder) {
         this.userMapper = userMapper;
         this.roleMapper = roleMapper;

@@ -20,7 +20,6 @@ public class FileController {
 
     private final FileService fileService;
 
-    @Autowired
     public FileController(FileService fileService) {
         this.fileService = fileService;
     }
