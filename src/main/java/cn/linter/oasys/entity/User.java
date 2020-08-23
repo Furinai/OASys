@@ -18,7 +18,7 @@ public class User implements UserDetails, Serializable {
     private String username;
     private String password;
     private String synopsis;
-    private String picture;
+    private String avatar;
     private String email;
     private static final long serialVersionUID = 1L;
 
@@ -64,12 +64,12 @@ public class User implements UserDetails, Serializable {
         this.synopsis = synopsis;
     }
 
-    public String getPicture() {
-        return picture;
+    public String getAvatar() {
+        return avatar;
     }
 
-    public void setPicture(String picture) {
-        this.picture = picture;
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public String getEmail() {

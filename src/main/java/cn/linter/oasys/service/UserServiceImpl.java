@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService {
         Role role = new Role();
         role.setId(1);
         user.setRole(role);
-        user.setPicture("/img/picture/default.jpg");
+        user.setAvatar("/img/avatar/default.jpg");
         user.setSynopsis("这个人还没有填写个人介绍！");
         user.setPassword(encoder.encode(user.getPassword()));
         int result = userMapper.insertUser(user);

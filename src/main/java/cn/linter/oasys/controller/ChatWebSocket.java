@@ -54,7 +54,7 @@ public class ChatWebSocket {
     public void onMessage(String message) throws JsonProcessingException {
         map.put("id", number++);
         map.put("username", user.getUsername());
-        map.put("picture", user.getPicture());
+        map.put("avatar", user.getAvatar());
         map.put("text", message);
         message = objectMapper.writeValueAsString(map);
         for (ChatWebSocket webSocket : webSockets.values()) {

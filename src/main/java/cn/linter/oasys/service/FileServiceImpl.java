@@ -38,7 +38,7 @@ public class FileServiceImpl implements FileService {
         folder.setParentId(parentId);
         folder.setPersonal(personal);
         long time = System.currentTimeMillis();
-        folder.setCreateTime(new Timestamp(time));
+        folder.setCreatedTime(new Timestamp(time));
         fileMapper.insertFile(folder);
     }
 
@@ -54,7 +54,7 @@ public class FileServiceImpl implements FileService {
         file.setPersonal(personal);
         file.setUser(user);
         long time = System.currentTimeMillis();
-        file.setCreateTime(new Timestamp(time));
+        file.setCreatedTime(new Timestamp(time));
         fileMapper.insertFile(file);
     }
 

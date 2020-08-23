@@ -9,7 +9,7 @@
         <result property="size" column="size"/>
         <result property="parentId" column="parent_id"/>
         <result property="personal" column="personal"/>
-        <result property="createTime" column="create_time"/>
+        <result property="createdTime" column="created_time"/>
         <association property="user" javaType="User">
             <id property="id" column="user_id"/>
             <result property="username" column="username"/>
@@ -17,8 +17,8 @@
     </resultMap>
 
     <insert id="insertFile">
-        insert into file(name, path, type, size, user_id, parent_id, personal, create_time)
-        values (#{name}, #{path}, #{type}, #{size}, #{user.id}, #{parentId}, #{personal}, #{createTime})
+        insert into file(name, path, type, size, user_id, parent_id, personal, created_time)
+        values (#{name}, #{path}, #{type}, #{size}, #{user.id}, #{parentId}, #{personal}, #{createdTime})
     </insert>
 
     <update id="updateFile">

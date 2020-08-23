@@ -12,16 +12,16 @@ public class Notice implements Serializable {
     private String content;
     private boolean hasRead;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Timestamp createTime;
+    private Timestamp createdTime;
     private String receiverName;
     private static final long serialVersionUID = 1L;
 
     public Notice() {
     }
 
-    public Notice(String content, Timestamp createTime, String receiverName) {
+    public Notice(String content, Timestamp createdTime, String receiverName) {
         this.content = content;
-        this.createTime = createTime;
+        this.createdTime = createdTime;
         this.receiverName = receiverName;
     }
 
@@ -49,12 +49,12 @@ public class Notice implements Serializable {
         this.hasRead = hasRead;
     }
 
-    public Timestamp getCreateTime() {
-        return createTime;
+    public Timestamp getCreatedTime() {
+        return createdTime;
     }
 
-    public void setCreateTime(Timestamp createTime) {
-        this.createTime = createTime;
+    public void setCreatedTime(Timestamp createdTime) {
+        this.createdTime = createdTime;
     }
 
     public String getReceiverName() {

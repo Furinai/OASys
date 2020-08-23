@@ -3,35 +3,33 @@
 <mapper namespace="cn.linter.oasys.mapper.AttendanceMapper">
     <update id="updateAttendanceTime">
         update attendance_time
-        set begin=#{begin}, end  = #{end}
+        set begin = #{begin}, end = #{end}
         where id = 1
     </update>
 
     <select id="selectAttendanceTime" resultType="map">
-        select begin,end from attendance_time
+        select begin, end from attendance_time
     </select>
 
     <select id="selectAttendance" resultType="Attendance">
         select * from attendance
         where user_id = #{userId}
-          and sign_in_date = #{date}
+          and sign_date = #{date}
     </select>
 
     <select id="selectAttendances" resultType="string">
-        select sign_in_date from attendance
+        select sign_date from attendance
         where user_id = #{userId}
     </select>
 
     <insert id="signIn">
-        insert into attendance(user_id, sign_in_date, sign_in_time, sign_out_time, sign_out)
+        insert into attendance(user_id, sign_date, sign_in_time, sign_out_time, has_sign_out)
         values (#{userId}, #{date}, #{time}, #{time}, 0)
     </insert>
 
     <update id="signOut">
         update attendance
-        set sign_out_time=#{time},
-            sign_out=1
-        where user_id = #{userId}
-          and sign_in_date = #{date}
+        set sign_out_time = #{time}, has_sign_out = 1
+        where user_id = #{userId} and sign_date = #{date}
     </update>
 </mapper>

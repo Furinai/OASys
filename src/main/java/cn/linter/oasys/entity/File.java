@@ -15,7 +15,7 @@ public class File implements Serializable {
     private User user;
     private int parentId;
     private boolean personal;
-    private Timestamp createTime;
+    private Timestamp createdTime;
     private static final long serialVersionUID = 1L;
 
     public int getId() {
@@ -82,11 +82,11 @@ public class File implements Serializable {
         this.personal = personal;
     }
 
-    public Timestamp getCreateTime() {
-        return createTime;
+    public Timestamp getCreatedTime() {
+        return createdTime;
     }
 
-    public void setCreateTime(Timestamp createTime) {
-        this.createTime = createTime;
+    public void setCreatedTime(Timestamp createdTime) {
+        this.createdTime = createdTime;
     }
 }
