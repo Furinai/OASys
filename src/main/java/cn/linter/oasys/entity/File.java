@@ -1,10 +1,12 @@
 package cn.linter.oasys.entity;
 
+import lombok.Data;
 import org.apache.ibatis.type.Alias;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+@Data
 @Alias("File")
 public class File implements Serializable {
     private int id;
@@ -17,76 +19,4 @@ public class File implements Serializable {
     private boolean personal;
     private Timestamp createdTime;
     private static final long serialVersionUID = 1L;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getSize() {
-        return size;
-    }
-
-    public void setSize(String size) {
-        this.size = size;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public int getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(int parentId) {
-        this.parentId = parentId;
-    }
-
-    public boolean isPersonal() {
-        return personal;
-    }
-
-    public void setPersonal(boolean personal) {
-        this.personal = personal;
-    }
-
-    public Timestamp getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(Timestamp createdTime) {
-        this.createdTime = createdTime;
-    }
 }

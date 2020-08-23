@@ -1,11 +1,13 @@
 package cn.linter.oasys.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
 import org.apache.ibatis.type.Alias;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+@Data
 @Alias("Notice")
 public class Notice implements Serializable {
     private int id;
@@ -22,46 +24,6 @@ public class Notice implements Serializable {
     public Notice(String content, Timestamp createdTime, String receiverName) {
         this.content = content;
         this.createdTime = createdTime;
-        this.receiverName = receiverName;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public boolean isHasRead() {
-        return hasRead;
-    }
-
-    public void setHasRead(boolean hasRead) {
-        this.hasRead = hasRead;
-    }
-
-    public Timestamp getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(Timestamp createdTime) {
-        this.createdTime = createdTime;
-    }
-
-    public String getReceiverName() {
-        return receiverName;
-    }
-
-    public void setReceiverName(String receiverName) {
         this.receiverName = receiverName;
     }
 }
