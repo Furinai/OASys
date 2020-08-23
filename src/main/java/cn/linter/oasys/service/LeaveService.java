@@ -8,5 +8,5 @@ public interface LeaveService {
 
     void checkLeave(Leave leave);
 
-    PageInfo<?> getLeaves(int pageNumber, int pageSize);
+    PageInfo<Leave> getLeaves(int pageNumber, int pageSize);
 }

@@ -14,7 +14,7 @@ import java.util.List;
 
 @Data
 @Alias("User")
-public class User implements UserDetails, Serializable {
+public class User implements UserDetails {
     private int id;
     private Role role;
     private String username;

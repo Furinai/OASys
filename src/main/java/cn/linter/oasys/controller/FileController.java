@@ -1,10 +1,10 @@
 package cn.linter.oasys.controller;
 
+import cn.linter.oasys.entity.File;
 import cn.linter.oasys.entity.Response;
 import cn.linter.oasys.entity.User;
 import cn.linter.oasys.service.FileService;
 import com.github.pagehelper.PageInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.system.ApplicationHome;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -25,22 +25,22 @@ public class FileController {
     }
 
     @GetMapping("/getFiles")
-    public Response getFile(@AuthenticationPrincipal User user, @RequestParam("parentId") int parentId, @RequestParam("personal") boolean personal,
-                            @RequestParam(value = "pageNumber", defaultValue = "1") int pageNumber, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-        PageInfo<?> pageInfo = fileService.getFiles(user.getId(), parentId, personal, pageNumber, pageSize);
-        return new Response("success", pageInfo.getTotal(), pageInfo.getList());
+    public Response<PageInfo<File>> getFile(@AuthenticationPrincipal User user, @RequestParam("parentId") int parentId, @RequestParam("personal") boolean personal,
+                                            @RequestParam(value = "pageNumber", defaultValue = "1") int pageNumber, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+        PageInfo<File> pageInfo = fileService.getFiles(user.getId(), parentId, personal, pageNumber, pageSize);
+        return Response.success("获取成功！", pageInfo);
     }
 
     @GetMapping("/addFolder")
-    public Response addFolder(@AuthenticationPrincipal User user, @RequestParam("parentId") int parentId,
-                              @RequestParam("folderName") String folderName, @RequestParam("personal") boolean personal) {
+    public Response<?> addFolder(@AuthenticationPrincipal User user, @RequestParam("parentId") int parentId,
+                                 @RequestParam("folderName") String folderName, @RequestParam("personal") boolean personal) {
         fileService.addFolder(folderName, user.getId(), parentId, personal);
-        return new Response("success", "添加成功！");
+        return Response.success("添加成功！");
     }
 
     @PostMapping("/uploadFile")
-    public Response uploadFile(@RequestParam("parentId") int parentId, @RequestParam("personal") boolean personal,
-                               @AuthenticationPrincipal User user, @RequestParam("file") MultipartFile multipartFile) throws IOException {
+    public Response<?> uploadFile(@RequestParam("parentId") int parentId, @RequestParam("personal") boolean personal,
+                                  @AuthenticationPrincipal User user, @RequestParam("file") MultipartFile multipartFile) throws IOException {
         String rootPath;
         String os = System.getProperty("os.name");
         if (os.toLowerCase().startsWith("win")) {
@@ -53,18 +53,18 @@ public class FileController {
         long fileSize = multipartFile.getSize();
         Files.write(Paths.get(filePath), multipartFile.getBytes());
         fileService.uploadFile(fileName, fileSize, user, parentId, personal);
-        return new Response("success", "上传成功！");
+        return Response.success("上传成功！");
     }
 
     @GetMapping("/renameFile")
-    public Response renameFile(@RequestParam("id") int id, @RequestParam("newName") String newName) {
+    public Response<?> renameFile(@RequestParam("id") int id, @RequestParam("newName") String newName) {
         fileService.renameFile(id, newName);
-        return new Response("success", "重命名成功！");
+        return Response.success("重命名成功！");
     }
 
     @PostMapping("/deleteFile")
-    public Response deleteFile(@RequestBody Integer[] ids) {
+    public Response<?> deleteFile(@RequestBody Integer[] ids) {
         fileService.deleteFile(ids);
-        return new Response("success", "删除成功！");
+        return Response.success("删除成功！");
     }
 }

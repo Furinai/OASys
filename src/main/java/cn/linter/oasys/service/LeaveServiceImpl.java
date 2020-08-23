@@ -35,7 +35,7 @@ public class LeaveServiceImpl implements LeaveService {
     }
 
     @Override
-    public PageInfo<?> getLeaves(int pageNumber, int pageSize) {
+    public PageInfo<Leave> getLeaves(int pageNumber, int pageSize) {
         PageHelper.startPage(pageNumber, pageSize);
         return new PageInfo<>(leaveMapper.selectLeaves());
     }

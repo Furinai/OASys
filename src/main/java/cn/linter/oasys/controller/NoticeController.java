@@ -20,14 +20,14 @@ public class NoticeController {
     }
 
     @GetMapping("/getNotices")
-    public Response getNotices(@AuthenticationPrincipal User user) {
+    public Response<List<Notice>> getNotices(@AuthenticationPrincipal User user) {
         List<Notice> notices = noticeService.getNotices(user.getUsername());
-        return new Response("success", notices);
+        return Response.success("获取成功！", notices);
     }
 
     @PostMapping("/markRead")
-    public Response markRead(@RequestBody Integer[] ids) {
+    public Response<?> markRead(@RequestBody Integer[] ids) {
         noticeService.markRead(ids);
-        return new Response("success", "成功标记已读！");
+        return Response.success("成功标记已读！");
     }
 }

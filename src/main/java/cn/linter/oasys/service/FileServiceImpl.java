@@ -20,7 +20,7 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public PageInfo<?> getFiles(int userId, int parentId, boolean personal, int pageNumber, int pageSize) {
+    public PageInfo<File> getFiles(int userId, int parentId, boolean personal, int pageNumber, int pageSize) {
         PageHelper.startPage(pageNumber, pageSize);
         return new PageInfo<>(fileMapper.selectFiles(userId, parentId, personal));
     }
