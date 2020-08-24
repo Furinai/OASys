@@ -5,7 +5,7 @@ import lombok.Data;
 import org.apache.ibatis.type.Alias;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Data
 @Alias("Notice")
@@ -14,16 +14,7 @@ public class Notice implements Serializable {
     private String content;
     private boolean hasRead;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Timestamp createdTime;
+    private LocalDateTime createdTime;
     private String receiverName;
     private static final long serialVersionUID = 1L;
-
-    public Notice() {
-    }
-
-    public Notice(String content, Timestamp createdTime, String receiverName) {
-        this.content = content;
-        this.createdTime = createdTime;
-        this.receiverName = receiverName;
-    }
 }

@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -55,16 +57,12 @@ public class AttendanceController {
     @GetMapping("/signIn")
     public Response<?> signIn(@AuthenticationPrincipal User user) throws ParseException {
         Map<String, String> map = attendanceService.getAttendanceTime();
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
-        Date time = format.parse(format.format(new Date()));
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(format.parse(map.get("begin")));
-        calendar.add(Calendar.HOUR_OF_DAY, -1);
-        if (time.before(calendar.getTime())) {
+        LocalTime beginTime = LocalTime.parse(map.get("begin"));
+        LocalTime localTime = LocalTime.now();
+        if (localTime.isBefore(beginTime.minusHours(1L))) {
             return Response.error("还未到签到时间！");
         }
-        calendar.add(Calendar.HOUR_OF_DAY, 2);
-        if (time.after(calendar.getTime())) {
+        if (localTime.isAfter(beginTime.plusHours(1L))) {
             return Response.error("已超过签到时间！");
         }
         attendanceService.signIn(user.getId());
@@ -77,16 +75,12 @@ public class AttendanceController {
             return Response.error("您未签到，不能签退！");
         }
         Map<String, String> map = attendanceService.getAttendanceTime();
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
-        Date time = format.parse(format.format(new Date()));
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(format.parse(map.get("end")));
-        calendar.add(Calendar.HOUR_OF_DAY, -1);
-        if (time.before(calendar.getTime())) {
+        LocalTime endTime = LocalTime.parse(map.get("end"));
+        LocalTime localTime = LocalTime.now();
+        if (localTime.isBefore(endTime.minusHours(1L))) {
             return Response.error("还未到签退时间！");
         }
-        calendar.add(Calendar.HOUR_OF_DAY, 2);
-        if (time.after(calendar.getTime())) {
+        if (localTime.isAfter(endTime.plusHours(1L))) {
             return Response.error("已超过签退时间！");
         }
         attendanceService.signOut(user.getId());

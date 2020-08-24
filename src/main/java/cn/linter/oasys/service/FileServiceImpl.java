@@ -5,11 +5,10 @@ import cn.linter.oasys.entity.User;
 import cn.linter.oasys.mapper.FileMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.system.ApplicationHome;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Service
 public class FileServiceImpl implements FileService {
@@ -37,8 +36,8 @@ public class FileServiceImpl implements FileService {
         folder.setUser(user);
         folder.setParentId(parentId);
         folder.setPersonal(personal);
-        long time = System.currentTimeMillis();
-        folder.setCreatedTime(new Timestamp(time));
+        LocalDateTime time = LocalDateTime.now();
+        folder.setCreatedTime(time);
         fileMapper.insertFile(folder);
     }
 
@@ -53,8 +52,8 @@ public class FileServiceImpl implements FileService {
         file.setParentId(parentId);
         file.setPersonal(personal);
         file.setUser(user);
-        long time = System.currentTimeMillis();
-        file.setCreatedTime(new Timestamp(time));
+        LocalDateTime time = LocalDateTime.now();
+        file.setCreatedTime(time);
         fileMapper.insertFile(file);
     }
 
