@@ -45,7 +45,12 @@ CREATE TABLE `file`  (
   `personal` tinyint(1) NOT NULL,
   `created_time` datetime(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of file
+-- ----------------------------
+INSERT INTO `file` VALUES (1, '根目录', '/', '文件夹', '-', 1, 0, 1, '2020-01-01 00:00:00');
 
 -- ----------------------------
 -- Table structure for leave
