@@ -21,16 +21,17 @@
 
     <update id="updateUser">
         update user
-        set username=#{username},
-        role_id=#{role.id}
+        set username = #{username},
+            role_id = #{role.id}
         <if test="password!=null">
-            ,password=#{password}
+            ,password = #{password}
         </if>
         where id = #{id}
     </update>
 
     <delete id="deleteUser">
-        delete from user where id in
+        delete from user
+        where id in
         <foreach collection="ids" item="item" open="(" separator="," close=")">
             #{item}
         </foreach>
@@ -38,24 +39,21 @@
 
     <select id="selectUserById" resultMap="UserResultMap">
         select user.*, role.id as role_id, role.name
-        from user,
-             role
+        from user, role
         where user.role_id = role.id
           and role.id = #{id}
     </select>
 
     <select id="selectUserByUsername" resultMap="UserResultMap">
         select user.*, role.id as role_id, role.name
-        from user,
-             role
+        from user, role
         where user.role_id = role.id
           and username = #{username}
     </select>
 
     <select id="selectUsers" resultMap="UserResultMap">
         select user.*, role.id as role_id, role.name
-        from user,
-             role
+        from user, role
         where user.role_id = role.id
     </select>
 </mapper>

@@ -28,8 +28,8 @@
 
     <delete id="deleteFile">
         delete from file where id in
-        <foreach collection="ids" item="item" open="(" separator="," close=")" >
-            #{item}
+        <foreach collection="ids" item="id" open="(" separator="," close=")" >
+            #{id}
         </foreach>
     </delete>
 

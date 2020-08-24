@@ -10,8 +10,8 @@
         update notice
         set has_read=1
         where id in
-        <foreach collection="ids" item="item" open="(" separator="," close=")">
-            #{item}
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
         </foreach>
     </update>
 
@@ -21,5 +21,4 @@
         where has_read = 0
           and receiver_name = #{username}
     </select>
-
 </mapper>

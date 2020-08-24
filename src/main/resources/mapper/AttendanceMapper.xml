@@ -8,7 +8,9 @@
     </update>
 
     <select id="selectAttendanceTime" resultType="map">
-        select begin, end from attendance_time
+        select begin, end
+        from attendance_time
+        where id = 1
     </select>
 
     <select id="selectAttendance" resultType="Attendance">
