@@ -1,7 +1,8 @@
 package cn.linter.oasys.websocket;
 
+import cn.linter.oasys.entity.Message;
 import cn.linter.oasys.entity.User;
-import cn.linter.oasys.service.UserService;
+import cn.linter.oasys.mapper.UserMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +11,6 @@ import org.springframework.stereotype.Component;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.security.Principal;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -19,16 +18,17 @@ import java.util.concurrent.ConcurrentMap;
 @ServerEndpoint("/chat")
 public class ChatWebSocket {
     public static ConcurrentMap<String, ChatWebSocket> webSockets = new ConcurrentHashMap<>();
-    public static Map<String, Object> map = new HashMap<>();
+    public static Message message = new Message();
     public static ObjectMapper objectMapper;
-    public static UserService userService;
-    public static int number;
+    public static UserMapper userMapper;
+    public static int id;
     public Session session;
-    public User user;
+    public String username;
+    public String avatar;
 
     @Autowired
-    public void setChatWebSocket(ObjectMapper objectMapper, UserService userService) {
-        ChatWebSocket.userService = userService;
+    public void setChatWebSocket(ObjectMapper objectMapper, UserMapper userMapper) {
+        ChatWebSocket.userMapper = userMapper;
         ChatWebSocket.objectMapper = objectMapper;
     }
 
@@ -37,7 +37,9 @@ public class ChatWebSocket {
         Principal principal = session.getUserPrincipal();
         if (principal != null) {
             String username = principal.getName();
-            this.user = (User) userService.loadUserByUsername(username);
+            User user = userMapper.selectUserByUsername(username);
+            this.username = username;
+            this.avatar = user.getAvatar();
             this.session = session;
             webSockets.put(username, this);
         }
@@ -52,14 +54,18 @@ public class ChatWebSocket {
     }
 
     @OnMessage
-    public void onMessage(String message) throws JsonProcessingException {
-        map.put("id", number++);
-        map.put("username", user.getUsername());
-        map.put("avatar", user.getAvatar());
-        map.put("text", message);
-        message = objectMapper.writeValueAsString(map);
+    public void onMessage(String content) {
+        message.setId(id++);
+        message.setUsername(username);
+        message.setAvatar(avatar);
+        message.setContent(content);
+        try {
+            content = objectMapper.writeValueAsString(message);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
         for (ChatWebSocket webSocket : webSockets.values()) {
-            webSocket.session.getAsyncRemote().sendText(message);
+            webSocket.session.getAsyncRemote().sendText(content);
         }
     }
 
