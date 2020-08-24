@@ -2,7 +2,6 @@ package cn.linter.oasys.service;
 
 import cn.linter.oasys.entity.Role;
 import cn.linter.oasys.mapper.RoleMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

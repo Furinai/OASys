@@ -4,7 +4,6 @@ import cn.linter.oasys.entity.Leave;
 import cn.linter.oasys.mapper.LeaveMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
