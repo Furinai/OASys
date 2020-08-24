@@ -13,8 +13,8 @@ public class Notice implements Serializable {
     private int id;
     private String content;
     private boolean hasRead;
+    private String receiverName;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdTime;
-    private String receiverName;
     private static final long serialVersionUID = 1L;
 }
