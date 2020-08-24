@@ -1,4 +1,4 @@
-package cn.linter.oasys.controller;
+package cn.linter.oasys.websocket;
 
 import cn.linter.oasys.entity.User;
 import cn.linter.oasys.service.UserService;
