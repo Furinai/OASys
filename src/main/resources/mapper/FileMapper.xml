@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.linter.oasys.mapper.FileMapper">
-    <resultMap id="FileResultMap" type="File">
+<mapper namespace="cn.linter.oasys.mapper.NetFileMapper">
+    <resultMap id="FileResultMap" type="NetFile">
         <id property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="path" column="path"/>
@@ -16,29 +16,29 @@
         </association>
     </resultMap>
 
-    <insert id="insertFile">
+    <insert id="insertNetFile">
         insert into file(name, path, type, size, user_id, parent_id, personal, created_time)
         values (#{name}, #{path}, #{type}, #{size}, #{user.id}, #{parentId}, #{personal}, #{createdTime})
     </insert>
 
-    <update id="updateFile">
+    <update id="updateNetFile">
         update file set name = #{newName}
         where id = #{id}
     </update>
 
-    <delete id="deleteFile">
+    <delete id="deleteNetFiles">
         delete from file where id in
         <foreach collection="ids" item="id" open="(" separator="," close=")" >
             #{id}
         </foreach>
     </delete>
 
-    <select id="selectFile" resultMap="FileResultMap">
+    <select id="selectNetFile" resultMap="FileResultMap">
         select * from file
         where id = #{id}
     </select>
 
-    <select id="selectFiles" resultMap="FileResultMap">
+    <select id="selectNetFiles" resultMap="FileResultMap">
         select file.*, user.id, user.username
         from file, user
         where file.user_id = user.id

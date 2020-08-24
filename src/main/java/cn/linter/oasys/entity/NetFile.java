@@ -8,8 +8,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
-@Alias("File")
-public class File implements Serializable {
+@Alias("NetFile")
+public class NetFile implements Serializable {
     private int id;
     private String name;
     private String path;
