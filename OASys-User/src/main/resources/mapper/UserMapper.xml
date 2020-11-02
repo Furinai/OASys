@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.linter.oasys.user.dao.UserDao">
+
+    <resultMap type="cn.linter.oasys.common.entity.User" id="UserMap">
+        <result property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="name" column="name"/>
+        <result property="sex" column="sex"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="emailAddress" column="email_address"/>
+        <result property="phoneNumber" column="phone_number"/>
+        <result property="profilePicture" column="profile_picture"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+
+    <!--通过ID查询单个用户-->
+    <select id="selectById" resultMap="UserMap">
+        select id, username, password, name, sex, dept_id, email_address, phone_number, profile_picture, create_time, update_time
+        from user
+        where id = #{id}
+    </select>
+
+
+    <!--通过用户名查询单个用户-->
+    <select id="selectByUsername" resultMap="UserMap">
+        select id, username, password, name, sex, dept_id, email_address, phone_number, profile_picture, create_time, update_time
+        from user
+        where username = #{username}
+    </select>
+
+
+    <!--查询所有用户-->
+    <select id="selectAll" resultMap="UserMap">
+        select id, username, password, name, sex, dept_id, email_address, phone_number, profile_picture, create_time, update_time
+        from user
+    </select>
+
+
+    <!--通过用户实体查询所有用户-->
+    <select id="selectAllByEntity" resultMap="UserMap">
+        select id, username, password, name, sex, dept_id, email_address, phone_number, profile_picture, create_time, update_time
+        from user
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="username != null and username != ''">
+                and username = #{username}
+            </if>
+            <if test="password != null and password != ''">
+                and password = #{password}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="sex != null and sex != ''">
+                and sex = #{sex}
+            </if>
+            <if test="deptId != null">
+                and dept_id = #{deptId}
+            </if>
+            <if test="emailAddress != null and emailAddress != ''">
+                and email_address = #{emailAddress}
+            </if>
+            <if test="phoneNumber != null and phoneNumber != ''">
+                and phone_number = #{phoneNumber}
+            </if>
+            <if test="profilePicture != null and profilePicture != ''">
+                and profile_picture = #{profilePicture}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+
+    <!--插入单个用户-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into user(username, password, name, sex, dept_id, email_address, phone_number, profile_picture, create_time, update_time)
+        values (#{username}, #{password}, #{name}, #{sex}, #{deptId}, #{emailAddress}, #{phoneNumber}, #{profilePicture}, #{createTime}, #{updateTime})
+    </insert>
+
+
+    <!--通过ID更新用户-->
+    <update id="update">
+        update user
+        <set>
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="sex != null and sex != ''">
+                sex = #{sex},
+            </if>
+            <if test="deptId != null">
+                dept_id = #{deptId},
+            </if>
+            <if test="emailAddress != null and emailAddress != ''">
+                email_address = #{emailAddress},
+            </if>
+            <if test="phoneNumber != null and phoneNumber != ''">
+                phone_number = #{phoneNumber},
+            </if>
+            <if test="profilePicture != null and profilePicture != ''">
+                profile_picture = #{profilePicture},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+
+    <!--通过ID删除用户-->
+    <delete id="deleteById">
+        delete from user where id = #{id}
+    </delete>
+
+</mapper>
