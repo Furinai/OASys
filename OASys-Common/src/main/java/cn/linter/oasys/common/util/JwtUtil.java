@@ -2,8 +2,6 @@ package cn.linter.oasys.common.util;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTCreationException;
-import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
 import java.util.Date;
@@ -37,18 +35,12 @@ public class JwtUtil {
      * @return Token
      */
     public static String generateToken(String secret, Long validTime, Long userid, String username, List<String> roles) {
-        String token = null;
-        try {
-            token = JWT.create()
-                    .withClaim("userid", userid)
-                    .withClaim("username", username)
-                    .withClaim("roles", roles)
-                    .withExpiresAt(new Date(System.currentTimeMillis() + validTime))
-                    .sign(Algorithm.HMAC512(secret.getBytes()));
-        } catch (JWTCreationException e) {
-            e.printStackTrace();
-        }
-        return TOKEN_PREFIX + token;
+        return TOKEN_PREFIX + JWT.create()
+                .withClaim("userid", userid)
+                .withClaim("username", username)
+                .withClaim("roles", roles)
+                .withExpiresAt(new Date(System.currentTimeMillis() + validTime))
+                .sign(Algorithm.HMAC512(secret.getBytes()));
     }
 
     /**
@@ -59,14 +51,8 @@ public class JwtUtil {
      * @return DecodedJWT实体
      */
     public static DecodedJWT verifyToken(String token, String secret) {
-        DecodedJWT jwt = null;
-        try {
-            jwt = JWT.require(Algorithm.HMAC512(secret.getBytes()))
-                    .build().verify(token.replace(JwtUtil.TOKEN_PREFIX, ""));
-        } catch (JWTVerificationException e) {
-            e.printStackTrace();
-        }
-        return jwt;
+        return JWT.require(Algorithm.HMAC512(secret.getBytes()))
+                .build().verify(token.replace(JwtUtil.TOKEN_PREFIX, ""));
     }
 
     /**
