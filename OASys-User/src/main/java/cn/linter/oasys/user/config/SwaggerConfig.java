@@ -35,8 +35,8 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.basePackage("cn.linter.oasys.user.controller"))
                 .paths(PathSelectors.any())
                 .build()
-                .securityContexts(Collections.singletonList(SecurityContext.builder()
-                        .securityReferences(defaultAuth()).build())
+                .securityContexts(Collections.singletonList(
+                        SecurityContext.builder().securityReferences(defaultAuth()).build())
                 )
                 .securitySchemes(Collections.singletonList(
                         new ApiKey("Authorization", "Authorization", "header")
