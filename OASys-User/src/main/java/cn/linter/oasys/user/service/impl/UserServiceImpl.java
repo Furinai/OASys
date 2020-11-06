@@ -1,7 +1,7 @@
 package cn.linter.oasys.user.service.impl;
 
 
-import cn.linter.oasys.common.entity.User;
+import cn.linter.oasys.user.entity.User;
 import cn.linter.oasys.user.dao.UserDao;
 import cn.linter.oasys.user.service.UserService;
 import com.github.pagehelper.PageHelper;

@@ -15,5 +15,5 @@ spring:
     username: root
   jackson:
     date-format: yyyy-MM-dd HH:mm
-    default-property-inclusion: NON_NULL
+    default-property-inclusion: non_null
     time-zone: GMT+8

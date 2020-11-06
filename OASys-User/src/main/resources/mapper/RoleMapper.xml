@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.linter.oasys.user.dao.RoleDao">
 
-    <resultMap type="cn.linter.oasys.common.entity.Role" id="RoleMap">
+    <resultMap type="cn.linter.oasys.user.entity.Role" id="RoleMap">
         <result property="id" column="id"/>
         <result property="name" column="name"/>
     </resultMap>

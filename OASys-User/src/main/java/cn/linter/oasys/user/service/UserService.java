@@ -1,6 +1,6 @@
 package cn.linter.oasys.user.service;
 
-import cn.linter.oasys.common.entity.User;
+import cn.linter.oasys.user.entity.User;
 import com.github.pagehelper.PageInfo;
 
 /**

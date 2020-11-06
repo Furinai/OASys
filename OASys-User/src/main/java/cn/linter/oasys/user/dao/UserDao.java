@@ -1,6 +1,6 @@
 package cn.linter.oasys.user.dao;
 
-import cn.linter.oasys.common.entity.User;
+import cn.linter.oasys.user.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

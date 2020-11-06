@@ -1,7 +1,7 @@
 package cn.linter.oasys.user.controller;
 
 import cn.linter.oasys.common.entity.Response;
-import cn.linter.oasys.common.entity.User;
+import cn.linter.oasys.user.entity.User;
 import cn.linter.oasys.user.service.UserService;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
