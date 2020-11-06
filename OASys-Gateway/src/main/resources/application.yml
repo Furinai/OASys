@@ -1,0 +1,37 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: oauth-service
+          uri: lb://oauth-service
+          predicates:
+            - Path=/api/auth/**
+          filters:
+            - StripPrefix=2
+            - AddRequestParameter=client_id, oasys
+            - AddRequestParameter=client_secret, linter
+            - AddRequestParameter=grant_type, password
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/api/user/**
+          filters:
+            - StripPrefix=2
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+  jackson:
+    default-property-inclusion: non_null
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: localhost:8846/rsa/publicKey

@@ -1,0 +1,30 @@
+server:
+  port: 8846
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+spring:
+  application:
+    name: oauth-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+  datasource:
+    password: root
+    url: jdbc:mysql://localhost/oasys?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+  jackson:
+    default-property-inclusion: non_null
+key:
+  location: jwt.jks
+  password: linter
+  alias: jwt
+client:
+  id: oasys
+  secret: linter
+grant:
+  type: password
+  scope: all
+token:
+  validity:
+    second: 864000

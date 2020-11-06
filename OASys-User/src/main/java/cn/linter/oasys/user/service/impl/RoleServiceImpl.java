@@ -6,9 +6,8 @@ import cn.linter.oasys.user.dao.RoleDao;
 import cn.linter.oasys.user.service.RoleService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * 角色服务实现类
@@ -19,11 +18,8 @@ import java.util.List;
 @Service
 public class RoleServiceImpl implements RoleService {
 
-    private final RoleDao roleDao;
-
-    public RoleServiceImpl(RoleDao roleDao) {
-        this.roleDao = roleDao;
-    }
+    @Autowired
+    private RoleDao roleDao;
 
     /**
      * 通过ID查询单个角色
@@ -82,17 +78,6 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public boolean deleteById(Long id) {
         return roleDao.deleteById(id) > 0;
-    }
-
-    /**
-     * 通过用户ID查询所有角色
-     *
-     * @param userId 用户ID
-     * @return 角色列表
-     */
-    @Override
-    public List<Role> getAllRoleOfUser(Long userId) {
-        return roleDao.selectAllOfUser(userId);
     }
 
 }

@@ -63,14 +63,4 @@
         where id = #{id}
     </delete>
 
-
-    <!--通过用户ID查询所有角色-->
-    <select id="selectAllOfUser" resultType="cn.linter.oasys.common.entity.Role">
-        select role.id, role.name
-        from role,
-             user_role
-        where role.id = role_id
-          and user_id = #{userId}
-    </select>
-
 </mapper>

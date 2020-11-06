@@ -1,5 +1,6 @@
-package cn.linter.oasys.gateway.entiry;
+package cn.linter.oasys.oauth.entity;
 
+import cn.linter.oasys.common.entity.Role;
 import cn.linter.oasys.common.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -32,36 +33,28 @@ public class Principal implements UserDetails {
      */
     private String password;
     /**
-     * 角色列表
-     */
-    private List<String> roles;
-    /**
      * 权限列表
      */
     private List<GrantedAuthority> authorities;
 
     /**
-     * @param username 用户名
-     * @param roles    String类型角色列表
+     * 无参数构造方法
      */
-    public Principal(String username, List<String> roles) {
-        this.username = username;
-        this.roles = roles;
-        this.authorities = roles.stream()
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+    public Principal() {
     }
 
     /**
+     * 参数为 User和 Roles的构造方法
+     *
      * @param user  用户
      * @param roles Role类型角色列表
      */
-    public Principal(User user, List<String> roles) {
+    public Principal(User user, List<Role> roles) {
         this.id = user.getId();
         this.username = user.getUsername();
         this.password = user.getPassword();
-        this.roles = roles;
         this.authorities = roles.stream()
+                .map(Role::getName)
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }
@@ -136,14 +129,6 @@ public class Principal implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public List<String> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<String> roles) {
-        this.roles = roles;
     }
 
     public void setAuthorities(List<GrantedAuthority> authorities) {

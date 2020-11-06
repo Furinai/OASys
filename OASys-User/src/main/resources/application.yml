@@ -1,0 +1,19 @@
+server:
+  port: 8410
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+spring:
+  application:
+    name: user-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+  datasource:
+    password: root
+    url: jdbc:mysql://localhost/oasys?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+  jackson:
+    date-format: yyyy-MM-dd HH:mm
+    default-property-inclusion: NON_NULL
+    time-zone: GMT+8

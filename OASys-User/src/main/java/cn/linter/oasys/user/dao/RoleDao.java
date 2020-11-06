@@ -61,12 +61,4 @@ public interface RoleDao {
      */
     int deleteById(Long id);
 
-    /**
-     * 通过用户ID查询所有角色
-     *
-     * @param userId 用户ID
-     * @return 角色列表
-     */
-    List<Role> selectAllOfUser(Long userId);
-
 }

@@ -7,6 +7,7 @@ import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,11 +22,8 @@ import java.util.List;
 @RestController
 public class RoleController {
 
-    private final RoleService roleService;
-
-    public RoleController(RoleService roleService) {
-        this.roleService = roleService;
-    }
+    @Autowired
+    private RoleService roleService;
 
     /**
      * 通过ID查询单个角色
@@ -88,18 +86,6 @@ public class RoleController {
     @DeleteMapping("deleteRole")
     public Response<Boolean> deleteRole(@ApiParam("角色ID") Long id) {
         return Response.sendSuccess(roleService.deleteById(id));
-    }
-
-    /**
-     * 通过用户ID查询所有角色
-     *
-     * @param userId 用户ID
-     * @return 角色列表
-     */
-    @ApiOperation("通过用户ID查询所有角色")
-    @GetMapping("getAllRoleOfUser")
-    public Response<List<Role>> getAllRoleOfUser(@ApiParam("用户ID") Long userId) {
-        return Response.sendSuccess(roleService.getAllRoleOfUser(userId));
     }
 
 }

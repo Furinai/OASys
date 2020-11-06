@@ -19,7 +19,7 @@
 
     <!--通过ID查询单个用户-->
     <select id="selectById" resultMap="UserMap">
-        select id, username, password, name, sex, dept_id, email_address, phone_number, profile_picture, create_time, update_time
+        select id, username, name, sex, dept_id, email_address, phone_number, profile_picture, create_time, update_time
         from user
         where id = #{id}
     </select>
@@ -27,7 +27,7 @@
 
     <!--通过用户名查询单个用户-->
     <select id="selectByUsername" resultMap="UserMap">
-        select id, username, password, name, sex, dept_id, email_address, phone_number, profile_picture, create_time, update_time
+        select id, username, name, sex, dept_id, email_address, phone_number, profile_picture, create_time, update_time
         from user
         where username = #{username}
     </select>
@@ -35,14 +35,14 @@
 
     <!--查询所有用户-->
     <select id="selectAll" resultMap="UserMap">
-        select id, username, password, name, sex, dept_id, email_address, phone_number, profile_picture, create_time, update_time
+        select id, username, name, sex, dept_id, email_address, phone_number, profile_picture, create_time, update_time
         from user
     </select>
 
 
     <!--通过用户实体查询所有用户-->
     <select id="selectAllByEntity" resultMap="UserMap">
-        select id, username, password, name, sex, dept_id, email_address, phone_number, profile_picture, create_time, update_time
+        select id, username, name, sex, dept_id, email_address, phone_number, profile_picture, create_time, update_time
         from user
         <where>
             <if test="id != null">
