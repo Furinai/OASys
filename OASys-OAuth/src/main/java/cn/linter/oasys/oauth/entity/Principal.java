@@ -1,14 +1,10 @@
 package cn.linter.oasys.oauth.entity;
 
-import cn.linter.oasys.common.entity.Role;
-import cn.linter.oasys.common.entity.User;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 认证用户实体类
@@ -41,22 +37,6 @@ public class Principal implements UserDetails {
      * 无参数构造方法
      */
     public Principal() {
-    }
-
-    /**
-     * 参数为 User和 Roles的构造方法
-     *
-     * @param user  用户
-     * @param roles Role类型角色列表
-     */
-    public Principal(User user, List<Role> roles) {
-        this.id = user.getId();
-        this.username = user.getUsername();
-        this.password = user.getPassword();
-        this.authorities = roles.stream()
-                .map(Role::getName)
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
     }
 
     /**
