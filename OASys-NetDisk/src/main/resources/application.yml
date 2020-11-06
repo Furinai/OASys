@@ -1,0 +1,19 @@
+server:
+  port: 8420
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+spring:
+  application:
+    name: netdisk-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+  datasource:
+    password: root
+    url: jdbc:mysql://localhost/oasys?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+  jackson:
+    date-format: yyyy-MM-dd HH:mm
+    default-property-inclusion: non_null
+    time-zone: GMT+8
