@@ -8,7 +8,7 @@
     </resultMap>
 
     <!--通过ID查询单个角色-->
-    <select id="selectById" resultMap="RoleMap">
+    <select id="select" resultMap="RoleMap">
         select id, name
         from role
         where id = #{id}
@@ -16,7 +16,7 @@
 
 
     <!--查询所有角色-->
-    <select id="selectAll" resultMap="RoleMap">
+    <select id="list" resultMap="RoleMap">
         select id, name
         from role
     </select>
@@ -57,7 +57,7 @@
 
 
     <!--通过ID删除角色-->
-    <delete id="deleteById">
+    <delete id="delete">
         delete
         from role
         where id = #{id}

@@ -32,21 +32,9 @@ public class UserController {
      * @return 单个用户
      */
     @ApiOperation("通过ID查询单个用户")
-    @GetMapping("getUserById")
-    public Response<User> getUserById(@ApiParam("用户ID") Long id) {
-        return Response.sendSuccess(userService.getById(id));
-    }
-
-    /**
-     * 通过用户名查询单个用户
-     *
-     * @param username 用户名
-     * @return 单个用户
-     */
-    @ApiOperation("通过用户名查询单个用户")
-    @GetMapping("getUserByUsername")
-    public Response<User> getUserByUsername(@ApiParam("用户名") String username) {
-        return Response.sendSuccess(userService.getByUsername(username));
+    @GetMapping("user/{id}")
+    public Response<User> getUser(@PathVariable("id") @ApiParam("用户ID") Long id) {
+        return Response.sendSuccess(200, userService.get(id));
     }
 
     /**
@@ -57,11 +45,11 @@ public class UserController {
      * @return 用户列表
      */
     @ApiOperation("分页查询所有用户")
-    @GetMapping("getAllUser")
-    public Response<List<User>> getAllUser(@RequestParam(defaultValue = "1") @ApiParam("页号") int pageNumber,
-                                           @RequestParam(defaultValue = "10") @ApiParam("页大小") int pageSize) {
-        PageInfo<User> pageInfo = userService.getAll(pageNumber, pageSize);
-        return Response.sendSuccess(pageInfo.getList(), pageInfo.getTotal());
+    @GetMapping("users")
+    public Response<List<User>> getUsers(@RequestParam(defaultValue = "1") @ApiParam("页号") int pageNumber,
+                                         @RequestParam(defaultValue = "10") @ApiParam("页大小") int pageSize) {
+        PageInfo<User> pageInfo = userService.list(pageNumber, pageSize);
+        return Response.sendSuccess(200, pageInfo.getList(), pageInfo.getTotal());
     }
 
     /**
@@ -71,9 +59,9 @@ public class UserController {
      * @return 用户
      */
     @ApiOperation("新增用户")
-    @PostMapping("addUser")
+    @PostMapping("user")
     public Response<User> addUser(@RequestBody @ApiParam("用户") User user) {
-        return Response.sendSuccess(userService.add(user));
+        return Response.sendSuccess(201, userService.add(user));
     }
 
     /**
@@ -83,9 +71,9 @@ public class UserController {
      * @return 用户
      */
     @ApiOperation("更新用户")
-    @PutMapping("updateUser")
+    @PutMapping("user")
     public Response<User> updateUser(@RequestBody @ApiParam("用户") User user) {
-        return Response.sendSuccess(userService.update(user));
+        return Response.sendSuccess(200, userService.update(user));
     }
 
     /**
@@ -95,9 +83,9 @@ public class UserController {
      * @return 是否成功
      */
     @ApiOperation("通过ID删除用户")
-    @DeleteMapping("deleteUser")
+    @DeleteMapping("user")
     public Response<Boolean> deleteUser(@ApiParam("用户ID") Long id) {
-        return Response.sendSuccess(userService.deleteById(id));
+        return Response.sendSuccess(200, userService.delete(id));
     }
 
 }

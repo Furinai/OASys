@@ -1,8 +1,8 @@
 package cn.linter.oasys.user.service.impl;
 
 
-import cn.linter.oasys.user.entity.User;
 import cn.linter.oasys.user.dao.UserDao;
+import cn.linter.oasys.user.entity.User;
 import cn.linter.oasys.user.service.UserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -28,19 +28,8 @@ public class UserServiceImpl implements UserService {
      * @return 单个用户
      */
     @Override
-    public User getById(Long id) {
-        return userDao.selectById(id);
-    }
-
-    /**
-     * 通过用户名查询单个用户
-     *
-     * @param username 用户名
-     * @return 单个用户
-     */
-    @Override
-    public User getByUsername(String username) {
-        return userDao.selectByUsername(username);
+    public User get(Long id) {
+        return userDao.select(id);
     }
 
     /**
@@ -51,9 +40,9 @@ public class UserServiceImpl implements UserService {
      * @return 用户列表
      */
     @Override
-    public PageInfo<User> getAll(int pageNumber, int pageSize) {
+    public PageInfo<User> list(int pageNumber, int pageSize) {
         PageHelper.startPage(pageNumber, pageSize);
-        return PageInfo.of(userDao.selectAll());
+        return PageInfo.of(userDao.list());
     }
 
     /**
@@ -77,7 +66,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User update(User user) {
         userDao.update(user);
-        return getById(user.getId());
+        return get(user.getId());
     }
 
     /**
@@ -87,8 +76,8 @@ public class UserServiceImpl implements UserService {
      * @return 是否成功
      */
     @Override
-    public boolean deleteById(Long id) {
-        return userDao.deleteById(id) > 0;
+    public boolean delete(Long id) {
+        return userDao.delete(id) > 0;
     }
 
 }

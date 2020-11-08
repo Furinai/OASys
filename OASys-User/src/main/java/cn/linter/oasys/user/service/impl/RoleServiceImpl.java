@@ -1,8 +1,8 @@
 package cn.linter.oasys.user.service.impl;
 
 
-import cn.linter.oasys.user.entity.Role;
 import cn.linter.oasys.user.dao.RoleDao;
+import cn.linter.oasys.user.entity.Role;
 import cn.linter.oasys.user.service.RoleService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -28,8 +28,8 @@ public class RoleServiceImpl implements RoleService {
      * @return 单个角色
      */
     @Override
-    public Role getById(Long id) {
-        return roleDao.selectById(id);
+    public Role get(Long id) {
+        return roleDao.select(id);
     }
 
     /**
@@ -40,9 +40,9 @@ public class RoleServiceImpl implements RoleService {
      * @return 角色列表
      */
     @Override
-    public PageInfo<Role> getAll(int pageNumber, int pageSize) {
+    public PageInfo<Role> list(int pageNumber, int pageSize) {
         PageHelper.startPage(pageNumber, pageSize);
-        return PageInfo.of(roleDao.selectAll());
+        return PageInfo.of(roleDao.list());
     }
 
     /**
@@ -66,7 +66,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Role update(Role role) {
         roleDao.update(role);
-        return getById(role.getId());
+        return get(role.getId());
     }
 
     /**
@@ -76,8 +76,8 @@ public class RoleServiceImpl implements RoleService {
      * @return 是否成功
      */
     @Override
-    public boolean deleteById(Long id) {
-        return roleDao.deleteById(id) > 0;
+    public boolean delete(Long id) {
+        return roleDao.delete(id) > 0;
     }
 
 }

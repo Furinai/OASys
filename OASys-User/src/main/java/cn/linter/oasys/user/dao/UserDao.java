@@ -20,7 +20,7 @@ public interface UserDao {
      * @param id 用户ID
      * @return 单个用户
      */
-    User selectById(Long id);
+    User select(Long id);
 
     /**
      * 通过用户名查询单个用户
@@ -35,7 +35,7 @@ public interface UserDao {
      *
      * @return 用户列表
      */
-    List<User> selectAll();
+    List<User> list();
 
     /**
      * 通过用户实体查询所有用户
@@ -67,6 +67,6 @@ public interface UserDao {
      * @param id 用户ID
      * @return 是否成功
      */
-    int deleteById(Long id);
+    int delete(Long id);
 
 }

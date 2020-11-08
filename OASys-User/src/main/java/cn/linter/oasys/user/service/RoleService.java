@@ -17,7 +17,7 @@ public interface RoleService {
      * @param id 角色ID
      * @return 单个角色
      */
-    Role getById(Long id);
+    Role get(Long id);
 
     /**
      * 分页查询所有角色
@@ -26,7 +26,7 @@ public interface RoleService {
      * @param pageSize   页大小
      * @return 角色列表
      */
-    PageInfo<Role> getAll(int pageNumber, int pageSize);
+    PageInfo<Role> list(int pageNumber, int pageSize);
 
     /**
      * 新增角色
@@ -50,6 +50,6 @@ public interface RoleService {
      * @param id 角色ID
      * @return 是否成功
      */
-    boolean deleteById(Long id);
+    boolean delete(Long id);
 
 }

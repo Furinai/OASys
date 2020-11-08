@@ -30,7 +30,7 @@ public class KeyController {
      *
      * @return RSA公钥
      */
-    @GetMapping("/rsa/publicKey")
+    @GetMapping("/key/public")
     public Map<String, Object> getPublicKey() {
         RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
         RSAKey key = new RSAKey.Builder(publicKey).build();

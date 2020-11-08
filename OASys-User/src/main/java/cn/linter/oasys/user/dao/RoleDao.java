@@ -20,14 +20,14 @@ public interface RoleDao {
      * @param id 角色ID
      * @return 角色
      */
-    Role selectById(Long id);
+    Role select(Long id);
 
     /**
      * 查询所有角色
      *
      * @return 角色列表
      */
-    List<Role> selectAll();
+    List<Role> list();
 
     /**
      * 通过角色实体查询所有角色
@@ -59,6 +59,6 @@ public interface RoleDao {
      * @param id 角色ID
      * @return 影响行数
      */
-    int deleteById(Long id);
+    int delete(Long id);
 
 }

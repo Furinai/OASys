@@ -32,9 +32,9 @@ public class RoleController {
      * @return 单个角色
      */
     @ApiOperation("通过ID查询单个角色")
-    @GetMapping("getRoleById")
-    public Response<Role> getRoleById(@ApiParam("角色ID") Long id) {
-        return Response.sendSuccess(roleService.getById(id));
+    @GetMapping("role/{id}")
+    public Response<Role> getRole(@PathVariable("id") @ApiParam("角色ID") Long id) {
+        return Response.sendSuccess(200, roleService.get(id));
     }
 
     /**
@@ -45,11 +45,11 @@ public class RoleController {
      * @return 角色列表
      */
     @ApiOperation("分页查询所有角色")
-    @GetMapping("getAllRole")
-    public Response<List<Role>> getAllRole(@RequestParam(defaultValue = "1") @ApiParam("页号") int pageNumber,
-                                           @RequestParam(defaultValue = "10") @ApiParam("页大小") int pageSize) {
-        PageInfo<Role> pageInfo = roleService.getAll(pageNumber, pageSize);
-        return Response.sendSuccess(pageInfo.getList(), pageInfo.getTotal());
+    @GetMapping("roles")
+    public Response<List<Role>> getRoles(@RequestParam(defaultValue = "1") @ApiParam("页号") int pageNumber,
+                                         @RequestParam(defaultValue = "10") @ApiParam("页大小") int pageSize) {
+        PageInfo<Role> pageInfo = roleService.list(pageNumber, pageSize);
+        return Response.sendSuccess(200, pageInfo.getList(), pageInfo.getTotal());
     }
 
     /**
@@ -59,9 +59,9 @@ public class RoleController {
      * @return 角色
      */
     @ApiOperation("新增角色")
-    @PostMapping("addRole")
+    @PostMapping("role")
     public Response<Role> addRole(@RequestBody @ApiParam("角色") Role role) {
-        return Response.sendSuccess(roleService.add(role));
+        return Response.sendSuccess(201, roleService.add(role));
     }
 
     /**
@@ -71,9 +71,9 @@ public class RoleController {
      * @return 角色
      */
     @ApiOperation("更新角色")
-    @PutMapping("updateRole")
+    @PutMapping("role")
     public Response<Role> updateRole(@RequestBody @ApiParam("角色") Role role) {
-        return Response.sendSuccess(roleService.update(role));
+        return Response.sendSuccess(200, roleService.update(role));
     }
 
     /**
@@ -83,9 +83,9 @@ public class RoleController {
      * @return 是否成功
      */
     @ApiOperation("通过ID删除角色")
-    @DeleteMapping("deleteRole")
+    @DeleteMapping("role")
     public Response<Boolean> deleteRole(@ApiParam("角色ID") Long id) {
-        return Response.sendSuccess(roleService.deleteById(id));
+        return Response.sendSuccess(200, roleService.delete(id));
     }
 
 }

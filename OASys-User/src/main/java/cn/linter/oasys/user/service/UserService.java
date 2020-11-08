@@ -17,15 +17,7 @@ public interface UserService {
      * @param id 用户ID
      * @return 单个用户
      */
-    User getById(Long id);
-
-    /**
-     * 通过用户名查询单个用户
-     *
-     * @param username 用户名
-     * @return 单个用户
-     */
-    User getByUsername(String username);
+    User get(Long id);
 
     /**
      * 分页查询所有用户
@@ -34,7 +26,7 @@ public interface UserService {
      * @param pageSize   页大小
      * @return 用户列表
      */
-    PageInfo<User> getAll(int pageNumber, int pageSize);
+    PageInfo<User> list(int pageNumber, int pageSize);
 
     /**
      * 新增用户
@@ -58,6 +50,6 @@ public interface UserService {
      * @param id 用户ID
      * @return 是否成功
      */
-    boolean deleteById(Long id);
+    boolean delete(Long id);
 
 }

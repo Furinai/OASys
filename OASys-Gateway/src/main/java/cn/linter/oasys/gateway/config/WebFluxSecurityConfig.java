@@ -44,10 +44,10 @@ public class WebFluxSecurityConfig {
                 .permitAll()
                 .and().exceptionHandling()
                 .authenticationEntryPoint((exchange, exception) -> sendRestResponse(exchange,
-                        HttpStatus.UNAUTHORIZED, Response.sendError("未登录或已过期！"))
+                        HttpStatus.UNAUTHORIZED, Response.sendError(401, "未授权或已过期！"))
                 )
                 .accessDeniedHandler((exchange, exception) -> sendRestResponse(exchange,
-                        HttpStatus.FORBIDDEN, Response.sendError("没有权限进行此操作！")))
+                        HttpStatus.FORBIDDEN, Response.sendError(403, "没有权限进行此操作！")))
                 .and().csrf().disable()
                 .oauth2ResourceServer().jwt();
         return http.build();

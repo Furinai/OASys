@@ -13,14 +13,14 @@ import io.swagger.annotations.ApiModelProperty;
 public class Response<T> {
 
     /**
-     * 状态
+     * 状态码
      */
-    @ApiModelProperty("状态")
-    private String status;
+    @ApiModelProperty("状态码")
+    private Integer status;
     /**
-     * 信息
+     * 状态信息
      */
-    @ApiModelProperty("信息")
+    @ApiModelProperty("状态信息")
     private String message;
     /**
      * 数据
@@ -28,35 +28,22 @@ public class Response<T> {
     @ApiModelProperty("数据")
     private T data;
     /**
-     * 列表元素数量
+     * 数据总数
      */
-    @ApiModelProperty("列表数量")
+    @ApiModelProperty("数据总数")
     private Long size;
 
     /**
      * 返回成功响应
      *
-     * @param message 信息
-     * @param <T>     类型
+     * @param status 状态码
+     * @param data   数据
+     * @param <T>    类型
      * @return 响应
      */
-    public static <T> Response<T> sendSuccess(String message) {
+    public static <T> Response<T> sendSuccess(Integer status, T data) {
         Response<T> response = new Response<>();
-        response.setStatus("success");
-        response.setMessage(message);
-        return response;
-    }
-
-    /**
-     * 返回成功响应
-     *
-     * @param data 数据
-     * @param <T>  类型
-     * @return 响应
-     */
-    public static <T> Response<T> sendSuccess(T data) {
-        Response<T> response = new Response<>();
-        response.setStatus("success");
+        response.setStatus(status);
         response.setData(data);
         return response;
     }
@@ -64,48 +51,15 @@ public class Response<T> {
     /**
      * 返回成功响应
      *
-     * @param data 数据
-     * @param size 列表元素数量
-     * @param <T>  类型
+     * @param status 状态码
+     * @param data   数据
+     * @param size   数据总数
+     * @param <T>    类型
      * @return 响应
      */
-    public static <T> Response<T> sendSuccess(T data, Long size) {
+    public static <T> Response<T> sendSuccess(Integer status, T data, Long size) {
         Response<T> response = new Response<>();
-        response.setStatus("success");
-        response.setData(data);
-        response.setSize(size);
-        return response;
-    }
-
-    /**
-     * 返回成功响应
-     *
-     * @param message 信息
-     * @param data    数据
-     * @param <T>     类型
-     * @return 响应
-     */
-    public static <T> Response<T> sendSuccess(String message, T data) {
-        Response<T> response = new Response<>();
-        response.setStatus("success");
-        response.setMessage(message);
-        response.setData(data);
-        return response;
-    }
-
-    /**
-     * 返回成功响应
-     *
-     * @param message 信息
-     * @param data    数据
-     * @param size    列表元素数量
-     * @param <T>     类型
-     * @return 响应
-     */
-    public static <T> Response<T> sendSuccess(String message, T data, Long size) {
-        Response<T> response = new Response<>();
-        response.setStatus("success");
-        response.setMessage(message);
+        response.setStatus(status);
         response.setData(data);
         response.setSize(size);
         return response;
@@ -114,22 +68,23 @@ public class Response<T> {
     /**
      * 返回失败响应
      *
+     * @param status  状态码
      * @param message 信息
      * @param <T>     类型
      * @return 响应
      */
-    public static <T> Response<T> sendError(String message) {
+    public static <T> Response<T> sendError(Integer status, String message) {
         Response<T> response = new Response<>();
-        response.setStatus("error");
+        response.setStatus(status);
         response.setMessage(message);
         return response;
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

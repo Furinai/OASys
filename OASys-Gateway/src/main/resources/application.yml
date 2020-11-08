@@ -34,4 +34,4 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: localhost:8846/rsa/publicKey
+          jwk-set-uri: localhost:8846/key/public

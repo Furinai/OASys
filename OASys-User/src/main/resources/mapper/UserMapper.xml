@@ -18,7 +18,7 @@
 
 
     <!--通过ID查询单个用户-->
-    <select id="selectById" resultMap="UserMap">
+    <select id="select" resultMap="UserMap">
         select id, username, name, sex, dept_id, email_address, phone_number, profile_picture, create_time, update_time
         from user
         where id = #{id}
@@ -34,7 +34,7 @@
 
 
     <!--查询所有用户-->
-    <select id="selectAll" resultMap="UserMap">
+    <select id="list" resultMap="UserMap">
         select id, username, name, sex, dept_id, email_address, phone_number, profile_picture, create_time, update_time
         from user
     </select>
@@ -129,7 +129,7 @@
 
 
     <!--通过ID删除用户-->
-    <delete id="deleteById">
+    <delete id="delete">
         delete from user where id = #{id}
     </delete>
 
