@@ -23,14 +23,6 @@ public interface UserDao {
     User select(Long id);
 
     /**
-     * 通过用户名查询单个用户
-     *
-     * @param username 用户名
-     * @return 单个用户
-     */
-    User selectByUsername(String username);
-
-    /**
      * 查询所有用户
      *
      * @return 用户列表

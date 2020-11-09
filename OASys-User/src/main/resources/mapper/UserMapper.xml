@@ -24,15 +24,6 @@
         where id = #{id}
     </select>
 
-
-    <!--通过用户名查询单个用户-->
-    <select id="selectByUsername" resultMap="UserMap">
-        select id, username, name, sex, dept_id, email_address, phone_number, profile_picture, create_time, update_time
-        from user
-        where username = #{username}
-    </select>
-
-
     <!--查询所有用户-->
     <select id="list" resultMap="UserMap">
         select id, username, name, sex, dept_id, email_address, phone_number, profile_picture, create_time, update_time
