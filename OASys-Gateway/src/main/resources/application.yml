@@ -25,6 +25,12 @@ spring:
             - Path=/api/user/**
           filters:
             - StripPrefix=2
+        - id: netdisk-service
+          uri: lb://netdisk-service
+          predicates:
+            - Path=/api/netdisk/**
+          filters:
+            - StripPrefix=2
     nacos:
       discovery:
         server-addr: localhost:8848
