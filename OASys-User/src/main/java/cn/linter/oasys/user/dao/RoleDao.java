@@ -35,7 +35,7 @@ public interface RoleDao {
      * @param role 角色
      * @return 角色列表
      */
-    List<Role> selectAllByEntity(Role role);
+    List<Role> listByEntity(Role role);
 
     /**
      * 新增角色

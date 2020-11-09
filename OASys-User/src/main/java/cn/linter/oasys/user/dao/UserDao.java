@@ -35,7 +35,7 @@ public interface UserDao {
      * @param user 用户
      * @return 用户列表
      */
-    List<User> selectAllByEntity(User user);
+    List<User> listByEntity(User user);
 
     /**
      * 新增用户

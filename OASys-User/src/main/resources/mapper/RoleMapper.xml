@@ -23,7 +23,7 @@
 
 
     <!--通过角色实体查询所有角色-->
-    <select id="selectAllByEntity" resultMap="RoleMap">
+    <select id="listByEntity" resultMap="RoleMap">
         select id, name
         from role
         <where>

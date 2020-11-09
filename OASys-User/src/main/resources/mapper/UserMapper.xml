@@ -32,7 +32,7 @@
 
 
     <!--通过用户实体查询所有用户-->
-    <select id="selectAllByEntity" resultMap="UserMap">
+    <select id="listByEntity" resultMap="UserMap">
         select id, username, name, sex, dept_id, email_address, phone_number, profile_picture, create_time, update_time
         from user
         <where>
