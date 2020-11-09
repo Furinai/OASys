@@ -9,7 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>NetDisk</artifactId>
+    <artifactId>OASys-NetDisk</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>
