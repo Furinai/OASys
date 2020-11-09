@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
      * @return 单个用户
      */
     @Override
-    public User get(Long id) {
+    public User query(Long id) {
         return userDao.select(id);
     }
 
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
      * @return 用户
      */
     @Override
-    public User add(User user) {
+    public User create(User user) {
         userDao.insert(user);
         return user;
     }
@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User update(User user) {
         userDao.update(user);
-        return get(user.getId());
+        return query(user.getId());
     }
 
     /**

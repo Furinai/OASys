@@ -17,7 +17,7 @@ public interface RoleService {
      * @param id 角色ID
      * @return 单个角色
      */
-    Role get(Long id);
+    Role query(Long id);
 
     /**
      * 分页查询所有角色
@@ -34,7 +34,7 @@ public interface RoleService {
      * @param role 角色
      * @return 角色
      */
-    Role add(Role role);
+    Role create(Role role);
 
     /**
      * 更新角色

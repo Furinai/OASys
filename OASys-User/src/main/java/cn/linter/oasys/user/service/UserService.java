@@ -17,7 +17,7 @@ public interface UserService {
      * @param id 用户ID
      * @return 单个用户
      */
-    User get(Long id);
+    User query(Long id);
 
     /**
      * 分页查询所有用户
@@ -34,7 +34,7 @@ public interface UserService {
      * @param user 用户
      * @return 用户
      */
-    User add(User user);
+    User create(User user);
 
     /**
      * 更新用户

@@ -27,7 +27,7 @@ public class RoleServiceImpl implements RoleService {
      * @return 单个角色
      */
     @Override
-    public Role get(Long id) {
+    public Role query(Long id) {
         return roleDao.select(id);
     }
 
@@ -51,7 +51,7 @@ public class RoleServiceImpl implements RoleService {
      * @return 角色
      */
     @Override
-    public Role add(Role role) {
+    public Role create(Role role) {
         roleDao.insert(role);
         return role;
     }
@@ -65,7 +65,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Role update(Role role) {
         roleDao.update(role);
-        return get(role.getId());
+        return query(role.getId());
     }
 
     /**

@@ -33,8 +33,8 @@ public class UserController {
      */
     @ApiOperation("通过ID查询单个用户")
     @GetMapping("user/{id}")
-    public Response<User> getUser(@PathVariable("id") @ApiParam("用户ID") Long id) {
-        return Response.sendSuccess(200, userService.get(id));
+    public Response<User> queryUser(@PathVariable("id") @ApiParam("用户ID") Long id) {
+        return Response.sendSuccess(200, userService.query(id));
     }
 
     /**
@@ -46,7 +46,7 @@ public class UserController {
      */
     @ApiOperation("分页查询所有用户")
     @GetMapping("users")
-    public Response<List<User>> getUsers(@RequestParam(defaultValue = "1") @ApiParam("页号") int pageNumber,
+    public Response<List<User>> listUser(@RequestParam(defaultValue = "1") @ApiParam("页号") int pageNumber,
                                          @RequestParam(defaultValue = "10") @ApiParam("页大小") int pageSize) {
         PageInfo<User> pageInfo = userService.list(pageNumber, pageSize);
         return Response.sendSuccess(200, pageInfo.getList(), pageInfo.getTotal());
@@ -60,8 +60,8 @@ public class UserController {
      */
     @ApiOperation("新增用户")
     @PostMapping("user")
-    public Response<User> addUser(@RequestBody @ApiParam("用户") User user) {
-        return Response.sendSuccess(201, userService.add(user));
+    public Response<User> createUser(@RequestBody @ApiParam("用户") User user) {
+        return Response.sendSuccess(201, userService.create(user));
     }
 
     /**

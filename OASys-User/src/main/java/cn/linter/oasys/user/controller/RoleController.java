@@ -33,8 +33,8 @@ public class RoleController {
      */
     @ApiOperation("通过ID查询单个角色")
     @GetMapping("role/{id}")
-    public Response<Role> getRole(@PathVariable("id") @ApiParam("角色ID") Long id) {
-        return Response.sendSuccess(200, roleService.get(id));
+    public Response<Role> queryRole(@PathVariable("id") @ApiParam("角色ID") Long id) {
+        return Response.sendSuccess(200, roleService.query(id));
     }
 
     /**
@@ -46,7 +46,7 @@ public class RoleController {
      */
     @ApiOperation("分页查询所有角色")
     @GetMapping("roles")
-    public Response<List<Role>> getRoles(@RequestParam(defaultValue = "1") @ApiParam("页号") int pageNumber,
+    public Response<List<Role>> listRole(@RequestParam(defaultValue = "1") @ApiParam("页号") int pageNumber,
                                          @RequestParam(defaultValue = "10") @ApiParam("页大小") int pageSize) {
         PageInfo<Role> pageInfo = roleService.list(pageNumber, pageSize);
         return Response.sendSuccess(200, pageInfo.getList(), pageInfo.getTotal());
@@ -60,8 +60,8 @@ public class RoleController {
      */
     @ApiOperation("新增角色")
     @PostMapping("role")
-    public Response<Role> addRole(@RequestBody @ApiParam("角色") Role role) {
-        return Response.sendSuccess(201, roleService.add(role));
+    public Response<Role> createRole(@RequestBody @ApiParam("角色") Role role) {
+        return Response.sendSuccess(201, roleService.create(role));
     }
 
     /**
