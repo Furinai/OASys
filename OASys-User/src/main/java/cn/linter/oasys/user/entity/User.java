@@ -1,6 +1,5 @@
 package cn.linter.oasys.user.entity;
 
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 

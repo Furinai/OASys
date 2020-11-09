@@ -1,6 +1,5 @@
 package cn.linter.oasys.user.service.impl;
 
-
 import cn.linter.oasys.user.dao.RoleDao;
 import cn.linter.oasys.user.entity.Role;
 import cn.linter.oasys.user.service.RoleService;

@@ -1,6 +1,5 @@
 package cn.linter.oasys.oauth.dao;
 
-
 import cn.linter.oasys.oauth.entity.Principal;
 import org.apache.ibatis.annotations.Mapper;
 
