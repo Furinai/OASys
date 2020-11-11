@@ -25,6 +25,3 @@ minio:
   bucketName: net-disk
   accessKey: oasys
   secretKey: linter.cn
-logging:
-  level:
-    cn.linter.oasys.netdisk.dao: debug

@@ -14,6 +14,6 @@ spring:
     url: jdbc:mysql://localhost/oasys?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
     username: root
   jackson:
-    date-format: yyyy-MM-dd HH:mm
     default-property-inclusion: non_null
+    date-format: yyyy-MM-dd HH:mm
     time-zone: GMT+8
