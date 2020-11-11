@@ -10,12 +10,12 @@ import java.time.LocalDateTime;
  * 文件实体类
  *
  * @author wangxiaoyang
- * @since 2020/11/09
+ * @since 2020/11/10
  */
 @ApiModel("文件")
 public class NetFile implements Serializable {
 
-    private static final long serialVersionUID = 559084664701137480L;
+    private static final long serialVersionUID = 223089641003572200L;
     /**
      * 主键ID
      */
@@ -45,7 +45,7 @@ public class NetFile implements Serializable {
      * 用户ID
      */
     @ApiModelProperty("用户ID")
-    private Integer userId;
+    private Long userId;
     /**
      * 用户姓名
      */
@@ -55,12 +55,12 @@ public class NetFile implements Serializable {
      * 父级ID
      */
     @ApiModelProperty("父级ID")
-    private Integer parentId;
+    private Long parentId;
     /**
-     * 是否公共
+     * 是否共享
      */
-    @ApiModelProperty("是否公共")
-    private Boolean isPublic;
+    @ApiModelProperty("是否共享")
+    private Boolean shared;
     /**
      * 创建时间
      */
@@ -71,6 +71,11 @@ public class NetFile implements Serializable {
      */
     @ApiModelProperty("修改时间")
     private LocalDateTime updateTime;
+    /**
+     * content-type
+     */
+    @ApiModelProperty("content-type")
+    private String contentType;
 
     public Long getId() {
         return id;
@@ -112,11 +117,11 @@ public class NetFile implements Serializable {
         this.size = size;
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -128,20 +133,20 @@ public class NetFile implements Serializable {
         this.userName = userName;
     }
 
-    public Integer getParentId() {
+    public Long getParentId() {
         return parentId;
     }
 
-    public void setParentId(Integer parentId) {
+    public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
 
-    public Boolean getIsPublic() {
-        return isPublic;
+    public Boolean getShared() {
+        return shared;
     }
 
-    public void setIsPublic(Boolean isPublic) {
-        this.isPublic = isPublic;
+    public void setShared(Boolean shared) {
+        this.shared = shared;
     }
 
     public LocalDateTime getCreateTime() {
@@ -158,6 +163,14 @@ public class NetFile implements Serializable {
 
     public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
     }
 
 }

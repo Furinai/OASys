@@ -37,6 +37,19 @@ public class Response<T> {
      * 返回成功响应
      *
      * @param status 状态码
+     * @param <T>    类型
+     * @return 响应
+     */
+    public static <T> Response<T> sendSuccess(Integer status) {
+        Response<T> response = new Response<>();
+        response.setStatus(status);
+        return response;
+    }
+
+    /**
+     * 返回成功响应
+     *
+     * @param status 状态码
      * @param data   数据
      * @param <T>    类型
      * @return 响应

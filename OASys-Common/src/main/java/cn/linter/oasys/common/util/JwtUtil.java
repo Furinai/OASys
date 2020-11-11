@@ -15,7 +15,7 @@ public class JwtUtil {
     /**
      * Token前缀
      */
-    public static final String TOKEN_PREFIX = "Bearer ";
+    public static final String TOKEN_PREFIX = "bearer ";
 
     /**
      * 从Token获取用户ID
@@ -23,8 +23,14 @@ public class JwtUtil {
      * @param token Token
      * @return 用户ID
      */
-    public static Long getUserId(String token) throws ParseException {
-        JWSObject jwsObject = JWSObject.parse(token.replace(TOKEN_PREFIX, ""));
+    public static Long getUserId(String token) {
+        JWSObject jwsObject = null;
+        try {
+            jwsObject = JWSObject.parse(token.replace(TOKEN_PREFIX, ""));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        assert jwsObject != null;
         return Long.parseLong((String) jwsObject.getPayload().toJSONObject().get("user_id"));
     }
 
@@ -34,8 +40,14 @@ public class JwtUtil {
      * @param token Token
      * @return 用户名
      */
-    public static String getUsername(String token) throws ParseException {
-        JWSObject jwsObject = JWSObject.parse(token.replace(TOKEN_PREFIX, ""));
+    public static String getUserame(String token) {
+        JWSObject jwsObject = null;
+        try {
+            jwsObject = JWSObject.parse(token.replace(TOKEN_PREFIX, ""));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        assert jwsObject != null;
         return (String) jwsObject.getPayload().toJSONObject().get("user_name");
     }
 

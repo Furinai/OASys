@@ -9,7 +9,7 @@ import java.util.List;
  * 文件数据库访问层
  *
  * @author wangxiaoyang
- * @since 2020/11/09
+ * @since 2020/11/10
  */
 @Mapper
 public interface NetFileDao {
@@ -25,39 +25,32 @@ public interface NetFileDao {
     /**
      * 查询所有文件
      *
+     * @param netFile 文件实例
      * @return 文件列表
      */
-    List<NetFile> list();
-
-    /**
-     * 通过文件实体查询所有文件
-     *
-     * @param netFile 文件
-     * @return 文件列表
-     */
-    List<NetFile> listByEntity(NetFile netFile);
+    List<NetFile> list(NetFile netFile);
 
     /**
      * 新增文件
      *
-     * @param netFile 文件
-     * @return 文件
+     * @param netFile 文件实例
+     * @return 文件实例
      */
     int insert(NetFile netFile);
 
     /**
      * 更新文件
      *
-     * @param netFile 文件
-     * @return 文件
+     * @param netFile 文件实例
+     * @return 影响的行数
      */
     int update(NetFile netFile);
 
     /**
-     * 通过文件ID删除文件
+     * 删除文件
      *
      * @param id 文件ID
-     * @return 是否成功
+     * @return 影响的行数
      */
     int delete(Long id);
 

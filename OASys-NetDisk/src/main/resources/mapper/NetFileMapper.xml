@@ -11,110 +11,57 @@
         <result property="userId" column="user_id"/>
         <result property="userName" column="user_name"/>
         <result property="parentId" column="parent_id"/>
-        <result property="isPublic" column="is_public"/>
+        <result property="shared" column="is_shared"/>
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
+        <result property="contentType" column="content_type"/>
     </resultMap>
 
     <!--通过ID查询单个文件-->
     <select id="select" resultMap="NetFileMap">
-        select id, name, path, type, size, user_id, user_name, parent_id, is_public, create_time, update_time
+        select id, name, path, type, size, user_id, user_name, parent_id, is_shared, create_time, update_time
         from net_file
         where id = #{id}
     </select>
 
     <!--查询所有文件-->
     <select id="list" resultMap="NetFileMap">
-        select id, name, path, type, size, user_id, user_name, parent_id, is_public, create_time, update_time
-        from net_file
-    </select>
-
-    <!--通过文件实体查询所有文件-->
-    <select id="listByEntity" resultMap="NetFileMap">
-        select id, name, path, type, size, user_id, user_name, parent_id, is_public, create_time, update_time
+        select id, name, path, type, size, user_id, user_name, parent_id, is_shared, create_time, update_time, content_type
         from net_file
         <where>
-            <if test="id != null">
-                and id = #{id}
-            </if>
-            <if test="name != null and name != ''">
-                and name = #{name}
-            </if>
-            <if test="path != null and path != ''">
-                and path = #{path}
-            </if>
-            <if test="type != null and type != ''">
-                and type = #{type}
-            </if>
-            <if test="size != null and size != ''">
-                and size = #{size}
+            <if test="parentId != null">
+                and parent_id = #{parentId}
             </if>
             <if test="userId != null">
                 and user_id = #{userId}
             </if>
-            <if test="userName != null and userName != ''">
-                and user_name = #{userName}
-            </if>
-            <if test="parentId != null">
-                and parent_id = #{parentId}
-            </if>
-            <if test="isPublic != null">
-                and is_public = #{isPublic}
-            </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
-            </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
+            <if test="shared != null">
+                and is_shared = #{shared}
             </if>
         </where>
     </select>
 
     <!--插入单个文件-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into net_file(name, path, type, size, user_id, user_name, parent_id, is_public, create_time, update_time)
-        values (#{name}, #{path}, #{type}, #{size}, #{userId}, #{userName}, #{parentId}, #{isPublic}, #{createTime}, #{updateTime})
+        insert into net_file(name, path, type, size, user_id, user_name, parent_id, is_shared, create_time, update_time,content_type)
+        values (#{name}, #{path}, #{type}, #{size}, #{userId}, #{userName}, #{parentId}, 0, now(), now(), #{contentType})
     </insert>
 
-    <!--通过ID更新文件-->
+    <!--更新文件-->
     <update id="update">
         update net_file
-        <set>
-            <if test="name != null and name != ''">
-                name = #{name},
-            </if>
-            <if test="path != null and path != ''">
-                path = #{path},
-            </if>
-            <if test="type != null and type != ''">
-                type = #{type},
-            </if>
-            <if test="size != null and size != ''">
-                size = #{size},
-            </if>
-            <if test="userId != null">
-                user_id = #{userId},
-            </if>
-            <if test="userName != null and userName != ''">
-                user_name = #{userName},
-            </if>
-            <if test="parentId != null">
-                parent_id = #{parentId},
-            </if>
-            <if test="isPublic != null">
-                is_public = #{isPublic},
-            </if>
-            <if test="createTime != null">
-                create_time = #{createTime},
-            </if>
-            <if test="updateTime != null">
-                update_time = #{updateTime},
-            </if>
-        </set>
+        set
+        <if test="name != null and name != ''">
+            name = #{name},
+        </if>
+        <if test="shared != null">
+            is_shared = #{shared},
+        </if>
+        update_time = now()
         where id = #{id}
     </update>
 
-    <!--通过ID删除文件-->
+    <!--删除文件-->
     <delete id="delete">
         delete
         from net_file
