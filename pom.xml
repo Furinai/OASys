@@ -3,8 +3,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <modules>
-        <module>OASys-Gateway</module>
+        <module>OASys-Announcement</module>
         <module>OASys-Common</module>
+        <module>OASys-Gateway</module>
         <module>OASys-NetDisk</module>
         <module>OASys-OAuth</module>
         <module>OASys-User</module>
