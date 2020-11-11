@@ -34,8 +34,6 @@ spring:
     nacos:
       discovery:
         server-addr: localhost:8848
-  jackson:
-    default-property-inclusion: non_null
   security:
     oauth2:
       resourceserver:
