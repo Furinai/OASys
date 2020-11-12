@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.linter.oasys.attendance.dao.AttendanceDao">
+
+    <resultMap type="cn.linter.oasys.attendance.entity.Attendance" id="AttendanceMap">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="clockDate" column="clock_date"/>
+        <result property="clockInTime" column="clock_in_time"/>
+        <result property="clockOutTime" column="clock_out_time"/>
+        <result property="clockDescription" column="clock_description"/>
+    </resultMap>
+
+    <!--通过配置名查询配置值-->
+    <select id="selectSettingByName" resultType="string">
+        select value
+        from attendance_setting
+        where name = #{name}
+    </select>
+
+    <!--通过用户ID查询单个考勤-->
+    <select id="selectByUserId" resultMap="AttendanceMap">
+        select id, user_id, clock_date, clock_in_time, clock_out_time, clock_description
+        from attendance_record
+        where user_id = #{userId}
+          and clock_date = curdate()
+    </select>
+
+    <!--通过用户ID查询所有考勤-->
+    <select id="listByUserId" resultMap="AttendanceMap">
+        select id, user_id, clock_date, clock_in_time, clock_out_time, clock_description
+        from attendance_record
+        where user_id = #{userId}
+          and year(clock_date) = #{year}
+          and month(clock_date) = #{month}
+    </select>
+
+    <!--插入考勤-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into attendance_record(user_id, clock_date, clock_in_time, clock_out_time, clock_description)
+        values (#{userId}, curdate(), #{clockInTime}, #{clockOutTime}, #{clockDescription})
+    </insert>
+
+    <!--更新考勤-->
+    <update id="update">
+        update attendance_record
+        <set>
+            <if test="clockInTime != null">
+                clock_in_time = #{clockInTime},
+            </if>
+            <if test="clockOutTime != null">
+                clock_out_time = #{clockOutTime},
+            </if>
+            <if test="clockDescription != null">
+                clock_description = #{clockDescription},
+            </if>
+        </set>
+        where user_id = #{userId}
+    </update>
+
+</mapper>

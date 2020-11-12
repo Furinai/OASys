@@ -64,6 +64,38 @@ public class Response<T> {
     /**
      * 返回成功响应
      *
+     * @param status  状态码
+     * @param message 信息
+     * @param <T>     类型
+     * @return 响应
+     */
+    public static <T> Response<T> sendSuccess(Integer status, String message) {
+        Response<T> response = new Response<>();
+        response.setStatus(status);
+        response.setMessage(message);
+        return response;
+    }
+
+    /**
+     * 返回成功响应
+     *
+     * @param status  状态码
+     * @param message 信息
+     * @param data    数据
+     * @param <T>     类型
+     * @return 响应
+     */
+    public static <T> Response<T> sendSuccess(Integer status, String message, T data) {
+        Response<T> response = new Response<>();
+        response.setStatus(status);
+        response.setMessage(message);
+        response.setData(data);
+        return response;
+    }
+
+    /**
+     * 返回成功响应
+     *
      * @param status 状态码
      * @param data   数据
      * @param size   数据总数

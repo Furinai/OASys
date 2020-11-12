@@ -37,6 +37,12 @@ spring:
             - Path=/api/announcement/**
           filters:
             - StripPrefix=2
+        - id: attendance-service
+          uri: lb://attendance-service
+          predicates:
+            - Path=/api/attendance/**
+          filters:
+            - StripPrefix=2
     nacos:
       discovery:
         server-addr: localhost:8848
