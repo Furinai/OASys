@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @ApiModel("公告")
 public class Announcement implements Serializable {
 
-    private static final long serialVersionUID = -96821173825235244L;
+    private static final long serialVersionUID = 673395149825805162L;
     /**
      * 主键ID
      */

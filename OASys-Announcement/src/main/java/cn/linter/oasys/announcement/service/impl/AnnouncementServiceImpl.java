@@ -3,10 +3,10 @@ package cn.linter.oasys.announcement.service.impl;
 import cn.linter.oasys.announcement.dao.AnnouncementDao;
 import cn.linter.oasys.announcement.entity.Announcement;
 import cn.linter.oasys.announcement.service.AnnouncementService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * 公告服务实现类
@@ -26,8 +26,9 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     }
 
     @Override
-    public List<Announcement> list() {
-        return announcementDao.list();
+    public PageInfo<Announcement> list(int pageNumber, int pageSize) {
+        PageHelper.startPage(pageNumber, pageSize);
+        return PageInfo.of(announcementDao.list());
     }
 
     @Override

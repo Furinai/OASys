@@ -3,6 +3,7 @@ package cn.linter.oasys.announcement.controller;
 import cn.linter.oasys.announcement.entity.Announcement;
 import cn.linter.oasys.announcement.service.AnnouncementService;
 import cn.linter.oasys.common.entity.Response;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -32,8 +33,10 @@ public class AnnouncementController {
 
     @ApiOperation("分页查询所有公告")
     @GetMapping("announcements")
-    public Response<List<Announcement>> listAnnouncement() {
-        return Response.sendSuccess(200, announcementService.list());
+    public Response<List<Announcement>> listAnnouncement(@RequestParam(defaultValue = "1") @ApiParam("页号") int pageNumber,
+                                                         @RequestParam(defaultValue = "10") @ApiParam("页大小") int pageSize) {
+        PageInfo<Announcement> pageInfo = announcementService.list(pageNumber, pageSize);
+        return Response.sendSuccess(200, pageInfo.getList(), pageInfo.getTotal());
     }
 
     @ApiOperation("新增公告")

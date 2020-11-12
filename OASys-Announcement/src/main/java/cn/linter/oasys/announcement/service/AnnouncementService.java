@@ -1,8 +1,7 @@
 package cn.linter.oasys.announcement.service;
 
 import cn.linter.oasys.announcement.entity.Announcement;
-
-import java.util.List;
+import com.github.pagehelper.PageInfo;
 
 /**
  * 公告服务接口
@@ -21,11 +20,13 @@ public interface AnnouncementService {
     Announcement query(Long id);
 
     /**
-     * 查询所有公告
+     * 分页查询所有公告
      *
+     * @param pageNumber 页号
+     * @param pageSize   页大小
      * @return 公告列表
      */
-   List<Announcement> list();
+    PageInfo<Announcement> list(int pageNumber, int pageSize);
 
     /**
      * 新增公告
