@@ -43,7 +43,7 @@ public class AttendanceController {
     public Response<Attendance> clockIn(@RequestBody @ApiParam("考勤") Attendance attendance) {
         Attendance existingAttendance = attendanceService.queryByUserId(attendance.getUserId());
         if (existingAttendance != null) {
-            Response.sendError(400, "你已经签到过了！");
+            return Response.sendError(400, "你已经签到过了！");
         }
         String workingHoursStart = attendanceService.querySettingByName("working_hours_start");
         Duration duration = Duration.between(LocalTime.parse(workingHoursStart), LocalTime.now());
@@ -60,7 +60,7 @@ public class AttendanceController {
     public Response<?> clockOut(@RequestBody @ApiParam("考勤") Attendance attendance) {
         Attendance existingAttendance = attendanceService.queryByUserId(attendance.getUserId());
         if (existingAttendance == null) {
-            Response.sendError(400, "你还没有签到！");
+            return Response.sendError(400, "你还没有签到！");
         }
         String workingHoursEnd = attendanceService.querySettingByName("working_hours_end");
         Duration duration = Duration.between(LocalTime.now(), LocalTime.parse(workingHoursEnd));
