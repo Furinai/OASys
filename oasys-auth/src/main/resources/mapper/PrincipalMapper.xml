@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.linter.oasys.auth.dao.PrincipalDao">
+
+    <resultMap type="cn.linter.oasys.auth.entity.Principal" id="PrincipalMap">
+        <result property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <collection property="authorities" ofType="org.springframework.security.core.authority.SimpleGrantedAuthority">
+            <constructor>
+                <arg column="name" javaType="string"/>
+            </constructor>
+        </collection>
+    </resultMap>
+
+    <!--通过用户名查询单个Principal-->
+    <select id="selectPrincipalByUsername" resultMap="PrincipalMap">
+        select u.id, u.username, u.password, r.name
+        from user u, role r, user_role u_r
+        where u.username = #{username}
+          and u.id = u_r.user_id
+          and r.id = u_r.role_id
+    </select>
+
+</mapper>

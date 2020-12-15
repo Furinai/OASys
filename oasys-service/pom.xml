@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <modules>
+        <module>oasys-chatting</module>
+        <module>oasys-document</module>
+        <module>oasys-information</module>
+        <module>oasys-personnel</module>
+    </modules>
+
+    <parent>
+        <artifactId>oasys</artifactId>
+        <groupId>cn.linter</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>oasys-service</artifactId>
+    <packaging>pom</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>cn.linter</groupId>
+            <artifactId>oasys-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>${springfox.version}</version>
+        </dependency>
+    </dependencies>
+    
+</project>

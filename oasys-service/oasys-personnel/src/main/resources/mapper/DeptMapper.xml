@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.linter.oasys.personnel.dao.DeptDao">
+
+    <resultMap type="cn.linter.oasys.personnel.entity.Dept" id="DeptMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+    </resultMap>
+
+    <!--通过ID查询单个部门-->
+    <select id="select" resultMap="DeptMap">
+        select id, name
+        from dept
+        where id = #{id}
+    </select>
+
+    <!--查询所有部门-->
+    <select id="list" resultMap="DeptMap">
+        select id, name
+        from dept
+    </select>
+
+    <!--通过部门实体查询所有部门-->
+    <select id="listByEntity" resultMap="DeptMap">
+        select id, name
+        from dept
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+        </where>
+    </select>
+
+    <!--插入单个部门-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into dept(name)
+        values (#{name})
+    </insert>
+
+    <!--更新部门-->
+    <update id="update">
+        update dept
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--删除部门-->
+    <delete id="delete">
+        delete
+        from dept
+        where id = #{id}
+    </delete>
+
+</mapper>

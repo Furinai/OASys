@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.linter.oasys.personnel.dao.UserDao">
+
+    <resultMap type="cn.linter.oasys.personnel.entity.User" id="UserMap">
+        <result property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="name" column="name"/>
+        <result property="sex" column="sex"/>
+        <result property="emailAddress" column="email_address"/>
+        <result property="phoneNumber" column="phone_number"/>
+        <result property="profilePicture" column="profile_picture"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <association property="dept" javaType="cn.linter.oasys.personnel.entity.Dept">
+            <id property="id" column="dept_id"/>
+            <result property="name" column="dept_name"/>
+        </association>
+    </resultMap>
+
+    <!--通过ID查询单个用户-->
+    <select id="select" resultMap="UserMap">
+        select u.id, u.username, u.name, u.sex, u.dept_id, u.email_address, u.phone_number, u.profile_picture, u.create_time, u.update_time,
+               d.id as dept_id, d.name as dept_name
+        from user u, dept d
+        where u.dept_id = d.id
+          and u.id = #{id}
+    </select>
+
+    <!--查询所有用户-->
+    <select id="list" resultMap="UserMap">
+        select u.id, u.username, u.name, u.sex, u.dept_id, u.email_address, u.phone_number, u.profile_picture, u.create_time, u.update_time,
+               d.id as dept_id, d.name as dept_name
+        from user u, dept d
+        where u.dept_id = d.id
+    </select>
+
+    <!--通过用户实体查询所有用户-->
+    <select id="listByEntity" resultMap="UserMap">
+        select u.id, u.username, u.name, u.sex, u.dept_id, u.email_address, u.phone_number, u.profile_picture, u.create_time, u.update_time,
+               d.id as dept_id, d.name as dept_name
+        from user u, dept d
+        where u.dept_id = d.id
+        <if test="name != null and name != ''">
+            and u.name = #{name}
+        </if>
+        <if test="sex != null and sex != ''">
+            and u.sex = #{sex}
+        </if>
+        <if test="dept != null">
+            and u.dept_id = #{dept.id}
+        </if>
+    </select>
+
+    <!--新增用户-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into user(username, password, name, sex, dept_id, email_address, phone_number, profile_picture, create_time, update_time)
+        values (#{username}, #{password}, #{name}, #{sex}, #{dept.id}, #{emailAddress}, #{phoneNumber}, #{profilePicture}, #{createTime}, #{updateTime})
+    </insert>
+
+    <!--更新用户-->
+    <update id="update">
+        update user
+        set
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="sex != null and sex != ''">
+                sex = #{sex},
+            </if>
+            <if test="dept != null">
+                dept_id = #{dept.id},
+            </if>
+            <if test="emailAddress != null and emailAddress != ''">
+                email_address = #{emailAddress},
+            </if>
+            <if test="phoneNumber != null and phoneNumber != ''">
+                phone_number = #{phoneNumber},
+            </if>
+            <if test="profilePicture != null and profilePicture != ''">
+                profile_picture = #{profilePicture},
+            </if>
+        update_time = #{updateTime}
+        where id = #{id}
+    </update>
+
+    <!--删除用户-->
+    <delete id="delete">
+        delete from user
+        where id = #{id}
+    </delete>
+
+</mapper>

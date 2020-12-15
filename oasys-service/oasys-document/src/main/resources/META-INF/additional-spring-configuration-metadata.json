@@ -1,0 +1,29 @@
+{
+  "properties": [
+    {
+      "name": "minio.endpoint",
+      "type": "java.lang.String",
+      "description": "文件服务器地址."
+    },
+    {
+      "name": "minio.access-key",
+      "type": "java.lang.String",
+      "description": "访问Key."
+    },
+    {
+      "name": "minio.secret-key",
+      "type": "java.lang.String",
+      "description": "密钥Key."
+    },
+    {
+      "name": "minio.file-bucket-name",
+      "type": "java.lang.String",
+      "description": "网盘存储桶名."
+    },
+    {
+      "name": "minio.profile-picture-bucket-name",
+      "type": "java.lang.String",
+      "description": "头像存储桶名."
+    }
+  ]
+}
