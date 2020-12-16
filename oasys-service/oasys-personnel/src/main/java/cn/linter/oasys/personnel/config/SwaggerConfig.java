@@ -21,7 +21,7 @@ public class SwaggerConfig {
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(new ApiInfoBuilder().title("用户服务接口").version("1.0").build())
+                .apiInfo(new ApiInfoBuilder().title("人事服务接口").version("1.0").build())
                 .select()
                 .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
                 .paths(PathSelectors.any())
