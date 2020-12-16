@@ -1,6 +1,6 @@
 package cn.linter.oasys.personnel.controller;
 
-import cn.linter.oasys.common.entity.Response;
+import cn.linter.oasys.common.entity.Result;
 import cn.linter.oasys.personnel.entity.Attendance;
 import cn.linter.oasys.personnel.service.AttendanceService;
 import io.swagger.annotations.Api;
@@ -28,49 +28,49 @@ public class AttendanceController {
 
     @ApiOperation("通过用户ID查询当天考勤")
     @GetMapping("attendance")
-    public Response<Attendance> queryAttendance(@ApiParam("用户ID") Long userId) {
-        return Response.sendSuccess(200, attendanceService.queryByUserId(userId));
+    public Result<Attendance> queryAttendance(@ApiParam("用户ID") Long userId) {
+        return Result.sendSuccess(200, attendanceService.queryByUserId(userId));
     }
 
     @ApiOperation("通过用户ID查询某月考勤")
     @GetMapping("attendances")
-    public Response<List<Attendance>> listAttendance(@ApiParam("用户ID") Long userId, @ApiParam("年") int year, @ApiParam("月") int month) {
-        return Response.sendSuccess(200, attendanceService.listByUserId(userId, year, month));
+    public Result<List<Attendance>> listAttendance(@ApiParam("用户ID") Long userId, @ApiParam("年") int year, @ApiParam("月") int month) {
+        return Result.sendSuccess(200, attendanceService.listByUserId(userId, year, month));
     }
 
     @ApiOperation("签到")
     @PostMapping("attendance")
-    public Response<Attendance> clockIn(@RequestBody @ApiParam("考勤") Attendance attendance) {
+    public Result<Attendance> clockIn(@RequestBody @ApiParam("考勤") Attendance attendance) {
         Attendance existingAttendance = attendanceService.queryByUserId(attendance.getUserId());
         if (existingAttendance != null) {
-            return Response.sendError(400, "你已经签到过了！");
+            return Result.sendError(400, "你已经签到过了！");
         }
         String workingHoursStart = attendanceService.querySettingByName("working_hours_start");
         Duration duration = Duration.between(LocalTime.parse(workingHoursStart), LocalTime.now());
         long differenceMinutes = duration.toMinutes();
         if (differenceMinutes > 0) {
             attendance.setClockDescription("迟到");
-            return Response.sendSuccess(201, "签到成功，迟到" + differenceMinutes + "分钟", attendanceService.create(attendance));
+            return Result.sendSuccess(201, "签到成功，迟到" + differenceMinutes + "分钟", attendanceService.create(attendance));
         }
-        return Response.sendSuccess(201, "签到成功！", attendanceService.create(attendance));
+        return Result.sendSuccess(201, "签到成功！", attendanceService.create(attendance));
     }
 
     @ApiOperation("签退")
     @PutMapping("attendance")
-    public Response<?> clockOut(@RequestBody @ApiParam("考勤") Attendance attendance) {
+    public Result<?> clockOut(@RequestBody @ApiParam("考勤") Attendance attendance) {
         Attendance existingAttendance = attendanceService.queryByUserId(attendance.getUserId());
         if (existingAttendance == null) {
-            return Response.sendError(400, "你还没有签到！");
+            return Result.sendError(400, "你还没有签到！");
         }
         String workingHoursEnd = attendanceService.querySettingByName("working_hours_end");
         Duration duration = Duration.between(LocalTime.now(), LocalTime.parse(workingHoursEnd));
         long differenceMinutes = duration.toMinutes();
         if (differenceMinutes > 0) {
             attendance.setClockDescription("早退");
-            return Response.sendSuccess(200, "签退成功，早退" + differenceMinutes + "分钟", attendanceService.update(attendance));
+            return Result.sendSuccess(200, "签退成功，早退" + differenceMinutes + "分钟", attendanceService.update(attendance));
 
         }
-        return Response.sendSuccess(200, "签退成功", attendanceService.update(attendance));
+        return Result.sendSuccess(200, "签退成功", attendanceService.update(attendance));
     }
 
 }

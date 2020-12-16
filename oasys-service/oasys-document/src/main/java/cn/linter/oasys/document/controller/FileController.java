@@ -1,6 +1,6 @@
 package cn.linter.oasys.document.controller;
 
-import cn.linter.oasys.common.entity.Response;
+import cn.linter.oasys.common.entity.Result;
 import cn.linter.oasys.document.entity.File;
 import cn.linter.oasys.document.service.FileService;
 import com.github.pagehelper.PageInfo;
@@ -35,23 +35,23 @@ public class FileController {
 
     @ApiOperation("通过文件实例分页查询所有文件")
     @GetMapping("files")
-    public Response<List<File>> listFile(@RequestParam(defaultValue = "1") @ApiParam("页号") int pageNumber,
-                                         @RequestParam(defaultValue = "10") @ApiParam("页大小") int pageSize,
-                                         @ApiParam("文件实例") File file) {
+    public Result<List<File>> listFile(@RequestParam(defaultValue = "1") @ApiParam("页号") int pageNumber,
+                                       @RequestParam(defaultValue = "10") @ApiParam("页大小") int pageSize,
+                                       @ApiParam("文件实例") File file) {
         PageInfo<File> pageInfo = fileService.list(pageNumber, pageSize, file);
-        return Response.sendSuccess(200, pageInfo.getList(), pageInfo.getTotal());
+        return Result.sendSuccess(200, pageInfo.getList(), pageInfo.getTotal());
     }
 
     @ApiOperation("创建文件夹")
     @PostMapping("folder")
-    public Response<File> createFolder(@RequestBody @ApiParam("文件夹实例") File file) {
-        return Response.sendSuccess(201, fileService.createFolder(file));
+    public Result<File> createFolder(@RequestBody @ApiParam("文件夹实例") File file) {
+        return Result.sendSuccess(201, fileService.createFolder(file));
     }
 
     @ApiOperation("上传文件")
     @PostMapping("file")
-    public Response<File> uploadFile(@ApiParam("二进制文件") MultipartFile multipartFile, @ApiParam("文件实例") File file) throws Exception {
-        return Response.sendSuccess(201, fileService.uploadFile(multipartFile, file));
+    public Result<File> uploadFile(@ApiParam("二进制文件") MultipartFile multipartFile, @ApiParam("文件实例") File file) throws Exception {
+        return Result.sendSuccess(201, fileService.uploadFile(multipartFile, file));
     }
 
     @ApiOperation("下载文件")
@@ -71,22 +71,22 @@ public class FileController {
 
     @ApiOperation("更新文件")
     @PutMapping("file")
-    public Response<File> updateFile(@RequestBody @ApiParam("文件实例") File file) {
+    public Result<File> updateFile(@RequestBody @ApiParam("文件实例") File file) {
         File updatedFile = fileService.update(file);
         if (updatedFile != null) {
-            return Response.sendSuccess(200, updatedFile);
+            return Result.sendSuccess(200, updatedFile);
         }
-        return Response.sendError(404, "文件不存在！");
+        return Result.sendError(404, "文件不存在！");
     }
 
     @ApiOperation("删除文件")
     @DeleteMapping("file/{id}")
-    public Response<?> deleteFile(@PathVariable("id") @ApiParam("文件ID") Long id) throws IOException, InvalidResponseException, InvalidKeyException,
+    public Result<?> deleteFile(@PathVariable("id") @ApiParam("文件ID") Long id) throws IOException, InvalidResponseException, InvalidKeyException,
             NoSuchAlgorithmException, ServerException, ErrorResponseException, XmlParserException, InsufficientDataException, InternalException {
         if (fileService.delete(id)) {
-            return Response.sendSuccess(200);
+            return Result.sendSuccess(200);
         }
-        return Response.sendError(404, "文件不存在！");
+        return Result.sendError(404, "文件不存在！");
     }
 
 }

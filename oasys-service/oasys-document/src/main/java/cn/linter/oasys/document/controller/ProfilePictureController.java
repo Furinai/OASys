@@ -1,6 +1,6 @@
 package cn.linter.oasys.document.controller;
 
-import cn.linter.oasys.common.entity.Response;
+import cn.linter.oasys.common.entity.Result;
 import cn.linter.oasys.document.service.ProfilePictureService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,8 +25,8 @@ public class ProfilePictureController {
 
     @ApiOperation("上传头像")
     @PostMapping("profile-picture")
-    public Response<String> uploadFile(@ApiParam("二进制文件") MultipartFile multipartFile) throws Exception {
-        return Response.sendSuccess(201, "上传成功！", profilePictureService.uploadProfilePicture(multipartFile));
+    public Result<String> uploadFile(@ApiParam("二进制文件") MultipartFile multipartFile) throws Exception {
+        return Result.sendSuccess(201, "上传成功！", profilePictureService.uploadProfilePicture(multipartFile));
     }
 
 }

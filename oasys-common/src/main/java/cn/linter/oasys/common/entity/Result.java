@@ -13,7 +13,7 @@ import lombok.ToString;
 @Data
 @ToString
 @EqualsAndHashCode
-public class Response<T> {
+public class Result<T> {
 
     /**
      * 状态码
@@ -39,10 +39,10 @@ public class Response<T> {
      * @param <T>    类型
      * @return 响应
      */
-    public static <T> Response<T> sendSuccess(Integer code) {
-        Response<T> response = new Response<>();
-        response.setCode(code);
-        return response;
+    public static <T> Result<T> sendSuccess(Integer code) {
+        Result<T> result = new Result<>();
+        result.setCode(code);
+        return result;
     }
 
     /**
@@ -53,11 +53,11 @@ public class Response<T> {
      * @param <T>    类型
      * @return 响应
      */
-    public static <T> Response<T> sendSuccess(Integer code, T data) {
-        Response<T> response = new Response<>();
-        response.setCode(code);
-        response.setData(data);
-        return response;
+    public static <T> Result<T> sendSuccess(Integer code, T data) {
+        Result<T> result = new Result<>();
+        result.setCode(code);
+        result.setData(data);
+        return result;
     }
 
     /**
@@ -68,11 +68,11 @@ public class Response<T> {
      * @param <T>     类型
      * @return 响应
      */
-    public static <T> Response<T> sendSuccess(Integer code, String message) {
-        Response<T> response = new Response<>();
-        response.setCode(code);
-        response.setMessage(message);
-        return response;
+    public static <T> Result<T> sendSuccess(Integer code, String message) {
+        Result<T> result = new Result<>();
+        result.setCode(code);
+        result.setMessage(message);
+        return result;
     }
 
     /**
@@ -84,12 +84,12 @@ public class Response<T> {
      * @param <T>     类型
      * @return 响应
      */
-    public static <T> Response<T> sendSuccess(Integer code, String message, T data) {
-        Response<T> response = new Response<>();
-        response.setCode(code);
-        response.setMessage(message);
-        response.setData(data);
-        return response;
+    public static <T> Result<T> sendSuccess(Integer code, String message, T data) {
+        Result<T> result = new Result<>();
+        result.setCode(code);
+        result.setMessage(message);
+        result.setData(data);
+        return result;
     }
 
     /**
@@ -101,12 +101,12 @@ public class Response<T> {
      * @param <T>    类型
      * @return 响应
      */
-    public static <T> Response<T> sendSuccess(Integer code, T data, Long size) {
-        Response<T> response = new Response<>();
-        response.setCode(code);
-        response.setData(data);
-        response.setSize(size);
-        return response;
+    public static <T> Result<T> sendSuccess(Integer code, T data, Long size) {
+        Result<T> result = new Result<>();
+        result.setCode(code);
+        result.setData(data);
+        result.setSize(size);
+        return result;
     }
 
     /**
@@ -117,11 +117,11 @@ public class Response<T> {
      * @param <T>     类型
      * @return 响应
      */
-    public static <T> Response<T> sendError(Integer code, String message) {
-        Response<T> response = new Response<>();
-        response.setCode(code);
-        response.setMessage(message);
-        return response;
+    public static <T> Result<T> sendError(Integer code, String message) {
+        Result<T> result = new Result<>();
+        result.setCode(code);
+        result.setMessage(message);
+        return result;
     }
 
 }

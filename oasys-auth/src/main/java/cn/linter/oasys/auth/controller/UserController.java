@@ -2,7 +2,7 @@ package cn.linter.oasys.auth.controller;
 
 import cn.linter.oasys.auth.entity.User;
 import cn.linter.oasys.auth.service.UserService;
-import cn.linter.oasys.common.entity.Response;
+import cn.linter.oasys.common.entity.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,12 +27,12 @@ public class UserController {
      * @return 单个用户
      */
     @GetMapping("user/{id}")
-    public Response<User> queryUser(@PathVariable("id") Long id) {
+    public Result<User> queryUser(@PathVariable("id") Long id) {
         User user = userService.query(id);
         if (user != null) {
-            return Response.sendSuccess(200, user);
+            return Result.sendSuccess(200, user);
         }
-        return Response.sendError(404, "用户不存在");
+        return Result.sendError(404, "用户不存在");
     }
 
 }

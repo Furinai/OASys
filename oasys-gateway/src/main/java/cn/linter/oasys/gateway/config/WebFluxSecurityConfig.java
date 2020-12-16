@@ -1,6 +1,6 @@
 package cn.linter.oasys.gateway.config;
 
-import cn.linter.oasys.common.entity.Response;
+import cn.linter.oasys.common.entity.Result;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,22 +44,22 @@ public class WebFluxSecurityConfig {
                 .permitAll()
                 .and().exceptionHandling()
                 .authenticationEntryPoint((exchange, exception) -> sendRestResponse(exchange,
-                        HttpStatus.UNAUTHORIZED, Response.sendError(401, "未授权或已过期！"))
+                        HttpStatus.UNAUTHORIZED, Result.sendError(401, "未授权或已过期！"))
                 )
                 .accessDeniedHandler((exchange, exception) -> sendRestResponse(exchange,
-                        HttpStatus.FORBIDDEN, Response.sendError(403, "没有权限进行此操作！")))
+                        HttpStatus.FORBIDDEN, Result.sendError(403, "没有权限进行此操作！")))
                 .and().csrf().disable()
                 .oauth2ResourceServer().jwt();
         return http.build();
     }
 
-    private Mono<Void> sendRestResponse(ServerWebExchange exchange, HttpStatus status, Response<String> response) {
+    private Mono<Void> sendRestResponse(ServerWebExchange exchange, HttpStatus status, Result<String> result) {
         ServerHttpResponse httpResponse = exchange.getResponse();
         httpResponse.getHeaders().setContentType(MediaType.APPLICATION_JSON);
         httpResponse.setStatusCode(status);
         byte[] body;
         try {
-            body = objectMapper.writeValueAsString(response).getBytes(StandardCharsets.UTF_8);
+            body = objectMapper.writeValueAsString(result).getBytes(StandardCharsets.UTF_8);
         } catch (JsonProcessingException e) {
             body = e.getMessage().getBytes();
         }

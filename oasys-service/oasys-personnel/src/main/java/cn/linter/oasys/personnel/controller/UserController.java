@@ -1,6 +1,6 @@
 package cn.linter.oasys.personnel.controller;
 
-import cn.linter.oasys.common.entity.Response;
+import cn.linter.oasys.common.entity.Result;
 import cn.linter.oasys.personnel.entity.User;
 import cn.linter.oasys.personnel.service.UserService;
 import com.github.pagehelper.PageInfo;
@@ -33,12 +33,12 @@ public class UserController {
      */
     @ApiOperation("通过ID查询单个用户")
     @GetMapping("user/{id}")
-    public Response<User> queryUser(@PathVariable("id") @ApiParam("用户ID") Long id) {
+    public Result<User> queryUser(@PathVariable("id") @ApiParam("用户ID") Long id) {
         User user = userService.query(id);
         if (user != null) {
-            return Response.sendSuccess(200, user);
+            return Result.sendSuccess(200, user);
         }
-        return Response.sendError(404, "用户不存在！");
+        return Result.sendError(404, "用户不存在！");
     }
 
     /**
@@ -50,10 +50,10 @@ public class UserController {
      */
     @ApiOperation("分页查询所有用户")
     @GetMapping("users")
-    public Response<List<User>> listUser(@RequestParam(defaultValue = "1") @ApiParam("页号") int pageNumber,
-                                         @RequestParam(defaultValue = "10") @ApiParam("页大小") int pageSize) {
+    public Result<List<User>> listUser(@RequestParam(defaultValue = "1") @ApiParam("页号") int pageNumber,
+                                       @RequestParam(defaultValue = "10") @ApiParam("页大小") int pageSize) {
         PageInfo<User> pageInfo = userService.list(pageNumber, pageSize);
-        return Response.sendSuccess(200, pageInfo.getList(), pageInfo.getTotal());
+        return Result.sendSuccess(200, pageInfo.getList(), pageInfo.getTotal());
     }
 
     /**
@@ -64,8 +64,8 @@ public class UserController {
      */
     @ApiOperation("新增用户")
     @PostMapping("user")
-    public Response<User> createUser(@RequestBody @ApiParam("用户") User user) {
-        return Response.sendSuccess(201, userService.create(user));
+    public Result<User> createUser(@RequestBody @ApiParam("用户") User user) {
+        return Result.sendSuccess(201, userService.create(user));
     }
 
     /**
@@ -76,12 +76,12 @@ public class UserController {
      */
     @ApiOperation("更新用户")
     @PutMapping("user")
-    public Response<User> updateUser(@RequestBody @ApiParam("用户") User user) {
+    public Result<User> updateUser(@RequestBody @ApiParam("用户") User user) {
         User updatedUser = userService.update(user);
         if (updatedUser != null) {
-            return Response.sendSuccess(200, updatedUser);
+            return Result.sendSuccess(200, updatedUser);
         }
-        return Response.sendError(404, "用户不存在！");
+        return Result.sendError(404, "用户不存在！");
     }
 
     /**
@@ -92,11 +92,11 @@ public class UserController {
      */
     @ApiOperation("通过ID删除用户")
     @DeleteMapping("user/{id}")
-    public Response<Boolean> deleteUser(@PathVariable("id") @ApiParam("用户ID") Long id) {
+    public Result<Boolean> deleteUser(@PathVariable("id") @ApiParam("用户ID") Long id) {
         if (userService.delete(id)) {
-            return Response.sendSuccess(200);
+            return Result.sendSuccess(200);
         }
-        return Response.sendError(404, "用户不存在！");
+        return Result.sendError(404, "用户不存在！");
     }
 
 }
