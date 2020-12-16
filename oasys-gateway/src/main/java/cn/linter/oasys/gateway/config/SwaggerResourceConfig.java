@@ -11,6 +11,7 @@ import springfox.documentation.swagger.web.SwaggerResourcesProvider;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author wangxiaoyang
@@ -34,7 +35,7 @@ public class SwaggerResourceConfig implements SwaggerResourcesProvider {
             route.getPredicates().stream().filter(predicateDefinition -> ("Path").equalsIgnoreCase(predicateDefinition.getName())).forEach(predicateDefinition ->
                     resources.add(swaggerResource(route.getId(), predicateDefinition.getArgs().get(NameUtils.GENERATED_NAME_PREFIX + "0").replace("**", "v2/api-docs"))));
         });
-        return resources;
+        return resources.stream().filter(resource->!resource.getName().startsWith("auth")).collect(Collectors.toList());
     }
 
     private SwaggerResource swaggerResource(String name, String location) {
@@ -44,5 +45,4 @@ public class SwaggerResourceConfig implements SwaggerResourcesProvider {
         swaggerResource.setSwaggerVersion("1.0");
         return swaggerResource;
     }
-
 }
