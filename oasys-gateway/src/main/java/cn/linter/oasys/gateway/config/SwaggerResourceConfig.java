@@ -12,6 +12,10 @@ import springfox.documentation.swagger.web.SwaggerResourcesProvider;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author wangxiaoyang
+ * @since 2020/12/16
+ */
 @Configuration
 @Primary
 public class SwaggerResourceConfig implements SwaggerResourcesProvider {
@@ -27,11 +31,8 @@ public class SwaggerResourceConfig implements SwaggerResourcesProvider {
         List<String> routes = new ArrayList<>();
         routeLocator.getRoutes().subscribe(route -> routes.add(route.getId()));
         gatewayProperties.getRoutes().stream().filter(routeDefinition -> routes.contains(routeDefinition.getId())).forEach(route -> {
-            route.getPredicates().stream()
-                    .filter(predicateDefinition -> ("Path").equalsIgnoreCase(predicateDefinition.getName()))
-                    .forEach(predicateDefinition -> resources.add(swaggerResource(route.getId(),
-                            predicateDefinition.getArgs().get(NameUtils.GENERATED_NAME_PREFIX + "0")
-                                    .replace("**", "v2/api-docs"))));
+            route.getPredicates().stream().filter(predicateDefinition -> ("Path").equalsIgnoreCase(predicateDefinition.getName())).forEach(predicateDefinition ->
+                    resources.add(swaggerResource(route.getId(), predicateDefinition.getArgs().get(NameUtils.GENERATED_NAME_PREFIX + "0").replace("**", "v2/api-docs"))));
         });
         return resources;
     }
@@ -43,4 +44,5 @@ public class SwaggerResourceConfig implements SwaggerResourcesProvider {
         swaggerResource.setSwaggerVersion("1.0");
         return swaggerResource;
     }
+
 }
