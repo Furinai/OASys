@@ -36,7 +36,7 @@ public class WebFluxSecurityConfig {
         http.authorizeExchange()
                 .pathMatchers("/api/auth/oauth/token")
                 .permitAll()
-                .pathMatchers("/api/*/api-docs")
+                .pathMatchers("/api/*/v2/api-docs")
                 .permitAll()
                 .pathMatchers("/api/**")
                 .authenticated()
