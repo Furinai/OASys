@@ -66,9 +66,12 @@ public class AttendanceController {
         Duration duration = Duration.between(LocalTime.now(), LocalTime.parse(workingHoursEnd));
         long differenceMinutes = duration.toMinutes();
         if (differenceMinutes > 0) {
-            attendance.setClockDescription("早退");
+            if (attendance.getClockDescription() == null) {
+                attendance.setClockDescription("早退");
+            } else {
+                attendance.setClockDescription(attendance.getClockDescription() + " 早退");
+            }
             return Result.sendSuccess(200, "签退成功，早退" + differenceMinutes + "分钟", attendanceService.update(attendance));
-
         }
         return Result.sendSuccess(200, "签退成功", attendanceService.update(attendance));
     }
