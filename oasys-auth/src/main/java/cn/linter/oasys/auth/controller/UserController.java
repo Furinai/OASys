@@ -5,7 +5,7 @@ import cn.linter.oasys.auth.service.UserService;
 import cn.linter.oasys.common.entity.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -21,14 +21,14 @@ public class UserController {
     private UserService userService;
 
     /**
-     * 通过ID查询单个用户
+     * 通过用户名查询单个用户
      *
-     * @param id 用户ID
+     * @param username 用户名
      * @return 单个用户
      */
-    @GetMapping("user/{id}")
-    public Result<User> queryUser(@PathVariable("id") Long id) {
-        User user = userService.query(id);
+    @GetMapping("user")
+    public Result<User> queryUser(@RequestHeader("username") String username) {
+        User user = userService.queryByUsername(username);
         if (user != null) {
             return Result.sendSuccess(200, user);
         }

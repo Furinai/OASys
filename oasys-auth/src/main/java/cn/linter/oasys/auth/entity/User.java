@@ -31,22 +31,6 @@ public class User implements Serializable {
      */
     private String name;
     /**
-     * 性别
-     */
-    private String sex;
-    /**
-     * 部门名
-     */
-    private String deptName;
-    /**
-     * 邮箱地址
-     */
-    private String emailAddress;
-    /**
-     * 电话号码
-     */
-    private String phoneNumber;
-    /**
      * 头像链接
      */
     private String profilePicture;
