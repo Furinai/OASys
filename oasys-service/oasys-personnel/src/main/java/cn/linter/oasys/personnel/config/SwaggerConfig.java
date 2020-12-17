@@ -14,7 +14,6 @@ import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 
 import java.util.Collections;
-import java.util.List;
 
 /**
  * Swagger配置
@@ -42,14 +41,10 @@ public class SwaggerConfig {
     }
 
     private SecurityContext securityContext() {
-        return SecurityContext.builder().securityReferences(defaultAuth()).build();
-    }
-
-    private List<SecurityReference> defaultAuth() {
         AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
-        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
-        authorizationScopes[0] = authorizationScope;
-        return Collections.singletonList(new SecurityReference("JWT", authorizationScopes));
+        AuthorizationScope[] authorizationScopes = new AuthorizationScope[]{authorizationScope};
+        SecurityReference reference = new SecurityReference("JWT", authorizationScopes);
+        return SecurityContext.builder().securityReferences(Collections.singletonList(reference)).build();
     }
 
 }
