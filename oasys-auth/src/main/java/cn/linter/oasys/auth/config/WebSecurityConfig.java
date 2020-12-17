@@ -79,6 +79,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/key/public").permitAll()
+                .antMatchers("/user").permitAll()
                 .anyRequest().authenticated()
                 .and().userDetailsService(setUserDetailsService());
     }
