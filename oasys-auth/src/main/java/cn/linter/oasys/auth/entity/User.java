@@ -29,7 +29,7 @@ public class User implements Serializable {
     /**
      * 姓名
      */
-    private String name;
+    private String fullName;
     /**
      * 头像链接
      */

@@ -5,13 +5,13 @@
     <resultMap type="cn.linter.oasys.auth.entity.User" id="UserMap">
         <result property="id" column="id"/>
         <result property="username" column="username"/>
-        <result property="name" column="name"/>
+        <result property="fullName" column="full_name"/>
         <result property="profilePicture" column="profile_picture"/>
     </resultMap>
 
     <!--通过ID查询单个用户-->
     <select id="selectByUsername" resultMap="UserMap">
-        select u.id, u.username, u.name, u.profile_picture
+        select u.id, u.username, u.full_name, u.profile_picture
         from user u
         where u.username = #{username}
     </select>

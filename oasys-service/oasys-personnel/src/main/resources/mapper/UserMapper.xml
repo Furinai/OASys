@@ -6,8 +6,8 @@
         <result property="id" column="id"/>
         <result property="username" column="username"/>
         <result property="password" column="password"/>
-        <result property="name" column="name"/>
-        <result property="sex" column="sex"/>
+        <result property="fullName" column="full_name"/>
+        <result property="gender" column="gender"/>
         <result property="emailAddress" column="email_address"/>
         <result property="phoneNumber" column="phone_number"/>
         <result property="profilePicture" column="profile_picture"/>
@@ -21,7 +21,7 @@
 
     <!--通过ID查询单个用户-->
     <select id="select" resultMap="UserMap">
-        select u.id, u.username, u.name, u.sex, u.dept_id, u.email_address, u.phone_number, u.profile_picture, u.create_time, u.update_time,
+        select u.id, u.username, u.full_name, u.gender, u.dept_id, u.email_address, u.phone_number, u.profile_picture, u.create_time, u.update_time,
                d.id as dept_id, d.name as dept_name
         from user u, dept d
         where u.dept_id = d.id
@@ -30,7 +30,7 @@
 
     <!--查询所有用户-->
     <select id="list" resultMap="UserMap">
-        select u.id, u.username, u.name, u.sex, u.dept_id, u.email_address, u.phone_number, u.profile_picture, u.create_time, u.update_time,
+        select u.id, u.username, u.full_name, u.gender, u.dept_id, u.email_address, u.phone_number, u.profile_picture, u.create_time, u.update_time,
                d.id as dept_id, d.name as dept_name
         from user u, dept d
         where u.dept_id = d.id
@@ -38,15 +38,15 @@
 
     <!--通过用户实体查询所有用户-->
     <select id="listByEntity" resultMap="UserMap">
-        select u.id, u.username, u.name, u.sex, u.dept_id, u.email_address, u.phone_number, u.profile_picture, u.create_time, u.update_time,
+        select u.id, u.username, u.full_name, u.gender, u.dept_id, u.email_address, u.phone_number, u.profile_picture, u.create_time, u.update_time,
                d.id as dept_id, d.name as dept_name
         from user u, dept d
         where u.dept_id = d.id
         <if test="name != null and name != ''">
-            and u.name = #{name}
+            and u.full_name = #{name}
         </if>
-        <if test="sex != null and sex != ''">
-            and u.sex = #{sex}
+        <if test="gender != null and gender != ''">
+            and u.gender = #{gender}
         </if>
         <if test="dept != null">
             and u.dept_id = #{dept.id}
@@ -55,8 +55,8 @@
 
     <!--新增用户-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into user(username, password, name, sex, dept_id, email_address, phone_number, profile_picture, create_time, update_time)
-        values (#{username}, #{password}, #{name}, #{sex}, #{dept.id}, #{emailAddress}, #{phoneNumber}, #{profilePicture}, #{createTime}, #{updateTime})
+        insert into user(username, password, full_name, gender, dept_id, email_address, phone_number, profile_picture, create_time, update_time)
+        values (#{username}, #{password}, #{name}, #{gender}, #{dept.id}, #{emailAddress}, #{phoneNumber}, #{profilePicture}, #{createTime}, #{updateTime})
     </insert>
 
     <!--更新用户-->
@@ -70,10 +70,10 @@
                 password = #{password},
             </if>
             <if test="name != null and name != ''">
-                name = #{name},
+                full_name = #{name},
             </if>
-            <if test="sex != null and sex != ''">
-                sex = #{sex},
+            <if test="gender != null and gender != ''">
+                gender = #{gender},
             </if>
             <if test="dept != null">
                 dept_id = #{dept.id},

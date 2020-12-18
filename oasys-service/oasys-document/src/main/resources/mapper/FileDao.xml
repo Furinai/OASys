@@ -9,7 +9,7 @@
         <result property="type" column="type"/>
         <result property="size" column="size"/>
         <result property="userId" column="user_id"/>
-        <result property="userName" column="user_name"/>
+        <result property="creator" column="creator"/>
         <result property="parentId" column="parent_id"/>
         <result property="shared" column="is_shared"/>
         <result property="createTime" column="create_time"/>
@@ -19,14 +19,14 @@
 
     <!--通过文件ID查询单个文件-->
     <select id="select" resultMap="FileMap">
-        select id, name, path, type, size, user_id, user_name, parent_id, is_shared, create_time, update_time, content_type
+        select id, name, path, type, size, user_id, creator, parent_id, is_shared, create_time, update_time, content_type
         from file
         where id = #{id}
     </select>
 
     <!--通过文件实例查询所有文件-->
     <select id="list" resultMap="FileMap">
-        select id, name, path, type, size, user_id, user_name, parent_id, is_shared, create_time, update_time, content_type
+        select id, name, path, type, size, user_id, creator, parent_id, is_shared, create_time, update_time, content_type
         from file
         <where>
             <if test="userId != null">
@@ -43,8 +43,8 @@
 
     <!--新增文件-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into file(name, path, type, size, user_id, user_name, parent_id, is_shared, create_time, update_time,content_type)
-        values (#{name}, #{path}, #{type}, #{size}, #{userId}, #{userName}, #{parentId}, #{shared}, #{createTime}, #{updateTime}, #{contentType})
+        insert into file(name, path, type, size, user_id, creator, parent_id, is_shared, create_time, update_time,content_type)
+        values (#{name}, #{path}, #{type}, #{size}, #{userId}, #{creator}, #{parentId}, #{shared}, #{createTime}, #{updateTime}, #{contentType})
     </insert>
 
     <!--更新文件-->

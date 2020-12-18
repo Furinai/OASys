@@ -55,8 +55,8 @@ public class File implements Serializable {
     /**
      * 用户姓名
      */
-    @ApiModelProperty("用户姓名")
-    private String userName;
+    @ApiModelProperty("上传者")
+    private String creator;
     /**
      * 父级ID
      */

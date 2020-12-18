@@ -41,12 +41,12 @@ public class User implements Serializable {
      * 姓名
      */
     @ApiModelProperty("姓名")
-    private String name;
+    private String fullName;
     /**
      * 性别
      */
     @ApiModelProperty("性别")
-    private String sex;
+    private String gender;
     /**
      * 部门
      */
