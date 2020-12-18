@@ -48,8 +48,12 @@ public class WebFluxSecurityConfig {
                 )
                 .accessDeniedHandler((exchange, exception) -> sendRestResponse(exchange,
                         HttpStatus.FORBIDDEN, Result.sendError(403, "没有权限进行此操作！")))
-                .and().csrf().disable()
-                .oauth2ResourceServer().jwt();
+                .and().csrf().disable();
+        http.oauth2ResourceServer()
+                .authenticationEntryPoint((exchange, exception) -> sendRestResponse(exchange,
+                        HttpStatus.UNAUTHORIZED, Result.sendError(400, "Token无效或已过期！"))
+                )
+                .jwt();
         return http.build();
     }
 
