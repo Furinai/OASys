@@ -13,10 +13,6 @@ spring:
     url: jdbc:mysql://localhost/oasys?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
     username: root
     password: root
-  jackson:
-    default-property-inclusion: non_null
-    date-format: yyyy-MM-dd HH:mm
-    time-zone: GMT+8
 key:
   location: jwt.jks
   password: linter
