@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    cn.linter.oasys.common.handler.GlobalExceptionHandler
