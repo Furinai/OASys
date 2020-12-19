@@ -79,19 +79,17 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
-        TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
         JwtAccessTokenConverter tokenConverter = new JwtAccessTokenConverter();
         tokenConverter.setKeyPair(keyPair);
+        TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
         enhancerChain.setTokenEnhancers(Arrays.asList(getTokenEnhancer(), tokenConverter));
-        endpoints.authenticationManager(authenticationManager)
-                .userDetailsService(userDetailsService)
-                .accessTokenConverter(tokenConverter)
-                .tokenEnhancer(enhancerChain);
+        endpoints.authenticationManager(authenticationManager).userDetailsService(userDetailsService)
+                .accessTokenConverter(tokenConverter).tokenEnhancer(enhancerChain);
     }
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) {
-        security.allowFormAuthenticationForClients();
+        security.allowFormAuthenticationForClients().checkTokenAccess("permitAll()");
     }
 
     public TokenEnhancer getTokenEnhancer() {
