@@ -72,15 +72,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public AuthenticationManager setAuthenticationManagerBean() throws Exception {
-        return authenticationManager();
+        return authenticationManagerBean();
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/key/public").permitAll()
-                .antMatchers("/user").permitAll()
+                .mvcMatchers("/key/public").permitAll()
+                .mvcMatchers("/user").permitAll()
                 .anyRequest().authenticated()
-                .and().userDetailsService(setUserDetailsService());
+                .and().userDetailsService(setUserDetailsService())
+                .csrf().disable();
     }
+
 }
