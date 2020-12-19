@@ -36,19 +36,6 @@ public class Result<T> {
      * 返回成功响应
      *
      * @param code 状态码
-     * @param <T>    类型
-     * @return 响应
-     */
-    public static <T> Result<T> sendSuccess(Integer code) {
-        Result<T> result = new Result<>();
-        result.setCode(code);
-        return result;
-    }
-
-    /**
-     * 返回成功响应
-     *
-     * @param code 状态码
      * @param data   数据
      * @param <T>    类型
      * @return 响应
@@ -57,21 +44,6 @@ public class Result<T> {
         Result<T> result = new Result<>();
         result.setCode(code);
         result.setData(data);
-        return result;
-    }
-
-    /**
-     * 返回成功响应
-     *
-     * @param code  状态码
-     * @param message 信息
-     * @param <T>     类型
-     * @return 响应
-     */
-    public static <T> Result<T> sendSuccess(Integer code, String message) {
-        Result<T> result = new Result<>();
-        result.setCode(code);
-        result.setMessage(message);
         return result;
     }
 
