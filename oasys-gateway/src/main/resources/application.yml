@@ -3,12 +3,21 @@ server:
 spring:
   application:
     name: gateway
+  jackson:
+    default-property-inclusion: non_null
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: localhost:8846/key/public
   cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
     gateway:
       discovery:
         locator:
           enabled: true
-          lower-case-service-id: true
       routes:
         - id: auth-service
           uri: lb://auth-service
@@ -34,13 +43,10 @@ spring:
             - Path=/api/pers/**
           filters:
             - StripPrefix=2
-    nacos:
-      discovery:
-        server-addr: localhost:8848
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          jwk-set-uri: localhost:8846/key/public
-  jackson:
-    default-property-inclusion: non_null
+        - id: chat-service
+          uri: ws://localhost:8286
+          predicates:
+            - Path=/websocket/**
+swagger:
+  resources:
+    exclude: auth-service,chat-service
