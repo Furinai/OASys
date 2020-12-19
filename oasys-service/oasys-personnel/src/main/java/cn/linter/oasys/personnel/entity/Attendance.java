@@ -8,6 +8,7 @@ import lombok.ToString;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 /**
  * 考勤实体类
@@ -41,12 +42,12 @@ public class Attendance implements Serializable {
      * 签到时间
      */
     @ApiModelProperty("签到时间")
-    private Object clockInTime;
+    private LocalTime clockInTime;
     /**
      * 签退时间
      */
     @ApiModelProperty("签退时间")
-    private Object clockOutTime;
+    private LocalTime clockOutTime;
     /**
      * 打卡描述
      */
