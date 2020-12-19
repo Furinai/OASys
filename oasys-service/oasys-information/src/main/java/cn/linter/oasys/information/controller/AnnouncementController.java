@@ -51,9 +51,9 @@ public class AnnouncementController {
 
     @ApiOperation("删除公告")
     @DeleteMapping("announcement/{id}")
-    public Result<Boolean> deleteAnnouncement(@PathVariable("id") @ApiParam("公告ID") Long id) {
+    public Result<String> deleteAnnouncement(@PathVariable("id") @ApiParam("公告ID") Long id) {
         if (announcementService.delete(id)) {
-            return Result.sendSuccess(200);
+            return Result.sendSuccess(200, "删除成功！");
         }
         return Result.sendError(404, "公告不存在！");
     }

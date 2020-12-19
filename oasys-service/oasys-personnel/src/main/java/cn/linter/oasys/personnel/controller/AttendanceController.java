@@ -50,7 +50,7 @@ public class AttendanceController {
         long differenceMinutes = duration.toMinutes();
         if (differenceMinutes > 0) {
             attendance.setClockDescription("迟到");
-            return Result.sendSuccess(201, "签到成功，迟到" + differenceMinutes + "分钟", attendanceService.create(attendance));
+            return Result.sendSuccess(201, "签到成功，迟到" + differenceMinutes + "分钟！", attendanceService.create(attendance));
         }
         return Result.sendSuccess(201, "签到成功！", attendanceService.create(attendance));
     }
@@ -71,7 +71,7 @@ public class AttendanceController {
             } else {
                 attendance.setClockDescription(attendance.getClockDescription() + " 早退");
             }
-            return Result.sendSuccess(200, "签退成功，早退" + differenceMinutes + "分钟", attendanceService.update(attendance));
+            return Result.sendSuccess(200, "签退成功，早退" + differenceMinutes + "分钟！", attendanceService.update(attendance));
         }
         return Result.sendSuccess(200, "签退成功", attendanceService.update(attendance));
     }

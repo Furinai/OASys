@@ -92,9 +92,9 @@ public class UserController {
      */
     @ApiOperation("通过ID删除用户")
     @DeleteMapping("user/{id}")
-    public Result<Boolean> deleteUser(@PathVariable("id") @ApiParam("用户ID") Long id) {
+    public Result<String> deleteUser(@PathVariable("id") @ApiParam("用户ID") Long id) {
         if (userService.delete(id)) {
-            return Result.sendSuccess(200);
+            return Result.sendSuccess(200, "删除成功！");
         }
         return Result.sendError(404, "用户不存在！");
     }

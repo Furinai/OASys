@@ -81,10 +81,10 @@ public class FileController {
 
     @ApiOperation("删除文件")
     @DeleteMapping("file/{id}")
-    public Result<?> deleteFile(@PathVariable("id") @ApiParam("文件ID") Long id) throws IOException, InvalidResponseException, InvalidKeyException,
+    public Result<String> deleteFile(@PathVariable("id") @ApiParam("文件ID") Long id) throws IOException, InvalidResponseException, InvalidKeyException,
             NoSuchAlgorithmException, ServerException, ErrorResponseException, XmlParserException, InsufficientDataException, InternalException {
         if (fileService.delete(id)) {
-            return Result.sendSuccess(200);
+            return Result.sendSuccess(200, "删除成功！");
         }
         return Result.sendError(404, "文件不存在！");
     }
