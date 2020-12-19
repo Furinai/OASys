@@ -10,10 +10,10 @@
     </resultMap>
 
     <!--通过ID查询单个用户-->
-    <select id="selectById" resultMap="UserMap">
+    <select id="selectByUsername" resultMap="UserMap">
         select u.id, u.username, u.full_name, u.profile_picture
         from user u
-        where u.id = #{id}
+        where u.username = #{username}
     </select>
 
 </mapper>

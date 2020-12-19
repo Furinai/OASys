@@ -13,11 +13,11 @@ import org.apache.ibatis.annotations.Mapper;
 public interface UserDao {
 
     /**
-     * 通过用户ID查询单个用户
+     * 通过用户名查询单个用户
      *
-     * @param id 用户ID
+     * @param username 用户名
      * @return 单个用户
      */
-    User selectById(Long id);
+    User selectByUsername(String username);
 
 }

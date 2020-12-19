@@ -11,11 +11,11 @@ import cn.linter.oasys.auth.entity.User;
 public interface UserService {
 
     /**
-     * 通过ID查询单个用户
+     * 通过用户名查询单个用户
      *
-     * @param id 用户ID
+     * @param username 用户名
      * @return 单个用户
      */
-    User queryById(Long id);
+    User queryByUsername(String username);
 
 }

@@ -19,9 +19,17 @@ import java.util.Map;
 @RestController
 public class KeyController {
 
+    /**
+     * RSA密钥对
+     */
     @Autowired
     private KeyPair keyPair;
 
+    /**
+     * 获取RSA公钥
+     *
+     * @return RSA公钥
+     */
     @GetMapping("/key/public")
     public Map<String, Object> getPublicKey() {
         RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
