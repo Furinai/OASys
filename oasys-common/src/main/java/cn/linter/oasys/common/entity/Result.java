@@ -18,7 +18,7 @@ public class Result<T> {
     /**
      * 状态码
      */
-    private Integer code;
+    private String code;
     /**
      * 状态信息
      */
@@ -27,72 +27,19 @@ public class Result<T> {
      * 数据
      */
     private T data;
-    /**
-     * 数据总数
-     */
-    private Long size;
 
     /**
-     * 返回成功响应
+     * 返回响应
      *
-     * @param code 状态码
+     * @param status 状态
      * @param data   数据
-     * @param <T>    类型
      * @return 响应
      */
-    public static <T> Result<T> sendSuccess(Integer code, T data) {
+    public static <T> Result<T> of(ResultStatus status, T data) {
         Result<T> result = new Result<>();
-        result.setCode(code);
+        result.setCode(status.getCode());
+        result.setMessage(status.getMessage());
         result.setData(data);
-        return result;
-    }
-
-    /**
-     * 返回成功响应
-     *
-     * @param code  状态码
-     * @param message 信息
-     * @param data    数据
-     * @param <T>     类型
-     * @return 响应
-     */
-    public static <T> Result<T> sendSuccess(Integer code, String message, T data) {
-        Result<T> result = new Result<>();
-        result.setCode(code);
-        result.setMessage(message);
-        result.setData(data);
-        return result;
-    }
-
-    /**
-     * 返回成功响应
-     *
-     * @param code 状态码
-     * @param data   数据
-     * @param size   数据总数
-     * @param <T>    类型
-     * @return 响应
-     */
-    public static <T> Result<T> sendSuccess(Integer code, T data, Long size) {
-        Result<T> result = new Result<>();
-        result.setCode(code);
-        result.setData(data);
-        result.setSize(size);
-        return result;
-    }
-
-    /**
-     * 返回失败响应
-     *
-     * @param code  状态码
-     * @param message 信息
-     * @param <T>     类型
-     * @return 响应
-     */
-    public static <T> Result<T> sendError(Integer code, String message) {
-        Result<T> result = new Result<>();
-        result.setCode(code);
-        result.setMessage(message);
         return result;
     }
 

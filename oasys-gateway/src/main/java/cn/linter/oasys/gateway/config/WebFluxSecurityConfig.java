@@ -1,6 +1,6 @@
 package cn.linter.oasys.gateway.config;
 
-import cn.linter.oasys.common.entity.Result;
+import cn.linter.oasys.common.entity.ResultStatus;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,26 +44,27 @@ public class WebFluxSecurityConfig {
                 .permitAll()
                 .and().exceptionHandling()
                 .authenticationEntryPoint((exchange, exception) -> sendRestResponse(exchange,
-                        HttpStatus.UNAUTHORIZED, Result.sendError(401, "未授权或已过期！"))
+                        HttpStatus.UNAUTHORIZED, ResultStatus.UNAUTHORIZED)
                 )
                 .accessDeniedHandler((exchange, exception) -> sendRestResponse(exchange,
-                        HttpStatus.FORBIDDEN, Result.sendError(403, "没有权限进行此操作！")))
+                        HttpStatus.FORBIDDEN, ResultStatus.FORBIDDEN)
+                )
                 .and().csrf().disable();
         http.oauth2ResourceServer()
                 .authenticationEntryPoint((exchange, exception) -> sendRestResponse(exchange,
-                        HttpStatus.UNAUTHORIZED, Result.sendError(400, "Token无效或已过期！"))
+                        HttpStatus.BAD_REQUEST, ResultStatus.TOKEN_IS_INVALID)
                 )
                 .jwt();
         return http.build();
     }
 
-    private Mono<Void> sendRestResponse(ServerWebExchange exchange, HttpStatus status, Result<String> result) {
+    private Mono<Void> sendRestResponse(ServerWebExchange exchange, HttpStatus httpStatus, ResultStatus resultStatus) {
         ServerHttpResponse httpResponse = exchange.getResponse();
         httpResponse.getHeaders().setContentType(MediaType.APPLICATION_JSON);
-        httpResponse.setStatusCode(status);
+        httpResponse.setStatusCode(httpStatus);
         byte[] body;
         try {
-            body = objectMapper.writeValueAsString(result).getBytes(StandardCharsets.UTF_8);
+            body = objectMapper.writeValueAsString(resultStatus).getBytes(StandardCharsets.UTF_8);
         } catch (JsonProcessingException e) {
             body = e.getMessage().getBytes();
         }

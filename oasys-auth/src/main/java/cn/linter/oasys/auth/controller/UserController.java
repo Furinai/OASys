@@ -3,6 +3,7 @@ package cn.linter.oasys.auth.controller;
 import cn.linter.oasys.auth.entity.User;
 import cn.linter.oasys.auth.service.UserService;
 import cn.linter.oasys.common.entity.Result;
+import cn.linter.oasys.common.entity.ResultStatus;
 import cn.linter.oasys.common.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,10 +25,7 @@ public class UserController {
     @GetMapping("user")
     public Result<User> queryUser(@RequestHeader("Authorization") String token) {
         User user = userService.queryByUsername(JwtUtil.getUsername(token));
-        if (user != null) {
-            return Result.sendSuccess(200, user);
-        }
-        return Result.sendError(404, "用户不存在");
+        return Result.of(ResultStatus.SUCCESS, user);
     }
 
 }

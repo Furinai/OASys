@@ -1,6 +1,8 @@
 package cn.linter.oasys.personnel.controller;
 
+import cn.linter.oasys.common.entity.Page;
 import cn.linter.oasys.common.entity.Result;
+import cn.linter.oasys.common.entity.ResultStatus;
 import cn.linter.oasys.personnel.entity.User;
 import cn.linter.oasys.personnel.service.UserService;
 import com.github.pagehelper.PageInfo;
@@ -9,8 +11,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * 用户控制器
@@ -35,10 +35,7 @@ public class UserController {
     @GetMapping("user/{id}")
     public Result<User> queryUser(@PathVariable("id") @ApiParam("用户ID") Long id) {
         User user = userService.query(id);
-        if (user != null) {
-            return Result.sendSuccess(200, user);
-        }
-        return Result.sendError(404, "用户不存在！");
+        return Result.of(ResultStatus.SUCCESS, user);
     }
 
     /**
@@ -50,10 +47,10 @@ public class UserController {
      */
     @ApiOperation("分页查询所有用户")
     @GetMapping("users")
-    public Result<List<User>> listUser(@RequestParam(defaultValue = "1") @ApiParam("页号") int pageNumber,
+    public Result<Page<User>> listUser(@RequestParam(defaultValue = "1") @ApiParam("页号") int pageNumber,
                                        @RequestParam(defaultValue = "10") @ApiParam("页大小") int pageSize) {
         PageInfo<User> pageInfo = userService.list(pageNumber, pageSize);
-        return Result.sendSuccess(200, pageInfo.getList(), pageInfo.getTotal());
+        return Result.of(ResultStatus.SUCCESS, Page.of(pageInfo.getList(), pageInfo.getTotal()));
     }
 
     /**
@@ -65,7 +62,7 @@ public class UserController {
     @ApiOperation("新增用户")
     @PostMapping("user")
     public Result<User> createUser(@RequestBody @ApiParam("用户") User user) {
-        return Result.sendSuccess(201, userService.create(user));
+        return Result.of(ResultStatus.SUCCESS, userService.create(user));
     }
 
     /**
@@ -78,10 +75,7 @@ public class UserController {
     @PutMapping("user")
     public Result<User> updateUser(@RequestBody @ApiParam("用户") User user) {
         User updatedUser = userService.update(user);
-        if (updatedUser != null) {
-            return Result.sendSuccess(200, updatedUser);
-        }
-        return Result.sendError(404, "用户不存在！");
+        return Result.of(ResultStatus.SUCCESS, updatedUser);
     }
 
     /**
@@ -92,11 +86,9 @@ public class UserController {
      */
     @ApiOperation("通过ID删除用户")
     @DeleteMapping("user/{id}")
-    public Result<String> deleteUser(@PathVariable("id") @ApiParam("用户ID") Long id) {
-        if (userService.delete(id)) {
-            return Result.sendSuccess(200, "删除成功！");
-        }
-        return Result.sendError(404, "用户不存在！");
+    public ResultStatus deleteUser(@PathVariable("id") @ApiParam("用户ID") Long id) {
+        userService.delete(id);
+        return ResultStatus.SUCCESS;
     }
 
 }
