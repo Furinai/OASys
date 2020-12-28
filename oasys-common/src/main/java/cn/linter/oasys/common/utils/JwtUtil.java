@@ -15,7 +15,7 @@ public class JwtUtil {
     /**
      * Token前缀
      */
-    public static final String TOKEN_PREFIX = "Bearer ";
+    public static final String TOKEN_PREFIX = "bearer ";
 
     /**
      * 从Token获取用户名
