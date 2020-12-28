@@ -1,0 +1,28 @@
+server:
+  port: 8440
+spring:
+  application:
+    name: file-service
+  servlet:
+    multipart:
+      max-file-size: 50MB
+  datasource:
+    url: jdbc:mysql://localhost/oasys?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+  jackson:
+    default-property-inclusion: non_null
+    date-format: yyyy-MM-dd HH:mm
+    time-zone: GMT+8
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+minio:
+  endpoint: http://localhost:9000
+  access-key: minioadmin
+  secret-key: minioadmin
+  file-bucket-name: file
+  profile-picture-bucket-name: profile-picture

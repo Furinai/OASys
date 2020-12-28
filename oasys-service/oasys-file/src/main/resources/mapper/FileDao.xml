@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.linter.oasys.file.dao.FileDao">
+
+    <resultMap type="cn.linter.oasys.file.entity.File" id="FileMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="path" column="path"/>
+        <result property="type" column="type"/>
+        <result property="size" column="size"/>
+        <result property="userId" column="user_id"/>
+        <result property="creator" column="creator"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="shared" column="is_shared"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="contentType" column="content_type"/>
+    </resultMap>
+
+    <!--通过ID查询单个文件-->
+    <select id="selectById" resultMap="FileMap">
+        select id, name, path, type, size, user_id, creator, parent_id, is_shared, create_time, update_time, content_type
+        from file
+        where id = #{id}
+    </select>
+
+    <!--通过文件实体查询所有文件-->
+    <select id="listByEntity" resultMap="FileMap">
+        select id, name, path, type, size, user_id, creator, parent_id, is_shared, create_time, update_time, content_type
+        from file
+        <where>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="parentId != null">
+                and parent_id = #{parentId}
+            </if>
+            <if test="shared != null">
+                and is_shared = #{shared}
+            </if>
+        </where>
+    </select>
+
+    <!--新增文件-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into file(name, path, type, size, user_id, creator, parent_id, is_shared, create_time, update_time,content_type)
+        values (#{name}, #{path}, #{type}, #{size}, #{userId}, #{creator}, #{parentId}, #{shared}, #{createTime}, #{updateTime}, #{contentType})
+    </insert>
+
+    <!--更新文件-->
+    <update id="update">
+        update file
+        set
+        <if test="name != null and name != ''">
+            name = #{name},
+        </if>
+        <if test="shared != null">
+            is_shared = #{shared},
+        </if>
+        update_time = #{updateTime}
+        where id = #{id}
+    </update>
+
+    <!--通过ID删除文件-->
+    <delete id="deleteById">
+        delete
+        from file
+        where id = #{id}
+    </delete>
+
+</mapper>

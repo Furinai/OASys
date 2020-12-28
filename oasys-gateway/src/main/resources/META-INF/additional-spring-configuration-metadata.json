@@ -1,9 +1,0 @@
-{
-  "properties": [
-    {
-      "name": "swagger.resources.exclude",
-      "type": "java.lang.String",
-      "description": "Swagger接口文档排除项."
-    }
-  ]
-}

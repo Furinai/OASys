@@ -1,7 +1,5 @@
 server:
   port: 8846
-mybatis:
-  mapper-locations: classpath:mapper/*.xml
 spring:
   application:
     name: auth-service
@@ -9,20 +7,18 @@ spring:
     nacos:
       discovery:
         server-addr: localhost:8848
-  datasource:
-    url: jdbc:mysql://localhost/oasys?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
-    username: root
-    password: root
-key:
-  location: jwt.jks
-  password: linter
-  alias: jwt
-client:
-  id: linter
-  secret: linter
-grant:
-  type: password
-  scope: all
-token:
-  validity:
-    second: 864000
+security:
+  oauth2:
+    client:
+      scope: all
+      client-id: linter
+      client-secret: linter
+      authorized-grant-types: password
+      access-token-validity-seconds: 864000
+    authorization:
+      check-token-access: permitAll()
+      token-key-access: permitAll()
+      jwt:
+        key-store: classpath:jwt.jks
+        key-store-password: linter
+        key-alias: jwt

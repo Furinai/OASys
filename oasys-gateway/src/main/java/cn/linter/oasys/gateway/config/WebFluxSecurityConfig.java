@@ -3,7 +3,6 @@ package cn.linter.oasys.gateway.config;
 import cn.linter.oasys.common.entity.ResultStatus;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.buffer.DataBuffer;
@@ -19,7 +18,7 @@ import reactor.core.publisher.Mono;
 import java.nio.charset.StandardCharsets;
 
 /**
- * 网关Security配置
+ * Security配置
  *
  * @author wangxiaoyang
  * @since 2020/11/03
@@ -28,20 +27,19 @@ import java.nio.charset.StandardCharsets;
 @EnableWebFluxSecurity
 public class WebFluxSecurityConfig {
 
-    @Autowired
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
+
+    public WebFluxSecurityConfig(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
 
     @Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
         http.authorizeExchange()
-                .pathMatchers("/api/auth/oauth/token")
+                .pathMatchers("/api/oauth/**")
                 .permitAll()
-                .pathMatchers("/api/*/v2/api-docs")
-                .permitAll()
-                .pathMatchers("/api/**")
-                .authenticated()
                 .anyExchange()
-                .permitAll()
+                .authenticated()
                 .and().exceptionHandling()
                 .authenticationEntryPoint((exchange, exception) -> sendRestResponse(exchange,
                         HttpStatus.UNAUTHORIZED, ResultStatus.UNAUTHORIZED)
@@ -49,8 +47,8 @@ public class WebFluxSecurityConfig {
                 .accessDeniedHandler((exchange, exception) -> sendRestResponse(exchange,
                         HttpStatus.FORBIDDEN, ResultStatus.FORBIDDEN)
                 )
-                .and().csrf().disable();
-        http.oauth2ResourceServer()
+                .and().csrf().disable()
+                .oauth2ResourceServer()
                 .authenticationEntryPoint((exchange, exception) -> sendRestResponse(exchange,
                         HttpStatus.BAD_REQUEST, ResultStatus.TOKEN_IS_INVALID)
                 )
@@ -62,13 +60,14 @@ public class WebFluxSecurityConfig {
         ServerHttpResponse httpResponse = exchange.getResponse();
         httpResponse.getHeaders().setContentType(MediaType.APPLICATION_JSON);
         httpResponse.setStatusCode(httpStatus);
-        byte[] body;
+        String body;
         try {
-            body = objectMapper.writeValueAsString(resultStatus).getBytes(StandardCharsets.UTF_8);
+            body = objectMapper.writeValueAsString(resultStatus);
         } catch (JsonProcessingException e) {
-            body = e.getMessage().getBytes();
+            body = e.getMessage();
         }
-        DataBuffer buffer = httpResponse.bufferFactory().wrap(body);
+        byte[] bytes = body.getBytes(StandardCharsets.UTF_8);
+        DataBuffer buffer = httpResponse.bufferFactory().wrap(bytes);
         return httpResponse.writeWith(Mono.just(buffer));
     }
 

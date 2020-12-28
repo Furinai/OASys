@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.linter.oasys.attendance.dao.AttendanceDao">
+
+    <resultMap type="cn.linter.oasys.attendance.entity.Attendance" id="AttendanceMap">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="clockDate" column="clock_date"/>
+        <result property="clockInTime" column="clock_in_time"/>
+        <result property="clockOutTime" column="clock_out_time"/>
+        <result property="comeLateMinutes" column="come_late_minutes"/>
+        <result property="leaveEarlyMinutes" column="leave_early_minutes"/>
+    </resultMap>
+
+    <!--通过配置名查询配置值-->
+    <select id="selectSettingValueByName" resultType="string">
+        select value
+        from attendance_setting
+        where name = #{name}
+    </select>
+
+    <!--通过ID查询单个考勤记录-->
+    <select id="selectById" resultMap="AttendanceMap">
+        select id, user_id, clock_date, clock_in_time, clock_out_time, come_late_minutes, leave_early_minutes
+        from attendance_record
+        where id = #{id}
+    </select>
+
+    <!--通过用户ID和日期查询所有考勤记录-->
+    <select id="listByUserIdAndClockDate" resultMap="AttendanceMap">
+        select id, user_id, clock_date, clock_in_time, clock_out_time, come_late_minutes, leave_early_minutes
+        from attendance_record
+        where user_id = #{userId}
+        and year(clock_date) = #{year}
+        and month(clock_date) = #{month}
+        <if test="day != null">
+            and day(clock_date) = #{day}
+        </if>
+    </select>
+
+    <!--插入考勤记录-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into attendance_record(user_id, clock_date, clock_in_time, clock_out_time, come_late_minutes, leave_early_minutes)
+        values (#{userId}, #{clockDate}, #{clockInTime}, #{clockOutTime}, #{comeLateMinutes}, #{leaveEarlyMinutes})
+    </insert>
+
+    <!--通过ID更新考勤记录-->
+    <update id="updateById">
+        update attendance_record
+        <set>
+            <if test="clockInTime != null">
+                clock_in_time = #{clockInTime},
+            </if>
+            <if test="clockOutTime != null">
+                clock_out_time = #{clockOutTime},
+            </if>
+            <if test="comeLateMinutes != null">
+                come_late_minutes = #{comeLateMinutes},
+            </if>
+            <if test="leaveEarlyMinutes != null">
+                leave_early_minutes = #{leaveEarlyMinutes},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>

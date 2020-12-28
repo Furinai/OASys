@@ -3,6 +3,8 @@ package cn.linter.oasys.common.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
+ * 响应状态枚举类
+ * 
  * @author wangxiaoyang
  * @date 2020/12/19
  */
@@ -10,14 +12,16 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public enum ResultStatus {
 
     /**
-     * 操作成功
+     * 响应状态
      */
     SUCCESS("0000", "操作成功"),
     UNAUTHORIZED("1000", "未授权"),
     FORBIDDEN("1001", "权限不足"),
     TOKEN_IS_INVALID("1002", "Token无效"),
-    ARGUMENT_NOT_VALID("3002", "参数无效"),
-    TODAY_HAS_CLOCKED_IN("4001", "今日已经签到过"),
+    USER_NOT_FOUND("2000", "用户不存在"),
+    ARGUMENT_NOT_VALID("3000", "参数无效"),
+    TODAY_HAS_CLOCKED_IN("4000", "今日已经签到过"),
+    TODAY_HAS_CLOCKED_OUT("4001", "今日已经签签退过"),
     TODAY_HAS_NOT_CLOCKED_IN("4002", "今日还没有签到");
 
     /**

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.linter.oasys.announcement.dao.AnnouncementDao">
+
+    <resultMap type="cn.linter.oasys.announcement.entity.Announcement" id="AnnouncementMap">
+        <result property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <!--通过ID查询单个公告-->
+    <select id="selectById" resultMap="AnnouncementMap">
+        select id, title, content, create_time, update_time
+        from announcement
+        where id = #{id}
+    </select>
+
+    <!--查询所有公告-->
+    <select id="list" resultMap="AnnouncementMap">
+        select id, title, content, create_time, update_time
+        from announcement
+        order by update_time desc
+    </select>
+
+    <!--新增公告-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into announcement(title, content, create_time, update_time)
+        values (#{title}, #{content}, #{createTime}, #{updateTime})
+    </insert>
+
+    <!--更新公告-->
+    <update id="update">
+        update announcement
+        set
+        <if test="title != null and title != ''">
+            title = #{title},
+        </if>
+        <if test="content != null and content != ''">
+            content = #{content},
+        </if>
+        update_time = #{updateTime}
+        where id = #{id}
+    </update>
+
+    <!--通过ID删除单个公告-->
+    <delete id="deleteById">
+        delete
+        from announcement
+        where id = #{id}
+    </delete>
+
+</mapper>

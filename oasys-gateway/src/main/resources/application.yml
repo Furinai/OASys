@@ -5,11 +5,13 @@ spring:
     name: gateway
   jackson:
     default-property-inclusion: non_null
+    date-format: yyyy-MM-dd HH:mm
+    time-zone: GMT+8
   security:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: localhost:8846/key/public
+          jwk-set-uri: localhost:8846/oauth/key
   cloud:
     nacos:
       discovery:
@@ -18,35 +20,30 @@ spring:
       discovery:
         locator:
           enabled: true
+      default-filters:
+        - StripPrefix=1
       routes:
         - id: auth-service
           uri: lb://auth-service
           predicates:
-            - Path=/api/auth/**
-          filters:
-            - StripPrefix=2
-        - id: document-service
-          uri: lb://document-service
+            - Path=/api/oauth/**
+        - id: announcement-service
+          uri: lb://announcement-service
           predicates:
-            - Path=/api/doc/**
-          filters:
-            - StripPrefix=2
-        - id: information-service
-          uri: lb://information-service
+            - Path=/api/announcements/**
+        - id: attendance-service
+          uri: lb://attendance-service
           predicates:
-            - Path=/api/info/**
-          filters:
-            - StripPrefix=2
-        - id: personnel-service
-          uri: lb://personnel-service
+            - Path=/api/attendances/**
+        - id: file-service
+          uri: lb://file-service
           predicates:
-            - Path=/api/pers/**
-          filters:
-            - StripPrefix=2
+            - Path=/api/files/**,/api/profile-pictures/**
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/api/users/**,/api/depts/**,/api/roles/**
         - id: chat-service
           uri: ws://localhost:8286
           predicates:
             - Path=/websocket/**
-swagger:
-  resources:
-    exclude: auth-service,chat-service

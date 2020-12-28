@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.linter.oasys.user.dao.RoleDao">
+
+    <resultMap type="cn.linter.oasys.user.entity.Role" id="RoleMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+    </resultMap>
+
+    <!--通过ID查询单个角色-->
+    <select id="selectById" resultMap="RoleMap">
+        select id, name
+        from role
+        where id = #{id}
+    </select>
+
+    <!--查询所有角色-->
+    <select id="list" resultMap="RoleMap">
+        select id, name
+        from role
+    </select>
+
+    <!--通过角色实体查询所有角色-->
+    <select id="listByEntity" resultMap="RoleMap">
+        select id, name
+        from role
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+        </where>
+    </select>
+
+    <!--通过用户ID查询所有角色-->
+    <select id="listByUsername" resultType="cn.linter.oasys.user.entity.Role">
+        select r.id, r.name
+        from user u,
+             role r,
+             user_role ur
+        where r.id = ur.role_id
+          and u.id = ur.user_id
+          and u.username = #{username}
+    </select>
+
+    <!--插入单个角色-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into role(name)
+        values (#{name})
+    </insert>
+
+    <!--更新角色-->
+    <update id="update">
+        update role
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--删除角色-->
+    <delete id="delete">
+        delete
+        from role
+        where id = #{id}
+    </delete>
+
+</mapper>
