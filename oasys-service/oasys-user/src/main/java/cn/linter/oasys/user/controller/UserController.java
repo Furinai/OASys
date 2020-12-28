@@ -8,7 +8,6 @@ import cn.linter.oasys.user.entity.User;
 import cn.linter.oasys.user.service.RoleService;
 import cn.linter.oasys.user.service.UserService;
 import com.github.pagehelper.PageInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,10 +21,13 @@ import java.util.List;
 @RequestMapping("users")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private RoleService roleService;
+    private final UserService userService;
+    private final RoleService roleService;
+
+    public UserController(UserService userService, RoleService roleService) {
+        this.userService = userService;
+        this.roleService = roleService;
+    }
 
     @GetMapping("{username}")
     public Result<User> queryUser(@PathVariable("username") String username) {

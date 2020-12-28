@@ -6,7 +6,6 @@ import cn.linter.oasys.common.entity.Page;
 import cn.linter.oasys.common.entity.Result;
 import cn.linter.oasys.common.entity.ResultStatus;
 import com.github.pagehelper.PageInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -19,8 +18,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("announcements")
 public class AnnouncementController {
 
-    @Autowired
-    private AnnouncementService announcementService;
+    private final AnnouncementService announcementService;
+
+    public AnnouncementController(AnnouncementService announcementService) {
+        this.announcementService = announcementService;
+    }
 
     @GetMapping
     public Result<Page<Announcement>> listAnnouncement(@RequestParam(defaultValue = "1") int pageNumber, @RequestParam(defaultValue = "10") int pageSize) {

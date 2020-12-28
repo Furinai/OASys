@@ -18,8 +18,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class DeptController {
 
-    @Autowired
-    private DeptService deptService;
+    private final DeptService deptService;
+
+    public DeptController(DeptService deptService) {
+        this.deptService = deptService;
+    }
 
     @GetMapping("dept/{id}")
     public Result<Dept> queryDept(@PathVariable("id") Integer id) {

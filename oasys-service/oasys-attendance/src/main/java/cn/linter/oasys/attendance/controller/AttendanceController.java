@@ -4,7 +4,6 @@ import cn.linter.oasys.attendance.entity.Attendance;
 import cn.linter.oasys.attendance.service.AttendanceService;
 import cn.linter.oasys.common.entity.Result;
 import cn.linter.oasys.common.entity.ResultStatus;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,8 +18,11 @@ import java.util.List;
 @RequestMapping("attendances")
 public class AttendanceController {
 
-    @Autowired
-    private AttendanceService attendanceService;
+    private final AttendanceService attendanceService;
+
+    public AttendanceController(AttendanceService attendanceService) {
+        this.attendanceService = attendanceService;
+    }
 
     @GetMapping
     public Result<List<Attendance>> listAttendance(Long userId, Integer year, Integer month, Integer day) {

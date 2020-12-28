@@ -7,7 +7,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import io.minio.*;
 import io.minio.errors.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,13 +33,16 @@ import java.util.stream.Collectors;
 @Service
 public class FileServiceImpl implements FileService {
 
-    @Autowired
-    private FileDao fileDao;
-    @Autowired
-    private MinioClient minioClient;
+    private final FileDao fileDao;
+    private final MinioClient minioClient;
 
     @Value("${minio.file-bucket-name}")
     private String bucketName;
+
+    public FileServiceImpl(FileDao fileDao, MinioClient minioClient) {
+        this.fileDao = fileDao;
+        this.minioClient = minioClient;
+    }
 
     @Override
     public PageInfo<File> listByEntity(int pageNumber, int pageSize, File file) {

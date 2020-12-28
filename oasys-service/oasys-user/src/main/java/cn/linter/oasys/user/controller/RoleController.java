@@ -19,8 +19,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("role")
 public class RoleController {
 
-    @Autowired
-    private RoleService roleService;
+    private final RoleService roleService;
+
+    public RoleController(RoleService roleService) {
+        this.roleService = roleService;
+    }
 
     @GetMapping("{id}")
     public Result<Role> queryRole(@PathVariable("id") Integer id) {

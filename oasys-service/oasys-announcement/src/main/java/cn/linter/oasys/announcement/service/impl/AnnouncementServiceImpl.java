@@ -19,8 +19,11 @@ import java.time.LocalDateTime;
 @Service
 public class AnnouncementServiceImpl implements AnnouncementService {
 
-    @Autowired
-    private AnnouncementDao announcementDao;
+    private final AnnouncementDao announcementDao;
+
+    public AnnouncementServiceImpl(AnnouncementDao announcementDao) {
+        this.announcementDao = announcementDao;
+    }
 
     @Override
     public PageInfo<Announcement> list(int pageNumber, int pageSize) {

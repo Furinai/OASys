@@ -17,8 +17,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class DeptServiceImpl implements DeptService {
 
-    @Autowired
-    private DeptDao deptDao;
+    private final DeptDao deptDao;
+
+    public DeptServiceImpl(DeptDao deptDao) {
+        this.deptDao = deptDao;
+    }
 
     @Override
     public Dept query(Integer id) {

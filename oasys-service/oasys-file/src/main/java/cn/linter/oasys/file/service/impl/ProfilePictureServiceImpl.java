@@ -3,7 +3,6 @@ package cn.linter.oasys.file.service.impl;
 import cn.linter.oasys.file.service.ProfilePictureService;
 import io.minio.*;
 import io.minio.errors.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,13 +20,16 @@ import java.security.NoSuchAlgorithmException;
 @Service
 public class ProfilePictureServiceImpl implements ProfilePictureService {
 
-    @Autowired
-    private MinioClient minioClient;
+    private final MinioClient minioClient;
 
     @Value("${minio.endpoint}")
     private String endPoint;
     @Value("${minio.profile-picture-bucket-name}")
     private String bucketName;
+
+    public ProfilePictureServiceImpl(MinioClient minioClient) {
+        this.minioClient = minioClient;
+    }
 
     @Override
     public String createProfilePicture(MultipartFile multipartFile) throws IOException, InvalidKeyException, InvalidResponseException,
