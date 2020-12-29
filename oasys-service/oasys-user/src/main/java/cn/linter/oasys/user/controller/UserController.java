@@ -11,6 +11,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 /**
  * 用户控制器
  *
@@ -35,8 +36,8 @@ public class UserController {
         return Result.of(ResultStatus.SUCCESS, user);
     }
 
-    @GetMapping("{id}/roles")
-    public Result<List<Role>> queryRoleOfUser(@PathVariable("id") String username) {
+    @GetMapping("{username}/roles")
+    public Result<List<Role>> queryRoleOfUser(@PathVariable("username") String username) {
         List<Role> roles = roleService.listByUsername(username);
         return Result.of(ResultStatus.SUCCESS, roles);
     }
