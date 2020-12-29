@@ -32,12 +32,12 @@ public class AnnouncementController {
     }
 
     @PostMapping
-    public Result<Announcement> createAnnouncement(@RequestBody @Validated Announcement announcement) {
+    public Result<Announcement> createAnnouncement(@RequestBody @Validated({Announcement.Create.class}) Announcement announcement) {
         return Result.of(ResultStatus.SUCCESS, announcementService.create(announcement));
     }
 
     @PutMapping
-    public Result<Announcement> updateAnnouncement(@RequestBody @Validated Announcement announcement) {
+    public Result<Announcement> updateAnnouncement(@RequestBody @Validated({Announcement.Update.class}) Announcement announcement) {
         Announcement updatedAnnouncement = announcementService.update(announcement);
         return Result.of(ResultStatus.SUCCESS, updatedAnnouncement);
     }
