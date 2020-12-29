@@ -6,6 +6,7 @@ import cn.linter.oasys.common.entity.Page;
 import cn.linter.oasys.common.entity.Result;
 import cn.linter.oasys.common.entity.ResultStatus;
 import com.github.pagehelper.PageInfo;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -31,12 +32,12 @@ public class AnnouncementController {
     }
 
     @PostMapping
-    public Result<Announcement> createAnnouncement(@RequestBody Announcement announcement) {
+    public Result<Announcement> createAnnouncement(@RequestBody @Validated Announcement announcement) {
         return Result.of(ResultStatus.SUCCESS, announcementService.create(announcement));
     }
 
     @PutMapping
-    public Result<Announcement> updateAnnouncement(@RequestBody Announcement announcement) {
+    public Result<Announcement> updateAnnouncement(@RequestBody @Validated Announcement announcement) {
         Announcement updatedAnnouncement = announcementService.update(announcement);
         return Result.of(ResultStatus.SUCCESS, updatedAnnouncement);
     }
