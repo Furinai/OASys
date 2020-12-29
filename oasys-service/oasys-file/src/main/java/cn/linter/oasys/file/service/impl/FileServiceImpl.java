@@ -48,11 +48,12 @@ public class FileServiceImpl implements FileService {
     public PageInfo<File> listByEntity(int pageNumber, int pageSize, File file) {
         PageHelper.startPage(pageNumber, pageSize);
         List<File> files = fileDao.listByEntity(file);
+        PageInfo<File> pageInfo = PageInfo.of(files);
         //列表排序，文件夹在前，文件在后
-        return PageInfo.of(files.parallelStream()
+        pageInfo.setList(pageInfo.getList().parallelStream()
                 .sorted((a, b) -> a.isFolder() == b.isFolder() ? 0 : a.isFolder() ? -1 : 1)
-                .collect(Collectors.toList())
-        );
+                .collect(Collectors.toList()));
+        return pageInfo;
     }
 
     @Override
