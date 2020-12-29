@@ -28,16 +28,13 @@ public class GlobalExceptionHandler {
         return e.getStatus();
     }
 
-
     /**
      * 参数无效异常处理器
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Result<List<String>> methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
-        List<String> errors = e.getBindingResult().getAllErrors().stream()
-                .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                .collect(Collectors.toList());
-        return Result.of(ResultStatus.ARGUMENT_NOT_VALID, errors);
+        return Result.of(ResultStatus.ARGUMENT_NOT_VALID, e.getBindingResult().getAllErrors().stream()
+                .map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.toList()));
     }
 
 }
