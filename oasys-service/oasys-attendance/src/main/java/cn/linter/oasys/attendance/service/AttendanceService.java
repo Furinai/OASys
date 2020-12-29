@@ -26,17 +26,17 @@ public interface AttendanceService {
     /**
      * 新增考勤
      *
-     * @param attendance 考勤实例
+     * @param userId 用户ID
      * @return 考勤实例
      */
-    Attendance create(Attendance attendance);
+    Attendance create(Long userId);
 
     /**
      * 更新考勤
      *
-     * @param attendance 考勤实例
+     * @param id 考勤ID
      * @return 考勤实例
      */
-    Attendance update(Attendance attendance);
+    Attendance update(Long id);
 
 }

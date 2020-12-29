@@ -25,18 +25,19 @@ public class AttendanceController {
     }
 
     @GetMapping
-    public Result<List<Attendance>> listAttendance(Long userId, Integer year, Integer month, Integer day) {
+    public Result<List<Attendance>> listAttendance(@RequestParam Long userId, @RequestParam Integer year,
+                                                   @RequestParam Integer month, Integer day) {
         return Result.of(ResultStatus.SUCCESS, attendanceService.listByUserIdAndClockDate(userId, year, month, day));
     }
 
     @PostMapping
-    public Result<Attendance> clockIn(@RequestBody Attendance attendance) {
-        return Result.of(ResultStatus.SUCCESS, attendanceService.create(attendance));
+    public Result<Attendance> clockIn(@RequestParam Long userId) {
+        return Result.of(ResultStatus.SUCCESS, attendanceService.create(userId));
     }
 
     @PutMapping
-    public Result<Attendance> clockOut(@RequestBody Attendance attendance) {
-        return Result.of(ResultStatus.SUCCESS, attendanceService.update(attendance));
+    public Result<Attendance> clockOut(@RequestParam Long id) {
+        return Result.of(ResultStatus.SUCCESS, attendanceService.update(id));
     }
 
 }

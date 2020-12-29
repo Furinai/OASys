@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -33,11 +34,16 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
-    public Attendance create(Attendance attendance) throws BusinessException {
-        Attendance existingAttendance = attendanceDao.selectById(attendance.getId());
-        if (existingAttendance != null) {
+    public Attendance create(Long userId) throws BusinessException {
+        LocalDateTime nowDateTime = LocalDateTime.now();
+        int year = nowDateTime.getYear();
+        int month = nowDateTime.getMonthValue();
+        int day = nowDateTime.getDayOfMonth();
+        if (attendanceDao.listByUserIdAndClockDate(userId, year, month, day).size() > 0) {
             throw new BusinessException(ResultStatus.TODAY_HAS_CLOCKED_IN);
         }
+        Attendance attendance = new Attendance();
+        attendance.setUserId(userId);
         String workingHoursStart = attendanceDao.selectSettingValueByName("working_hours_start");
         Duration duration = Duration.between(LocalTime.parse(workingHoursStart), LocalTime.now());
         long lateMinutes = duration.toMinutes();
@@ -51,12 +57,12 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
-    public Attendance update(Attendance attendance) throws BusinessException {
-        Attendance oldAttendance = attendanceDao.selectById(attendance.getId());
-        if (oldAttendance == null) {
+    public Attendance update(Long id) throws BusinessException {
+        Attendance attendance = attendanceDao.selectById(id);
+        if (attendance == null) {
             throw new BusinessException(ResultStatus.TODAY_HAS_NOT_CLOCKED_IN);
         }
-        if (oldAttendance.getClockOutTime() != null) {
+        if (attendance.getClockOutTime() != null) {
             throw new BusinessException(ResultStatus.TODAY_HAS_CLOCKED_OUT);
         }
         String workingHoursEnd = attendanceDao.selectSettingValueByName("working_hours_end");
