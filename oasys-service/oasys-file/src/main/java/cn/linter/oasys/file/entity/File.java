@@ -3,7 +3,10 @@ package cn.linter.oasys.file.entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -22,10 +25,12 @@ public class File implements Serializable {
     /**
      * 主键ID
      */
+    @NotNull(message = "文件ID不能为空", groups = {Update.class})
     private Long id;
     /**
      * 文件名
      */
+    @Length(min = 1, max = 20, message = "文件（夹）名长度为 1 到 20 之间", groups = {CreateFolder.class, Update.class})
     private String name;
     /**
      * 路径
@@ -42,14 +47,17 @@ public class File implements Serializable {
     /**
      * 用户ID
      */
+    @NotNull(message = "用户ID不能为空", groups = {CreateFile.class, CreateFolder.class})
     private Long userId;
     /**
-     * 用户姓名
+     * 创建者姓名
      */
+    @NotBlank(message = "创建者姓名不能为空", groups = {CreateFile.class, CreateFolder.class})
     private String creator;
     /**
      * 父级ID
      */
+    @NotNull(message = "父级目录ID不能为空", groups = {CreateFile.class, CreateFolder.class})
     private Long parentId;
     /**
      * 是否共享
@@ -67,6 +75,15 @@ public class File implements Serializable {
      * content-type
      */
     private String contentType;
+
+    public interface CreateFile {
+    }
+
+    public interface CreateFolder {
+    }
+
+    public interface Update {
+    }
 
     public boolean isFolder() {
         return "文件夹".equals(this.type);

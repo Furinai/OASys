@@ -7,6 +7,7 @@ import cn.linter.oasys.file.entity.File;
 import cn.linter.oasys.file.service.FileService;
 import com.github.pagehelper.PageInfo;
 import io.minio.errors.*;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -38,7 +39,9 @@ public class FileController {
     }
 
     @PostMapping
-    public Result<File> createFile(@RequestParam(required = false) MultipartFile multipartFile, File file) throws Exception {
+    public Result<File> createFile(@RequestParam(required = false) MultipartFile multipartFile, @Validated({File.CreateFile.class, File.CreateFolder.class}) File file)
+            throws IOException, ServerException, InsufficientDataException, NoSuchAlgorithmException, InternalException,
+            InvalidResponseException, XmlParserException, InvalidKeyException, ErrorResponseException {
         return Result.of(ResultStatus.SUCCESS, fileService.create(multipartFile, file));
     }
 
@@ -49,7 +52,7 @@ public class FileController {
     }
 
     @PutMapping
-    public Result<File> updateFile(@RequestBody File file) {
+    public Result<File> updateFile(@RequestBody @Validated({File.Update.class}) File file) {
         //todo 验证是否为自己的文件
         File updatedFile = fileService.update(file);
         return Result.of(ResultStatus.SUCCESS, updatedFile);
