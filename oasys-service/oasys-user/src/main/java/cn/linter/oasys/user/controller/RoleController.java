@@ -6,7 +6,7 @@ import cn.linter.oasys.common.entity.ResultStatus;
 import cn.linter.oasys.user.entity.Role;
 import cn.linter.oasys.user.service.RoleService;
 import com.github.pagehelper.PageInfo;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -37,12 +37,12 @@ public class RoleController {
     }
 
     @PostMapping
-    public Result<Role> createRole(@RequestBody Role role) {
+    public Result<Role> createRole(@RequestBody @Validated({Role.Create.class}) Role role) {
         return Result.of(ResultStatus.SUCCESS, roleService.create(role));
     }
 
     @PutMapping
-    public Result<Role> updateRole(@RequestBody Role role) {
+    public Result<Role> updateRole(@RequestBody @Validated({Role.Update.class}) Role role) {
         return Result.of(ResultStatus.SUCCESS, roleService.update(role));
     }
 

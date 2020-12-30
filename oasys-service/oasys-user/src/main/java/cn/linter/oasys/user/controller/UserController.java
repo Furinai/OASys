@@ -8,6 +8,7 @@ import cn.linter.oasys.user.entity.User;
 import cn.linter.oasys.user.service.RoleService;
 import cn.linter.oasys.user.service.UserService;
 import com.github.pagehelper.PageInfo;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -49,12 +50,12 @@ public class UserController {
     }
 
     @PostMapping
-    public Result<User> createUser(@RequestBody User user) {
+    public Result<User> createUser(@RequestBody @Validated({User.Create.class}) User user) {
         return Result.of(ResultStatus.SUCCESS, userService.create(user));
     }
 
     @PutMapping
-    public Result<User> updateUser(@RequestBody User user) {
+    public Result<User> updateUser(@RequestBody @Validated({User.Update.class}) User user) {
         User updatedUser = userService.update(user);
         return Result.of(ResultStatus.SUCCESS, updatedUser);
     }

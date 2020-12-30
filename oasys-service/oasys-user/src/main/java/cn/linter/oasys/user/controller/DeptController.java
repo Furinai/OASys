@@ -6,7 +6,7 @@ import cn.linter.oasys.common.entity.ResultStatus;
 import cn.linter.oasys.user.entity.Dept;
 import cn.linter.oasys.user.service.DeptService;
 import com.github.pagehelper.PageInfo;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -36,12 +36,12 @@ public class DeptController {
     }
 
     @PostMapping("dept")
-    public Result<Dept> createDept(@RequestBody Dept dept) {
+    public Result<Dept> createDept(@RequestBody @Validated({Dept.Create.class}) Dept dept) {
         return Result.of(ResultStatus.SUCCESS, deptService.create(dept));
     }
 
     @PutMapping("dept")
-    public Result<Dept> updateDept(@RequestBody Dept dept) {
+    public Result<Dept> updateDept(@RequestBody @Validated({Dept.Update.class}) Dept dept) {
         return Result.of(ResultStatus.SUCCESS, deptService.update(dept));
     }
 
