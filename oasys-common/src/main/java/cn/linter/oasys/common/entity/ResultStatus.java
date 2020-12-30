@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * 响应状态枚举类
- * 
+ *
  * @author wangxiaoyang
  * @date 2020/12/19
  */
@@ -19,6 +19,7 @@ public enum ResultStatus {
     FORBIDDEN("1001", "权限不足"),
     TOKEN_IS_INVALID("1002", "Token无效"),
     USER_NOT_FOUND("2000", "用户不存在"),
+    USERNAME_ALREADY_EXISTS("2001", "用户名已存在"),
     ARGUMENT_NOT_VALID("3000", "参数无效"),
     TODAY_HAS_CLOCKED_IN("4000", "今日已经签到过"),
     TODAY_HAS_CLOCKED_OUT("4001", "今日已经签签退过"),

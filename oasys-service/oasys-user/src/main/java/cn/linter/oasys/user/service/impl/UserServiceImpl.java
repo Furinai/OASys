@@ -1,5 +1,7 @@
 package cn.linter.oasys.user.service.impl;
 
+import cn.linter.oasys.common.entity.ResultStatus;
+import cn.linter.oasys.common.exception.BusinessException;
 import cn.linter.oasys.user.dao.UserDao;
 import cn.linter.oasys.user.entity.User;
 import cn.linter.oasys.user.service.UserService;
@@ -40,7 +42,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User create(User user) {
-        //todo 处理重复用户名
+        if (userDao.select(user.getUsername()) != null) {
+            throw new BusinessException(ResultStatus.USERNAME_ALREADY_EXISTS);
+        }
         String rawPassword = user.getPassword();
         if (rawPassword != null) {
             user.setPassword(passwordEncoder.encode(rawPassword));
@@ -54,7 +58,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User update(User user) {
-        //todo 处理重复用户名
+        if (userDao.select(user.getUsername()) != null) {
+            throw new BusinessException(ResultStatus.USERNAME_ALREADY_EXISTS);
+        }
         String rawPassword = user.getPassword();
         if (rawPassword != null) {
             user.setPassword(passwordEncoder.encode(rawPassword));
