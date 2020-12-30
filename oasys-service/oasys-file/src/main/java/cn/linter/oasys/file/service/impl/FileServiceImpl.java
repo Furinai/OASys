@@ -1,5 +1,7 @@
 package cn.linter.oasys.file.service.impl;
 
+import cn.linter.oasys.common.entity.ResultStatus;
+import cn.linter.oasys.common.exception.BusinessException;
 import cn.linter.oasys.file.dao.FileDao;
 import cn.linter.oasys.file.entity.File;
 import cn.linter.oasys.file.service.FileService;
@@ -14,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -88,17 +91,26 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public InputStream getById(Long id, HttpServletResponse response) throws IOException, InvalidKeyException, InvalidResponseException,
+    public void getById(Long id, HttpServletResponse response) throws IOException, InvalidKeyException, InvalidResponseException,
             InsufficientDataException, NoSuchAlgorithmException, ServerException, InternalException, XmlParserException, ErrorResponseException {
         File file = fileDao.selectById(id);
         if (file == null) {
-            return null;
+            throw new BusinessException(ResultStatus.FILE_NOT_FOUND);
         }
         response.setContentType("application/octet-stream");
         response.setHeader("content-type", file.getContentType());
         String fileName = URLEncoder.encode(file.getName(), "UTF-8");
         response.setHeader("Content-Disposition", "attachment;" + "filename=" + fileName.replace("+", "%20"));
-        return minioClient.getObject(GetObjectArgs.builder().bucket(bucketName).object(file.getPath()).build());
+        try (InputStream in = minioClient.getObject(GetObjectArgs.builder().bucket(bucketName).object(file.getPath()).build());
+             OutputStream out = response.getOutputStream()) {
+            int len;
+            byte[] buffer = new byte[1024];
+            while ((len = in.read(buffer)) > 0) {
+                out.write(buffer, 0, len);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

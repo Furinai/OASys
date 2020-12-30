@@ -18,12 +18,13 @@ public enum ResultStatus {
     UNAUTHORIZED("1000", "未授权"),
     FORBIDDEN("1001", "权限不足"),
     TOKEN_IS_INVALID("1002", "Token无效"),
-    USER_NOT_FOUND("2000", "用户不存在"),
-    USERNAME_ALREADY_EXISTS("2001", "用户名已存在"),
-    ARGUMENT_NOT_VALID("3000", "参数无效"),
-    TODAY_HAS_CLOCKED_IN("4000", "今日已经签到过"),
-    TODAY_HAS_CLOCKED_OUT("4001", "今日已经签签退过"),
-    TODAY_HAS_NOT_CLOCKED_IN("4002", "今日还没有签到");
+    ARGUMENT_NOT_VALID("2000", "参数无效"),
+    USER_NOT_FOUND("3000", "用户不存在"),
+    USERNAME_ALREADY_EXISTS("3001", "用户名已存在"),
+    TODAY_HAS_CLOCKED_IN("5000", "今日已经签到过"),
+    TODAY_HAS_CLOCKED_OUT("5001", "今日已经签签退过"),
+    TODAY_HAS_NOT_CLOCKED_IN("5002", "今日还没有签到"),
+    FILE_NOT_FOUND("6001", "文件不存在");
 
     /**
      * 状态码

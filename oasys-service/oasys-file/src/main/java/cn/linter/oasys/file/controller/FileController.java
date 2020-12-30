@@ -7,14 +7,11 @@ import cn.linter.oasys.file.entity.File;
 import cn.linter.oasys.file.service.FileService;
 import com.github.pagehelper.PageInfo;
 import io.minio.errors.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
@@ -35,8 +32,7 @@ public class FileController {
     }
 
     @GetMapping
-    public Result<Page<File>> listFile(@RequestParam(defaultValue = "1") int pageNumber, @RequestParam(defaultValue = "10") int pageSize,
-                                       File file) {
+    public Result<Page<File>> listFile(@RequestParam(defaultValue = "1") int pageNumber, @RequestParam(defaultValue = "10") int pageSize, File file) {
         PageInfo<File> pageInfo = fileService.listByEntity(pageNumber, pageSize, file);
         return Result.of(ResultStatus.SUCCESS, Page.of(pageInfo.getList(), pageInfo.getTotal()));
     }
@@ -47,17 +43,9 @@ public class FileController {
     }
 
     @GetMapping("{id}")
-    public void downloadFile(@PathVariable("id") Long id, HttpServletResponse response) throws ServerException, InsufficientDataException,
+    public void downloadFile(@PathVariable("id") Long id, HttpServletResponse response) throws IOException, ServerException, InsufficientDataException,
             NoSuchAlgorithmException, InternalException, InvalidResponseException, XmlParserException, InvalidKeyException, ErrorResponseException {
-        try (InputStream in = fileService.getById(id, response); OutputStream out = response.getOutputStream()) {
-            int len;
-            byte[] buffer = new byte[1024];
-            while ((len = in.read(buffer)) > 0) {
-                out.write(buffer, 0, len);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        fileService.getById(id, response);
     }
 
     @PutMapping

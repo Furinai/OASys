@@ -7,7 +7,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.InputStream;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
@@ -34,7 +33,6 @@ public interface FileService {
      *
      * @param id       文件ID
      * @param response Http响应
-     * @return InputStream
      * @throws IOException               S3操作I/O错误
      * @throws InvalidKeyException       缺少HMAC SHA-256库
      * @throws InvalidResponseException  S3服务器返回无效响应
@@ -45,7 +43,7 @@ public interface FileService {
      * @throws XmlParserException        XML解析错误
      * @throws ErrorResponseException    S3服务器返回错误响应
      */
-    InputStream getById(Long id, HttpServletResponse response) throws IOException, InvalidKeyException, InvalidResponseException,
+    void getById(Long id, HttpServletResponse response) throws IOException, InvalidKeyException, InvalidResponseException,
             InsufficientDataException, NoSuchAlgorithmException, ServerException, InternalException, XmlParserException, ErrorResponseException;
 
     /**
