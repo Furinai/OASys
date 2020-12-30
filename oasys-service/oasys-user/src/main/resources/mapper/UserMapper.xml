@@ -42,8 +42,8 @@
                d.id as dept_id, d.name as dept_name
         from user u, dept d
         where u.dept_id = d.id
-        <if test="name != null and name != ''">
-            and u.full_name = #{name}
+        <if test="fullName != null and fullName != ''">
+            and u.full_name = #{fullName}
         </if>
         <if test="gender != null and gender != ''">
             and u.gender = #{gender}
@@ -56,7 +56,7 @@
     <!--新增用户-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into user(username, password, full_name, gender, dept_id, email_address, phone_number, profile_picture, create_time, update_time)
-        values (#{username}, #{password}, #{name}, #{gender}, #{dept.id}, #{emailAddress}, #{phoneNumber}, #{profilePicture}, #{createTime}, #{updateTime})
+        values (#{username}, #{password}, #{fullName}, #{gender}, #{dept.id}, #{emailAddress}, #{phoneNumber}, #{profilePicture}, #{createTime}, #{updateTime})
     </insert>
 
     <!--更新用户-->
