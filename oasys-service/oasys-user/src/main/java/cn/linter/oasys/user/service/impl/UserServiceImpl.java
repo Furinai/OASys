@@ -5,6 +5,7 @@ import cn.linter.oasys.user.entity.User;
 import cn.linter.oasys.user.service.UserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,13 +21,11 @@ import java.time.LocalDateTime;
 public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
-    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public UserServiceImpl(UserDao userDao, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserDao userDao) {
         this.userDao = userDao;
-        this.passwordEncoder = passwordEncoder;
     }
-
 
     @Override
     public User query(String username) {
