@@ -22,7 +22,7 @@ public class MinioConfig {
     private String secretKey;
 
     @Bean
-    public MinioClient setMinioClient() {
+    public MinioClient minioClientFactory() {
         return MinioClient.builder().endpoint(endPoint)
                 .credentials(accessKey, secretKey).build();
     }
