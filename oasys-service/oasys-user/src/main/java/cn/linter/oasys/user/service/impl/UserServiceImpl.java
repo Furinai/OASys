@@ -58,7 +58,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User update(User user) {
-        if (userDao.select(user.getUsername()) != null) {
+        User oldUser = userDao.select(user.getUsername());
+        if (oldUser != null && !oldUser.getUsername().equals(user.getUsername())) {
             throw new BusinessException(ResultStatus.USERNAME_ALREADY_EXISTS);
         }
         String rawPassword = user.getPassword();
