@@ -36,7 +36,7 @@ public class WebFluxSecurityConfig {
     @Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
         http.authorizeExchange()
-                .pathMatchers("/api/oauth/**")
+                .pathMatchers("/api/oauth/**", "/api/chat/**")
                 .permitAll()
                 .anyExchange()
                 .authenticated()
