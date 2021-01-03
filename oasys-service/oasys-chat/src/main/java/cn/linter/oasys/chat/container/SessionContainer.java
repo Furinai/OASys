@@ -2,7 +2,7 @@ package cn.linter.oasys.chat.container;
 
 import org.springframework.web.socket.WebSocketSession;
 
-import java.util.Iterator;
+import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -25,8 +25,8 @@ public class SessionContainer {
         SESSIONS.remove(username);
     }
 
-    public static Iterator<WebSocketSession> iterator() {
-        return SESSIONS.values().iterator();
+    public static Collection<WebSocketSession> values() {
+        return SESSIONS.values();
     }
 
 }

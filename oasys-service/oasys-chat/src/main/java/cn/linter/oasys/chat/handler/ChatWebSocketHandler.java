@@ -32,7 +32,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) {
-        messagePublisher.publish(message.getPayload());
+        messagePublisher.publish(session,message.getPayload());
     }
 
     @Override
