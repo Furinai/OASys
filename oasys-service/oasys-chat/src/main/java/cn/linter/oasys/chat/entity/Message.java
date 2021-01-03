@@ -1,5 +1,6 @@
 package cn.linter.oasys.chat.entity;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -8,21 +9,22 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 聊天消息实体类
+ * 消息实体类
  *
  * @author wangxiaoyang
  * @date 2020/11/17
  */
 @Data
+@Builder
 @ToString
 @EqualsAndHashCode
 public class Message implements Serializable {
 
     private static final long serialVersionUID = -4484722387608220685L;
     /**
-     * 主键ID
+     * 内容
      */
-    private Long id;
+    private String content;
     /**
      * 用户名
      */

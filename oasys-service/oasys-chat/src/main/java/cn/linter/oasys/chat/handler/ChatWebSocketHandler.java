@@ -1,60 +1,43 @@
 package cn.linter.oasys.chat.handler;
 
-import cn.linter.oasys.chat.entity.Message;
-import cn.linter.oasys.chat.messaging.MessagePublisher;
-import cn.linter.oasys.chat.utils.ObjectStringConverter;
+import cn.linter.oasys.chat.container.SessionContainer;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.redis.support.atomic.RedisAtomicLong;
-import org.springframework.web.reactive.socket.WebSocketHandler;
-import org.springframework.web.reactive.socket.WebSocketMessage;
-import org.springframework.web.reactive.socket.WebSocketSession;
-import reactor.core.publisher.DirectProcessor;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.FluxSink;
-import reactor.core.publisher.Mono;
+import org.springframework.stereotype.Component;
+import org.springframework.web.socket.CloseStatus;
+import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketSession;
+import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+
+/**
+ * 聊天WebSocket处理器
+ *
+ * @author wangxiaoyang
+ * @since 2021/1/1
+ */
 @Slf4j
-public class ChatWebSocketHandler implements WebSocketHandler {
+@Component
+public class ChatWebSocketHandler extends TextWebSocketHandler {
 
-    private final DirectProcessor<Message> messageDirectProcessor;
-    private final FluxSink<Message> messageFluxSink;
     private final MessagePublisher messagePublisher;
-    private final RedisAtomicLong activeUserCounter;
 
-    public ChatWebSocketHandler(DirectProcessor<Message> messageDirectProcessor, MessagePublisher messagePublisher, RedisAtomicLong activeUserCounter) {
-        this.messageDirectProcessor = messageDirectProcessor;
-        this.messageFluxSink = messageDirectProcessor.sink();
+    public ChatWebSocketHandler(MessagePublisher messagePublisher) {
         this.messagePublisher = messagePublisher;
-        this.activeUserCounter = activeUserCounter;
     }
 
     @Override
-    public Mono<Void> handle(WebSocketSession webSocketSession) {
-        Flux<WebSocketMessage> sendMessageFlux = messageDirectProcessor.flatMap(ObjectStringConverter::objectToString)
-                .map(webSocketSession::textMessage)
-                .doOnError(throwable -> log.info("Error Occurred while sending message to WebSocket.", throwable));
-        Mono<Void> outputMessage = webSocketSession.send(sendMessageFlux);
-
-        Mono<Void> inputMessage = webSocketSession.receive()
-                .concatMap(webSocketMessage -> messagePublisher.publishMessage(webSocketMessage.getPayloadAsText()))
-                .doOnSubscribe(subscription -> {
-                    long activeUserCount = activeUserCounter.incrementAndGet();
-                    log.debug("User '{}' Connected. Total Active Users: {}", webSocketSession.getId(), activeUserCount);
-                    //chatMessageFluxSink.next(new Message(0, "CONNECTED", "CONNECTED", activeUserCount));
-                })
-                .doOnError(throwable -> log.info("Error Occurred while sending message to Redis.", throwable))
-                .doFinally(signalType -> {
-                    long activeUserCount = activeUserCounter.decrementAndGet();
-                    log.debug("User '{}' Disconnected. Total Active Users: {}", webSocketSession.getId(), activeUserCount);
-                    //chatMessageFluxSink.next(new Message(0, "DISCONNECTED", "DISCONNECTED", activeUserCount));
-                })
-                .then();
-
-        return Mono.zip(inputMessage, outputMessage).then();
+    public void afterConnectionEstablished(WebSocketSession session) {
+        SessionContainer.add(session);
     }
 
-    public Mono<Void> sendMessage(Message message) {
-        return Mono.fromSupplier(() -> messageFluxSink.next(message)).then();
+    @Override
+    protected void handleTextMessage(WebSocketSession session, TextMessage message) {
+        messagePublisher.publish(message.getPayload());
+    }
+
+    @Override
+    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
+        SessionContainer.remove(session);
     }
 
 }

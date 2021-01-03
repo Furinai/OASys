@@ -7,10 +7,11 @@ spring:
     nacos:
       discovery:
         server-addr: localhost:8848
-  redis:
-    host: localhost
-    port: 6379
   jackson:
     default-property-inclusion: non_null
     date-format: yyyy-MM-dd HH:mm
     time-zone: GMT+8
+  kafka:
+    consumer:
+      group-id: chat
+      auto-offset-reset: earliest
