@@ -1,6 +1,7 @@
 package cn.linter.oasys.chat.handler;
 
 import cn.linter.oasys.chat.entity.Message;
+import cn.linter.oasys.chat.entity.Type;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -26,8 +27,9 @@ public class MessagePublisher {
         this.objectMapper = objectMapper;
     }
 
-    public void publish(Map<String, Object> attributes, String content) {
+    public void publish(Map<String, Object> attributes, Type type, String content) {
         Message message = Message.builder()
+                .type(type)
                 .content(content)
                 .username((String) attributes.get("username"))
                 .fullName((String) attributes.get("fullName"))
