@@ -5,7 +5,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
-import org.springframework.web.socket.WebSocketSession;
 
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -27,8 +26,7 @@ public class MessagePublisher {
         this.objectMapper = objectMapper;
     }
 
-    public void publish(WebSocketSession session, String content) {
-        Map<String, Object> attributes = session.getAttributes();
+    public void publish(Map<String, Object> attributes, String content) {
         Message message = Message.builder()
                 .content(content)
                 .username((String) attributes.get("username"))
