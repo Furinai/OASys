@@ -30,6 +30,10 @@ public class Message implements Serializable {
      */
     private String username;
     /**
+     * 姓名
+     */
+    private String fullName;
+    /**
      * 用户头像
      */
     private String profilePicture;

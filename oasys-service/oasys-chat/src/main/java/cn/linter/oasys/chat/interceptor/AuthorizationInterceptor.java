@@ -60,6 +60,7 @@ public class AuthorizationInterceptor implements HandshakeInterceptor {
         User user = userClient.queryUser(username).getData();
         attributes.put("token", token);
         attributes.put("username", username);
+        attributes.put("fullName", user.getFullName());
         attributes.put("profilePicture", user.getProfilePicture());
         return true;
     }

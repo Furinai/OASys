@@ -32,6 +32,7 @@ public class MessagePublisher {
         Message message = Message.builder()
                 .content(content)
                 .username((String) attributes.get("username"))
+                .fullName((String) attributes.get("fullName"))
                 .profilePicture((String) attributes.get("profilePicture"))
                 .createTime(LocalDateTime.now())
                 .build();
