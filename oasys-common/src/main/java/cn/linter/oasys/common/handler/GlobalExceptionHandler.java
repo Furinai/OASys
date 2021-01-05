@@ -33,7 +33,7 @@ public class GlobalExceptionHandler {
      * 非法参数异常处理器
      */
     @ExceptionHandler(IllegalArgumentException.class)
-    public Result<String> illegalArgumentExceptionHandler(IllegalArgumentException e) {
+    public Result<String> illegalArgumentExceptionHandler(Exception e) {
         return Result.of(ResultStatus.ARGUMENT_NOT_VALID, e.getMessage());
     }
 
