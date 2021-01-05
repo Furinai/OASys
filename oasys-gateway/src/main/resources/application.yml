@@ -44,6 +44,6 @@ spring:
           predicates:
             - Path=/api/users/**,/api/depts/**,/api/roles/**
         - id: chat-service
-          uri: ws://localhost:8450
+          uri: lb:ws://chat-service
           predicates:
-            - Path=/api/chat
+            - Path=/api/chat/**
