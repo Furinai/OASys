@@ -19,9 +19,10 @@ public class MessageListener {
 
     @KafkaListener(topics = "public-chat")
     public void listen(ConsumerRecord<String, String> record) {
+        TextMessage textMessage = new TextMessage(record.value());
         SessionContainer.values().parallelStream().forEach(session -> {
             try {
-                session.sendMessage(new TextMessage(record.value()));
+                session.sendMessage(textMessage);
             } catch (IOException e) {
                 e.printStackTrace();
             }
