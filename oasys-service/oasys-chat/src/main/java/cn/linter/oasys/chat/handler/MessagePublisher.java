@@ -2,6 +2,7 @@ package cn.linter.oasys.chat.handler;
 
 import cn.linter.oasys.chat.entity.Message;
 import cn.linter.oasys.chat.entity.Type;
+import cn.linter.oasys.chat.repository.MessageRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -19,10 +20,12 @@ import java.util.Map;
 @Component
 public class MessagePublisher {
 
+    private final MessageRepository messageRepository;
     private final KafkaTemplate<String, String> kafkaTemplate;
     private final ObjectMapper objectMapper;
 
-    public MessagePublisher(KafkaTemplate<String, String> kafkaTemplate, ObjectMapper objectMapper) {
+    public MessagePublisher(MessageRepository messageRepository, KafkaTemplate<String, String> kafkaTemplate, ObjectMapper objectMapper) {
+        this.messageRepository = messageRepository;
         this.kafkaTemplate = kafkaTemplate;
         this.objectMapper = objectMapper;
     }
@@ -36,6 +39,9 @@ public class MessagePublisher {
                 .profilePicture((String) attributes.get("profilePicture"))
                 .createTime(LocalDateTime.now())
                 .build();
+        if (message.getType()!=Type.SYSTEM){
+            messageRepository.save(message);
+        }
         try {
             String messageString = objectMapper.writeValueAsString(message);
             kafkaTemplate.send("public-chat", messageString);

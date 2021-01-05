@@ -4,6 +4,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -18,9 +21,15 @@ import java.time.LocalDateTime;
 @Builder
 @ToString
 @EqualsAndHashCode
+@Document
 public class Message implements Serializable {
 
     private static final long serialVersionUID = -4484722387608220685L;
+    /**
+     * ID
+     */
+    @Id
+    private String id;
     /**
      * 类型
      */
@@ -44,6 +53,7 @@ public class Message implements Serializable {
     /**
      * 创建时间
      */
+    @Indexed
     private LocalDateTime createTime;
 
 }
