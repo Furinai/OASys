@@ -43,6 +43,10 @@ spring:
           uri: lb://user-service
           predicates:
             - Path=/api/users/**,/api/depts/**,/api/roles/**
+        - id: message-service
+          uri: lb://chat-service
+          predicates:
+            - Path=/api/messages/**
         - id: chat-service
           uri: lb:ws://chat-service
           predicates:
