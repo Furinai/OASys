@@ -51,3 +51,7 @@ spring:
           uri: lb:ws://chat-service
           predicates:
             - Path=/api/chat/**
+        - id: search-service
+          uri: lb://search-service
+          predicates:
+            - Path=/api/search/**
