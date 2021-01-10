@@ -50,7 +50,7 @@ public class WebFluxSecurityConfig {
                 .and().csrf().disable()
                 .oauth2ResourceServer()
                 .authenticationEntryPoint((exchange, exception) -> sendRestResponse(exchange,
-                        HttpStatus.BAD_REQUEST, ResultStatus.TOKEN_IS_INVALID)
+                        HttpStatus.UNAUTHORIZED, ResultStatus.TOKEN_IS_INVALID)
                 )
                 .jwt();
         return http.build();
