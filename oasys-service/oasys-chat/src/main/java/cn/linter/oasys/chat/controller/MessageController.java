@@ -2,10 +2,9 @@ package cn.linter.oasys.chat.controller;
 
 import cn.linter.oasys.chat.entity.Message;
 import cn.linter.oasys.chat.service.MessageService;
+import cn.linter.oasys.common.entity.Page;
 import cn.linter.oasys.common.entity.Result;
 import cn.linter.oasys.common.entity.ResultStatus;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +33,8 @@ public class MessageController {
     public Result<Page<Message>> listMessages(@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime start,
                                               @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime end,
                                               @RequestParam(defaultValue = "0") int pageNumber, @RequestParam(defaultValue = "10") int pageSize) {
-        return Result.of(ResultStatus.SUCCESS, messageService.listMessage(start, end, PageRequest.of(pageNumber, pageSize)));
+        org.springframework.data.domain.Page<Message> messages = messageService.listMessage(start, end, pageNumber, pageSize);
+        return Result.of(ResultStatus.SUCCESS, Page.of(messages.getContent(), messages.getTotalElements()));
     }
 
 }

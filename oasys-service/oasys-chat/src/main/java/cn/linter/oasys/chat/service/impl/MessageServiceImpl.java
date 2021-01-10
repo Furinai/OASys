@@ -4,6 +4,7 @@ import cn.linter.oasys.chat.entity.Message;
 import cn.linter.oasys.chat.repository.MessageRepository;
 import cn.linter.oasys.chat.service.MessageService;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,8 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public Page<Message> listMessage(LocalDateTime start, LocalDateTime end, Pageable pageable) {
+    public Page<Message> listMessage(LocalDateTime start, LocalDateTime end, int pageNumber, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
         if (start == null && end == null) {
             return repository.findAll(pageable);
         }

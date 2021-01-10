@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 
 /**
- * 聊天消息Dao接口
+ * 聊天消息数据库访问层
  *
  * @author wangxiaoyang
  * @since 2021/1/5
