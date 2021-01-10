@@ -9,6 +9,7 @@
         <module>oasys-chat</module>
         <module>oasys-file</module>
         <module>oasys-user</module>
+        <module>oasys-search</module>
     </modules>
 
     <parent>
