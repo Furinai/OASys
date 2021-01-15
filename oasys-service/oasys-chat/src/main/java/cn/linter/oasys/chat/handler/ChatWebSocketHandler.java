@@ -1,7 +1,7 @@
 package cn.linter.oasys.chat.handler;
 
 import cn.linter.oasys.chat.container.SessionContainer;
-import cn.linter.oasys.chat.entity.Type;
+import cn.linter.oasys.chat.entity.Message;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
@@ -33,12 +33,12 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
         SessionContainer.add(session);
         Map<String, Object> attributes = session.getAttributes();
         String content = attributes.get("fullName") + "进入了聊天室";
-        messagePublisher.publish(attributes, Type.SYSTEM, content);
+        messagePublisher.publish(attributes, Message.Type.SYSTEM, content);
     }
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) {
-        messagePublisher.publish(session.getAttributes(), Type.PUBLIC, message.getPayload());
+        messagePublisher.publish(session.getAttributes(), Message.Type.PUBLIC, message.getPayload());
     }
 
     @Override
@@ -46,7 +46,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
         SessionContainer.remove(session);
         Map<String, Object> attributes = session.getAttributes();
         String content = attributes.get("fullName") + "离开了聊天室";
-        messagePublisher.publish(attributes, Type.SYSTEM, content);
+        messagePublisher.publish(attributes, Message.Type.SYSTEM, content);
     }
 
 }

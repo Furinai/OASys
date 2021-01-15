@@ -1,7 +1,6 @@
 package cn.linter.oasys.chat.handler;
 
 import cn.linter.oasys.chat.entity.Message;
-import cn.linter.oasys.chat.entity.Type;
 import cn.linter.oasys.chat.repository.MessageRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,7 +29,7 @@ public class MessagePublisher {
         this.objectMapper = objectMapper;
     }
 
-    public void publish(Map<String, Object> attributes, Type type, String content) {
+    public void publish(Map<String, Object> attributes, Message.Type type, String content) {
         Message message = Message.builder()
                 .type(type)
                 .content(content)
@@ -39,7 +38,7 @@ public class MessagePublisher {
                 .profilePicture((String) attributes.get("profilePicture"))
                 .createTime(LocalDateTime.now())
                 .build();
-        if (message.getType()!=Type.SYSTEM){
+        if (message.getType() != Message.Type.SYSTEM) {
             messageRepository.save(message);
         }
         try {

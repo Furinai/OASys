@@ -56,4 +56,22 @@ public class Message implements Serializable {
     @Indexed
     private LocalDateTime createTime;
 
+    /**
+     * 消息类型
+     */
+    public enum Type {
+        /**
+         * 系统消息
+         */
+        SYSTEM,
+        /**
+         * 公共消息
+         */
+        PUBLIC,
+        /**
+         * 私人消息
+         */
+        PRIVATE;
+    }
+
 }
