@@ -1,7 +1,8 @@
 package cn.linter.oasys.user.service;
 
 import cn.linter.oasys.user.entity.Dept;
-import com.github.pagehelper.PageInfo;
+
+import java.util.List;
 
 /**
  * 部门服务接口
@@ -17,16 +18,14 @@ public interface DeptService {
      * @param id 部门ID
      * @return 单个部门
      */
-    Dept query(Integer id);
+    Dept queryById(Integer id);
 
     /**
-     * 分页查询所有部门
+     * 查询所有部门
      *
-     * @param pageNumber 页号
-     * @param pageSize   页大小
      * @return 部门列表
      */
-    PageInfo<Dept> list(int pageNumber, int pageSize);
+    List<Dept> list();
 
     /**
      * 新增部门

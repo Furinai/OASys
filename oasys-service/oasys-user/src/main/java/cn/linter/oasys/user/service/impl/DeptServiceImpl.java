@@ -3,16 +3,16 @@ package cn.linter.oasys.user.service.impl;
 import cn.linter.oasys.user.dao.DeptDao;
 import cn.linter.oasys.user.entity.Dept;
 import cn.linter.oasys.user.service.DeptService;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * 部门服务实现类
  *
  * @author wangxiaoyang
- * @since 2020/11/15
+ * @since 2021/01/14
  */
 @Service
 public class DeptServiceImpl implements DeptService {
@@ -24,26 +24,29 @@ public class DeptServiceImpl implements DeptService {
     }
 
     @Override
-    public Dept query(Integer id) {
-        return deptDao.select(id);
+    public Dept queryById(Integer id) {
+        return deptDao.selectById(id);
     }
 
     @Override
-    public PageInfo<Dept> list(int pageNumber, int pageSize) {
-        PageHelper.startPage(pageNumber, pageSize);
-        return PageInfo.of(deptDao.list());
+    public List<Dept> list() {
+        return deptDao.list();
     }
 
     @Override
     public Dept create(Dept dept) {
+        LocalDateTime now = LocalDateTime.now();
+        dept.setCreateTime(now);
+        dept.setUpdateTime(now);
         deptDao.insert(dept);
         return dept;
     }
 
     @Override
     public Dept update(Dept dept) {
+        dept.setUpdateTime(LocalDateTime.now());
         deptDao.update(dept);
-        return query(dept.getId());
+        return queryById(dept.getId());
     }
 
     @Override

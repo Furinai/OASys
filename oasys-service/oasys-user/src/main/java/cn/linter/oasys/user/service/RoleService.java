@@ -1,7 +1,6 @@
 package cn.linter.oasys.user.service;
 
 import cn.linter.oasys.user.entity.Role;
-import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -22,13 +21,11 @@ public interface RoleService {
     Role queryById(Integer id);
 
     /**
-     * 分页查询所有角色
+     * 查询所有角色
      *
-     * @param pageNumber 页号
-     * @param pageSize   页大小
      * @return 角色列表
      */
-    PageInfo<Role> list(int pageNumber, int pageSize);
+    List<Role> list();
 
     /**
      * 通过用户名查询所有角色

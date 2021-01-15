@@ -5,24 +5,26 @@
     <resultMap type="cn.linter.oasys.user.entity.Role" id="RoleMap">
         <result property="id" column="id"/>
         <result property="name" column="name"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
     </resultMap>
 
     <!--通过ID查询单个角色-->
     <select id="selectById" resultMap="RoleMap">
-        select id, name
+        select id, name, create_time, update_time
         from role
         where id = #{id}
     </select>
 
     <!--查询所有角色-->
     <select id="list" resultMap="RoleMap">
-        select id, name
+        select id, name, create_time, update_time
         from role
     </select>
 
     <!--通过角色实体查询所有角色-->
     <select id="listByEntity" resultMap="RoleMap">
-        select id, name
+        select id, name, create_time, update_time
         from role
         <where>
             <if test="id != null">
@@ -47,18 +49,18 @@
 
     <!--插入单个角色-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into role(name)
-        values (#{name})
+        insert into role(name, create_time, update_time)
+        values (#{name}, #{createTime}, #{updateTime})
     </insert>
 
     <!--更新角色-->
     <update id="update">
         update role
-        <set>
-            <if test="name != null and name != ''">
-                name = #{name},
-            </if>
-        </set>
+        set
+        <if test="name != null and name != ''">
+            name = #{name},
+        </if>
+        update_time = #{updateTime}
         where id = #{id}
     </update>
 

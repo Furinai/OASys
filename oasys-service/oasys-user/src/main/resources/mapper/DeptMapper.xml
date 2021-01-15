@@ -5,24 +5,28 @@
     <resultMap type="cn.linter.oasys.user.entity.Dept" id="DeptMap">
         <result property="id" column="id"/>
         <result property="name" column="name"/>
+        <result property="principal" column="principal"/>
+        <result property="phoneNumber" column="phone_number"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
     </resultMap>
 
     <!--通过ID查询单个部门-->
-    <select id="select" resultMap="DeptMap">
-        select id, name
+    <select id="selectById" resultMap="DeptMap">
+        select id, name, principal, phone_number, create_time, update_time
         from dept
         where id = #{id}
     </select>
 
     <!--查询所有部门-->
     <select id="list" resultMap="DeptMap">
-        select id, name
+        select id, name, principal, phone_number, create_time, update_time
         from dept
     </select>
 
     <!--通过部门实体查询所有部门-->
     <select id="listByEntity" resultMap="DeptMap">
-        select id, name
+        select id, name, principal, phone_number, create_time, update_time
         from dept
         <where>
             <if test="id != null">
@@ -31,23 +35,41 @@
             <if test="name != null and name != ''">
                 and name = #{name}
             </if>
+            <if test="principal != null and principal != ''">
+                and principal = #{principal}
+            </if>
+            <if test="phoneNumber != null and phoneNumber != ''">
+                and phone_number = #{phoneNumber}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
         </where>
     </select>
 
     <!--插入单个部门-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into dept(name)
-        values (#{name})
+        insert into dept(name, principal, phone_number, create_time, update_time)
+        values (#{name}, #{principal}, #{phoneNumber}, #{createTime}, #{updateTime})
     </insert>
 
     <!--更新部门-->
     <update id="update">
         update dept
-        <set>
-            <if test="name != null and name != ''">
-                name = #{name},
-            </if>
-        </set>
+        set
+        <if test="name != null and name != ''">
+            name = #{name},
+        </if>
+        <if test="principal != null and principal != ''">
+            principal = #{principal},
+        </if>
+        <if test="phoneNumber != null and phoneNumber != ''">
+            phone_number = #{phoneNumber},
+        </if>
+        update_time = #{updateTime}
         where id = #{id}
     </update>
 

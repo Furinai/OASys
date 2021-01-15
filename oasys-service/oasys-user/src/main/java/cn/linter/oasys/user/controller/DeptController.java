@@ -1,13 +1,13 @@
 package cn.linter.oasys.user.controller;
 
-import cn.linter.oasys.common.entity.Page;
 import cn.linter.oasys.common.entity.Result;
 import cn.linter.oasys.common.entity.ResultStatus;
 import cn.linter.oasys.user.entity.Dept;
 import cn.linter.oasys.user.service.DeptService;
-import com.github.pagehelper.PageInfo;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 部门控制器
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2020/11/15
  */
 @RestController
+@RequestMapping("depts")
 public class DeptController {
 
     private final DeptService deptService;
@@ -24,30 +25,25 @@ public class DeptController {
         this.deptService = deptService;
     }
 
-    @GetMapping("dept/{id}")
-    public Result<Dept> queryDept(@PathVariable("id") Integer id) {
-        return Result.of(ResultStatus.SUCCESS, deptService.query(id));
+    @GetMapping
+    public Result<List<Dept>> listDept() {
+        return Result.of(ResultStatus.SUCCESS, deptService.list());
     }
 
-    @GetMapping("depts")
-    public Result<Page<Dept>> listDept(@RequestParam(defaultValue = "1") int pageNumber, @RequestParam(defaultValue = "10") int pageSize) {
-        PageInfo<Dept> pageInfo = deptService.list(pageNumber, pageSize);
-        return Result.of(ResultStatus.SUCCESS, Page.of(pageInfo.getList(), pageInfo.getTotal()));
-    }
-
-    @PostMapping("dept")
+    @PostMapping
     public Result<Dept> createDept(@RequestBody @Validated({Dept.Create.class}) Dept dept) {
         return Result.of(ResultStatus.SUCCESS, deptService.create(dept));
     }
 
-    @PutMapping("dept")
+    @PutMapping
     public Result<Dept> updateDept(@RequestBody @Validated({Dept.Update.class}) Dept dept) {
         return Result.of(ResultStatus.SUCCESS, deptService.update(dept));
     }
 
-    @DeleteMapping("dept/{id}")
-    public Result<Boolean> deleteDept(@PathVariable("id") Integer id) {
-        return Result.of(ResultStatus.SUCCESS, deptService.delete(id));
+    @DeleteMapping("{id}")
+    public ResultStatus deleteDept(@PathVariable("id") Integer id) {
+        deptService.delete(id);
+        return ResultStatus.SUCCESS;
     }
 
 }

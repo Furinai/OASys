@@ -20,7 +20,7 @@ public interface DeptDao {
      * @param id 部门ID
      * @return 单个部门
      */
-    Dept select(Integer id);
+    Dept selectById(Integer id);
 
     /**
      * 查询所有部门

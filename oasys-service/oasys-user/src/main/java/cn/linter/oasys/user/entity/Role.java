@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * 角色实体类
@@ -32,6 +33,14 @@ public class Role implements Serializable {
     @NotBlank(message = "角色名不能为空", groups = {Create.class})
     @Length(min = 2, max = 10, message = "角色名长度为 2 到 10 之间", groups = {Create.class, Update.class})
     private String name;
+    /**
+     * 创建时间
+     */
+    private LocalDateTime createTime;
+    /**
+     * 修改时间
+     */
+    private LocalDateTime updateTime;
 
     public interface Create {
     }

@@ -3,11 +3,9 @@ package cn.linter.oasys.user.service.impl;
 import cn.linter.oasys.user.dao.RoleDao;
 import cn.linter.oasys.user.entity.Role;
 import cn.linter.oasys.user.service.RoleService;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -31,9 +29,8 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public PageInfo<Role> list(int pageNumber, int pageSize) {
-        PageHelper.startPage(pageNumber, pageSize);
-        return PageInfo.of(roleDao.list());
+    public List<Role> list() {
+        return roleDao.list();
     }
 
     @Override
@@ -43,12 +40,16 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Role create(Role role) {
+        LocalDateTime now = LocalDateTime.now();
+        role.setCreateTime(now);
+        role.setUpdateTime(now);
         roleDao.insert(role);
         return role;
     }
 
     @Override
     public Role update(Role role) {
+        role.setUpdateTime(LocalDateTime.now());
         roleDao.update(role);
         return queryById(role.getId());
     }
