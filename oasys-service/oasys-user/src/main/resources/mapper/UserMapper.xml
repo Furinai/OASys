@@ -17,31 +17,88 @@
             <id property="id" column="dept_id"/>
             <result property="name" column="dept_name"/>
         </association>
+        <collection property="roles" ofType="cn.linter.oasys.user.entity.Role">
+            <id property="id" column="role_id"/>
+            <result property="name" column="role_name"/>
+        </collection>
     </resultMap>
 
     <!--通过用户名查询单个用户-->
     <select id="select" resultMap="UserMap">
-        select u.id, u.username, u.password, u.full_name, u.gender, u.dept_id, u.email_address, u.phone_number, u.profile_picture, u.create_time, u.update_time,
-               d.id as dept_id, d.name as dept_name
-        from user u, dept d
+        select u.id,
+               u.username,
+               u.password,
+               u.full_name,
+               u.gender,
+               u.dept_id,
+               u.email_address,
+               u.phone_number,
+               u.profile_picture,
+               u.create_time,
+               u.update_time,
+               d.id   as dept_id,
+               d.name as dept_name,
+               r.id   as role_id,
+               r.name as role_name
+        from user u,
+             dept d,
+             role r,
+             user_role ur
         where u.dept_id = d.id
+          and u.id = ur.user_id
+          and r.id = ur.role_id
           and u.username = #{username}
     </select>
 
     <!--查询所有用户-->
     <select id="list" resultMap="UserMap">
-        select u.id, u.username, u.full_name, u.gender, u.dept_id, u.email_address, u.phone_number, u.profile_picture, u.create_time, u.update_time,
-               d.id as dept_id, d.name as dept_name
-        from user u, dept d
+        select u.id,
+               u.username,
+               u.full_name,
+               u.gender,
+               u.dept_id,
+               u.email_address,
+               u.phone_number,
+               u.profile_picture,
+               u.create_time,
+               u.update_time,
+               d.id   as dept_id,
+               d.name as dept_name,
+               r.id   as role_id,
+               r.name as role_name
+        from user u,
+             dept d,
+             role r,
+             user_role ur
         where u.dept_id = d.id
+          and u.id = ur.user_id
+          and r.id = ur.role_id
     </select>
 
     <!--通过用户实体查询所有用户-->
     <select id="listByEntity" resultMap="UserMap">
-        select u.id, u.username, u.full_name, u.gender, u.dept_id, u.email_address, u.phone_number, u.profile_picture, u.create_time, u.update_time,
-               d.id as dept_id, d.name as dept_name
-        from user u, dept d
+        select u.id,
+        u.username,
+        u.password,
+        u.full_name,
+        u.gender,
+        u.dept_id,
+        u.email_address,
+        u.phone_number,
+        u.profile_picture,
+        u.create_time,
+        u.update_time,
+        d.id as dept_id,
+        d.name as dept_name,
+        r.id as role_id,
+        r.name as role_name
+        from user u,
+        dept d,
+        role r,
+        user_role ur
         where u.dept_id = d.id
+        and u.id = ur.user_id
+        and r.id = ur.role_id
         <if test="fullName != null and fullName != ''">
             and u.full_name = #{fullName}
         </if>
@@ -55,46 +112,65 @@
 
     <!--新增用户-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into user(username, password, full_name, gender, dept_id, email_address, phone_number, profile_picture, create_time, update_time)
-        values (#{username}, #{password}, #{fullName}, #{gender}, #{dept.id}, #{emailAddress}, #{phoneNumber}, #{profilePicture}, #{createTime}, #{updateTime})
+        insert into user(username, password, full_name, gender, dept_id, email_address, phone_number, profile_picture,
+                         create_time, update_time)
+        values (#{username}, #{password}, #{fullName}, #{gender}, #{dept.id}, #{emailAddress}, #{phoneNumber},
+                #{profilePicture}, #{createTime}, #{updateTime})
     </insert>
 
     <!--更新用户-->
     <update id="update">
         update user
         set
-            <if test="username != null and username != ''">
-                username = #{username},
-            </if>
-            <if test="password != null and password != ''">
-                password = #{password},
-            </if>
-            <if test="fullName != null and fullName != ''">
-                full_name = #{fullName},
-            </if>
-            <if test="gender != null and gender != ''">
-                gender = #{gender},
-            </if>
-            <if test="dept != null">
-                dept_id = #{dept.id},
-            </if>
-            <if test="emailAddress != null and emailAddress != ''">
-                email_address = #{emailAddress},
-            </if>
-            <if test="phoneNumber != null and phoneNumber != ''">
-                phone_number = #{phoneNumber},
-            </if>
-            <if test="profilePicture != null and profilePicture != ''">
-                profile_picture = #{profilePicture},
-            </if>
+        <if test="username != null and username != ''">
+            username = #{username},
+        </if>
+        <if test="password != null and password != ''">
+            password = #{password},
+        </if>
+        <if test="fullName != null and fullName != ''">
+            full_name = #{fullName},
+        </if>
+        <if test="gender != null and gender != ''">
+            gender = #{gender},
+        </if>
+        <if test="dept != null">
+            dept_id = #{dept.id},
+        </if>
+        <if test="emailAddress != null and emailAddress != ''">
+            email_address = #{emailAddress},
+        </if>
+        <if test="phoneNumber != null and phoneNumber != ''">
+            phone_number = #{phoneNumber},
+        </if>
+        <if test="profilePicture != null and profilePicture != ''">
+            profile_picture = #{profilePicture},
+        </if>
         update_time = #{updateTime}
         where id = #{id}
     </update>
 
     <!--删除用户-->
     <delete id="delete">
-        delete from user
+        delete
+        from user
         where id = #{id}
     </delete>
+
+    <!--新增用户的角色-->
+    <insert id="insertRole">
+        insert into user_role(user_id, role_id)
+        values
+        <foreach collection="roles" item="role" separator=",">
+            (#{userId}, #{role.id})
+        </foreach>
+    </insert>
+
+    <!--删除用户的角色-->
+    <insert id="deleteRole">
+        delete
+        from user_role
+        where user_id = #{userId}
+    </insert>
 
 </mapper>

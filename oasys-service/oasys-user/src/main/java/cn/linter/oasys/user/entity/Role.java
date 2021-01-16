@@ -25,7 +25,7 @@ public class Role implements Serializable {
     /**
      * 主键ID
      */
-    @NotNull(message = "角色ID不能为空", groups = {Update.class})
+    @NotNull(message = "角色ID不能为空", groups = {Update.class, UserNested.class})
     private Integer id;
     /**
      * 角色名
@@ -46,6 +46,9 @@ public class Role implements Serializable {
     }
 
     public interface Update {
+    }
+
+    public interface UserNested {
     }
 
 }

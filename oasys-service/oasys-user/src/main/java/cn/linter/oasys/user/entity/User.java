@@ -7,13 +7,11 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 import javax.validation.groups.ConvertGroup;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * 用户实体类
@@ -61,8 +59,13 @@ public class User implements Serializable {
      */
     @NotNull(message = "部门不能为空", groups = {Create.class})
     @Valid
-    @ConvertGroup.List({@ConvertGroup(from = Create.class, to = Dept.Update.class)})
+    @ConvertGroup.List({@ConvertGroup(from = Create.class, to = Dept.UserNested.class)})
     private Dept dept;
+    /**
+     * 角色
+     */
+    @NotEmpty(message = "角色不能为空", groups = {Create.class})
+    private List<@Valid @ConvertGroup.List({@ConvertGroup(from = Create.class, to = Role.UserNested.class)}) Role> roles;
     /**
      * 邮箱地址
      */

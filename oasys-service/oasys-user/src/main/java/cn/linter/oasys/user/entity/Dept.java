@@ -26,7 +26,7 @@ public class Dept implements Serializable {
     /**
      * 主键ID
      */
-    @NotNull(message = "部门ID不能为空", groups = {Update.class})
+    @NotNull(message = "部门ID不能为空", groups = {Update.class, UserNested.class})
     private Integer id;
     /**
      * 部门名
@@ -57,6 +57,9 @@ public class Dept implements Serializable {
     }
 
     public interface Update {
+    }
+
+    public interface UserNested {
     }
 
 }

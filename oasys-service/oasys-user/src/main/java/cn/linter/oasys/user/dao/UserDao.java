@@ -1,7 +1,9 @@
 package cn.linter.oasys.user.dao;
 
+import cn.linter.oasys.user.entity.Role;
 import cn.linter.oasys.user.entity.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -60,5 +62,20 @@ public interface UserDao {
      * @return 影响行数
      */
     int delete(Long id);
+
+    /**
+     * 新增用户的角色
+     *
+     * @param id    用户ID
+     * @param roles 角色列表
+     */
+    void insertRole(@Param("userId") Long id, @Param("roles") List<Role> roles);
+
+    /**
+     * 删除用户的角色
+     *
+     * @param id    用户ID
+     */
+    void deleteRole(@Param("userId") Long id);
 
 }

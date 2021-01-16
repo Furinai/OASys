@@ -3,6 +3,7 @@ package cn.linter.oasys.user.service.impl;
 import cn.linter.oasys.common.entity.ResultStatus;
 import cn.linter.oasys.common.exception.BusinessException;
 import cn.linter.oasys.user.dao.UserDao;
+import cn.linter.oasys.user.entity.Role;
 import cn.linter.oasys.user.entity.User;
 import cn.linter.oasys.user.service.UserService;
 import com.github.pagehelper.PageHelper;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * 用户服务实现类
@@ -53,6 +55,7 @@ public class UserServiceImpl implements UserService {
         user.setCreateTime(now);
         user.setUpdateTime(now);
         userDao.insert(user);
+        userDao.insertRole(user.getId(), user.getRoles());
         return user;
     }
 
@@ -67,10 +70,12 @@ public class UserServiceImpl implements UserService {
             user.setPassword(passwordEncoder.encode(rawPassword));
         }
         user.setUpdateTime(LocalDateTime.now());
-        if (userDao.update(user) > 0) {
-            return query(user.getUsername());
-        }
-        return null;
+        userDao.update(user);
+        long id = user.getId();
+        List<Role> roles = user.getRoles();
+        userDao.deleteRole(id);
+        userDao.insertRole(id, roles);
+        return query(user.getUsername());
     }
 
     @Override
