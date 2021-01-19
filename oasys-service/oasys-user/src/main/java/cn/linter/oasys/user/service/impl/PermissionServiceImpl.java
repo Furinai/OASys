@@ -39,6 +39,15 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
+    public List<Permission> listByRoleId(Integer roleId, boolean treeMode) {
+        List<Permission> permissions = permissionDao.listByRoleId(roleId);
+        if (treeMode) {
+            return convertListToTree(permissions);
+        }
+        return permissions;
+    }
+
+    @Override
     public Permission create(Permission permission) {
         LocalDateTime now = LocalDateTime.now();
         permission.setCreateTime(now);

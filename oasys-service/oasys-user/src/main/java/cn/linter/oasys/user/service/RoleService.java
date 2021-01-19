@@ -1,5 +1,6 @@
 package cn.linter.oasys.user.service;
 
+import cn.linter.oasys.user.entity.Permission;
 import cn.linter.oasys.user.entity.Role;
 
 import java.util.List;
@@ -58,5 +59,30 @@ public interface RoleService {
      * @return 是否成功
      */
     boolean delete(Integer id);
+
+    /**
+     * 查询角色的权限
+     *
+     * @param id       角色ID
+     * @param treeMode 是否树形
+     * @return 权限列表
+     */
+    List<Permission> queryPermissions(Integer id, Boolean treeMode);
+
+    /**
+     * 为角色创建权限
+     *
+     * @param id          角色ID
+     * @param permissions 权限列表
+     */
+    void createPermission(Integer id, List<Permission> permissions);
+
+    /**
+     * 更新角色的权限
+     *
+     * @param id          角色ID
+     * @param permissions 权限列表
+     */
+    void updatePermission(Integer id, List<Permission> permissions);
 
 }

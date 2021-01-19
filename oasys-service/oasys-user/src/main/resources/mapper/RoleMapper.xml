@@ -71,4 +71,20 @@
         where id = #{id}
     </delete>
 
+    <!--新增角色的权限-->
+    <insert id="insertPermission">
+        insert into role_permission(role_id, permission_id)
+        values
+        <foreach collection="permissions" item="permission" separator=",">
+            (#{roleId}, #{permission.id})
+        </foreach>
+    </insert>
+
+    <!--删除用角色的权限-->
+    <insert id="deletePermission">
+        delete
+        from role_permission
+        where role_id = #{roleId}
+    </insert>
+
 </mapper>

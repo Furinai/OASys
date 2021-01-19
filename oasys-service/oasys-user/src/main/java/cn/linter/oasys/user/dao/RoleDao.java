@@ -1,7 +1,9 @@
 package cn.linter.oasys.user.dao;
 
+import cn.linter.oasys.user.entity.Permission;
 import cn.linter.oasys.user.entity.Role;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -68,5 +70,20 @@ public interface RoleDao {
      * @return 影响行数
      */
     int delete(Integer id);
+
+    /**
+     * 新增角色的权限
+     *
+     * @param id          角色ID
+     * @param permissions 权限列表
+     */
+    void insertPermission(@Param("roleId") Integer id, @Param("permissions") List<Permission> permissions);
+
+    /**
+     * 删除用户的角色
+     *
+     * @param id 用户ID
+     */
+    void deletePermission(@Param("roleId") Integer id);
 
 }

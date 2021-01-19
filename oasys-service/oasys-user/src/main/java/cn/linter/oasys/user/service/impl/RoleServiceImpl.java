@@ -1,7 +1,9 @@
 package cn.linter.oasys.user.service.impl;
 
 import cn.linter.oasys.user.dao.RoleDao;
+import cn.linter.oasys.user.entity.Permission;
 import cn.linter.oasys.user.entity.Role;
+import cn.linter.oasys.user.service.PermissionService;
 import cn.linter.oasys.user.service.RoleService;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +20,11 @@ import java.util.List;
 public class RoleServiceImpl implements RoleService {
 
     private final RoleDao roleDao;
+    private final PermissionService permissionService;
 
-    public RoleServiceImpl(RoleDao roleDao) {
+    public RoleServiceImpl(RoleDao roleDao, PermissionService permissionService) {
         this.roleDao = roleDao;
+        this.permissionService = permissionService;
     }
 
     @Override
@@ -57,6 +61,26 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public boolean delete(Integer id) {
         return roleDao.delete(id) > 0;
+    }
+
+    @Override
+    public List<Permission> queryPermissions(Integer id, Boolean treeMode) {
+        return permissionService.listByRoleId(id, treeMode);
+    }
+
+    @Override
+    public void createPermission(Integer id, List<Permission> permissions) {
+        if (!permissions.isEmpty()) {
+            roleDao.insertPermission(id, permissions);
+        }
+    }
+
+    @Override
+    public void updatePermission(Integer id, List<Permission> permissions) {
+        if (!permissions.isEmpty()) {
+            roleDao.deletePermission(id);
+            roleDao.insertPermission(id, permissions);
+        }
     }
 
 }

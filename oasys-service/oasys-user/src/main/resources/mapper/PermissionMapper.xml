@@ -99,6 +99,25 @@
         </where>
     </select>
 
+    <select id="listByRoleId" resultType="cn.linter.oasys.user.entity.Permission">
+        select p.id,
+               p.name,
+               p.type,
+               p.icon,
+               p.parent_id,
+               p.resource_path,
+               p.request_method,
+               p.router_name,
+               p.router_path,
+               p.component_path,
+               p.create_time,
+               p.update_time
+        from permission p,
+             role_permission rp
+        where p.id = rp.permission_id
+          and rp.role_id = #{roleId}
+    </select>
+
     <!--插入单个权限-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into permission

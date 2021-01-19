@@ -30,6 +30,14 @@ public interface PermissionDao {
     List<Permission> list();
 
     /**
+     * 通过角色ID查询所有权限
+     *
+     * @param roleId 角色ID
+     * @return 权限列表
+     */
+    List<Permission> listByRoleId(Integer roleId);
+
+    /**
      * 通过权限实例查询所有权限
      *
      * @param permission 权限

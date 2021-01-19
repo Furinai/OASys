@@ -29,6 +29,15 @@ public interface PermissionService {
     List<Permission> list(boolean treeMode);
 
     /**
+     * 通过角色ID查询所有权限
+     *
+     * @param roleId   角色ID
+     * @param treeMode 是否树形
+     * @return 权限列表
+     */
+    List<Permission> listByRoleId(Integer roleId, boolean treeMode);
+
+    /**
      * 新增权限
      *
      * @param permission 权限实例

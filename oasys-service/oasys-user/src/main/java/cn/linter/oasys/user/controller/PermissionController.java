@@ -26,7 +26,7 @@ public class PermissionController {
     }
 
     @GetMapping
-    public Result<List<Permission>> listPermission(@RequestParam(required = false) boolean treeMode) {
+    public Result<List<Permission>> listPermission(@RequestParam(defaultValue = "false") boolean treeMode) {
         return Result.of(ResultStatus.SUCCESS, permissionService.list(treeMode));
     }
 

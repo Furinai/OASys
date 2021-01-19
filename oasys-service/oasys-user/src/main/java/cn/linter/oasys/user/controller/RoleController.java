@@ -2,6 +2,7 @@ package cn.linter.oasys.user.controller;
 
 import cn.linter.oasys.common.entity.Result;
 import cn.linter.oasys.common.entity.ResultStatus;
+import cn.linter.oasys.user.entity.Permission;
 import cn.linter.oasys.user.entity.Role;
 import cn.linter.oasys.user.service.RoleService;
 import org.springframework.validation.annotation.Validated;
@@ -43,6 +44,23 @@ public class RoleController {
     @DeleteMapping("{id}")
     public ResultStatus deleteRole(@PathVariable("id") Integer id) {
         roleService.delete(id);
+        return ResultStatus.SUCCESS;
+    }
+
+    @GetMapping("{id}/permissions")
+    public Result<List<Permission>> queryPermission(@PathVariable Integer id, @RequestParam(defaultValue = "false") boolean treeMode) {
+        return Result.of(ResultStatus.SUCCESS, roleService.queryPermissions(id, treeMode));
+    }
+
+    @PostMapping("{id}/permissions")
+    public ResultStatus createPermission(@PathVariable Integer id, @RequestBody List<Permission> permissions) {
+        roleService.createPermission(id, permissions);
+        return ResultStatus.SUCCESS;
+    }
+
+    @PutMapping("{id}/permissions")
+    public ResultStatus updatePermission(@PathVariable Integer id, @RequestBody List<Permission> permissions) {
+        roleService.updatePermission(id, permissions);
         return ResultStatus.SUCCESS;
     }
 
