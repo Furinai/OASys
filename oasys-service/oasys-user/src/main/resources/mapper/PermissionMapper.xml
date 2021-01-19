@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.linter.oasys.user.dao.PermissionDao">
+
+    <resultMap type="cn.linter.oasys.user.entity.Permission" id="PermissionMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="type" column="type"/>
+        <result property="icon" column="icon"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="resourcePath" column="resource_path"/>
+        <result property="requestMethod" column="request_method"/>
+        <result property="routerName" column="router_name"/>
+        <result property="routerPath" column="router_path"/>
+        <result property="componentPath" column="component_path"/>
+    </resultMap>
+
+    <!--通过ID查询单个权限-->
+    <select id="selectById" resultMap="PermissionMap">
+        select id,
+               name,
+               type,
+               icon,
+               parent_id,
+               resource_path,
+               request_method,
+               router_name,
+               router_path,
+               component_path,
+               create_time,
+               update_time
+        from permission
+        where id = #{id}
+    </select>
+
+    <!--查询所有权限-->
+    <select id="list" resultMap="PermissionMap">
+        select id,
+               name,
+               type,
+               icon,
+               parent_id,
+               resource_path,
+               request_method,
+               router_name,
+               router_path,
+               component_path,
+               create_time,
+               update_time
+        from permission
+    </select>
+
+    <!--通过权限实体查询所有权限-->
+    <select id="listByEntity" resultMap="PermissionMap">
+        select id,
+               name,
+               type,
+               icon,
+               parent_id,
+               resource_path,
+               request_method,
+               router_name,
+               router_path,
+               component_path,
+               create_time,
+               update_time
+        from permission
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="type != null and type != ''">
+                and type = #{type}
+            </if>
+            <if test="icon != null and icon != ''">
+                and icon = #{icon}
+            </if>
+            <if test="parentId != null">
+                and parent_id = #{parentId}
+            </if>
+            <if test="resourcePath != null and resourcePath != ''">
+                and resource_path = #{resourcePath}
+            </if>
+            <if test="requestMethod != null and requestMethod != ''">
+                and request_method = #{requestMethod}
+            </if>
+            <if test="routerName != null and routerName != ''">
+                and router_name = #{routerName}
+            </if>
+            <if test="routerPath != null and routerPath != ''">
+                and router_path = #{routerPath}
+            </if>
+            <if test="componentPath != null and componentPath != ''">
+                and component_path = #{componentPath}
+            </if>
+        </where>
+    </select>
+
+    <!--插入单个权限-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into permission
+        <if test="type == @cn.linter.oasys.user.entity.Permission$Type@category">
+            (name, type, icon, parent_id, create_time, update_time)
+            values (#{name}, #{type}, #{icon}, #{parentId}, #{createTime}, #{updateTime})
+        </if>
+        <if test="type == @cn.linter.oasys.user.entity.Permission$Type@menu">
+            (name, type, icon, parent_id, router_name, router_path, component_path, create_time, update_time)
+            values (#{name}, #{type}, #{icon}, #{parentId}, #{routerName}, #{routerPath}, #{componentPath}, #{createTime}, #{updateTime})
+        </if>
+        <if test="type == @cn.linter.oasys.user.entity.Permission$Type@resource">
+            (name, type, parent_id, resource_path, request_method, create_time, update_time)
+            values (#{name}, #{type}, #{parentId}, #{resourcePath}, #{requestMethod}, #{createTime}, #{updateTime})
+        </if>
+    </insert>
+
+    <!--更新权限-->
+    <update id="update">
+        update permission
+        set
+        <if test="name != null and name != ''">
+            name = #{name},
+        </if>
+        <if test="type != null">
+            type = #{type},
+        </if>
+        <if test="parentId != null">
+            parent_id = #{parentId},
+        </if>
+        <if test="type == @cn.linter.oasys.user.entity.Permission$Type@category">
+            <if test="icon != null and icon != ''">
+                icon = #{icon},
+            </if>
+        </if>
+        <if test="type == @cn.linter.oasys.user.entity.Permission$Type@menu">
+            <if test="icon != null and icon != ''">
+                icon = #{icon},
+            </if>
+            <if test="routerName != null and routerName != ''">
+                router_name = #{routerName},
+            </if>
+            <if test="routerPath != null and routerPath != ''">
+                router_path = #{routerPath},
+            </if>
+            <if test="componentPath != null and componentPath != ''">
+                component_path = #{componentPath},
+            </if>
+        </if>
+        <if test="type == @cn.linter.oasys.user.entity.Permission$Type@resource">
+            <if test="resourcePath != null and resourcePath != ''">
+                resource_path = #{resourcePath},
+            </if>
+            <if test="requestMethod != null and requestMethod != ''">
+                request_method = #{requestMethod},
+            </if>
+        </if>
+        update_time=#{updateTime}
+        where id = #{id}
+    </update>
+
+    <!--删除权限-->
+    <delete id="delete">
+        delete
+        from permission
+        where id = #{id}
+    </delete>
+
+</mapper>
