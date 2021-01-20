@@ -39,6 +39,15 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
+    public List<Permission> listByUserId(Integer userId, Boolean treeMode) {
+        List<Permission> permissions = permissionDao.listByUserId(userId);
+        if (treeMode) {
+            return convertListToTree(permissions);
+        }
+        return permissions;
+    }
+
+    @Override
     public List<Permission> listByRoleId(Integer roleId, boolean treeMode) {
         List<Permission> permissions = permissionDao.listByRoleId(roleId);
         if (treeMode) {
@@ -81,10 +90,12 @@ public class PermissionServiceImpl implements PermissionService {
                 result.add(current);
             } else {
                 Permission parent = map.get(parentId);
-                if (parent.getChildren() == null) {
-                    parent.setChildren(new ArrayList<>());
+                if (parent != null) {
+                    if (parent.getChildren() == null) {
+                        parent.setChildren(new ArrayList<>());
+                    }
+                    parent.getChildren().add(current);
                 }
-                parent.getChildren().add(current);
             }
         }
         return result;

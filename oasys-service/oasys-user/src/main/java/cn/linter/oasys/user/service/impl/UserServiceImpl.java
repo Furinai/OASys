@@ -2,9 +2,12 @@ package cn.linter.oasys.user.service.impl;
 
 import cn.linter.oasys.common.entity.ResultStatus;
 import cn.linter.oasys.common.exception.BusinessException;
+import cn.linter.oasys.user.dao.PermissionDao;
 import cn.linter.oasys.user.dao.UserDao;
+import cn.linter.oasys.user.entity.Permission;
 import cn.linter.oasys.user.entity.Role;
 import cn.linter.oasys.user.entity.User;
+import cn.linter.oasys.user.service.PermissionService;
 import cn.linter.oasys.user.service.UserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -25,10 +28,12 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
+    private final PermissionService permissionService;
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public UserServiceImpl(UserDao userDao) {
+    public UserServiceImpl(UserDao userDao, PermissionDao permissionDao, PermissionService permissionService) {
         this.userDao = userDao;
+        this.permissionService = permissionService;
     }
 
     @Override
@@ -81,6 +86,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean delete(Long id) {
         return userDao.delete(id) > 0;
+    }
+
+    @Override
+    public List<Permission> listPermission(Integer id, Boolean treeMode) {
+        return permissionService.listByUserId(id, treeMode);
     }
 
 }

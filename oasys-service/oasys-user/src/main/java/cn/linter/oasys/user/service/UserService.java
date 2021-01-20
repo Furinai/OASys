@@ -1,7 +1,10 @@
 package cn.linter.oasys.user.service;
 
+import cn.linter.oasys.user.entity.Permission;
 import cn.linter.oasys.user.entity.User;
 import com.github.pagehelper.PageInfo;
+
+import java.util.List;
 
 /**
  * 用户服务接口
@@ -51,5 +54,14 @@ public interface UserService {
      * @return 是否成功
      */
     boolean delete(Long id);
+
+    /**
+     * 查询用户的权限
+     *
+     * @param id       用户ID
+     * @param treeMode 是否树形
+     * @return 权限列表
+     */
+    List<Permission> listPermission(Integer id, Boolean treeMode);
 
 }

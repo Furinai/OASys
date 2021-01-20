@@ -99,7 +99,7 @@
         </where>
     </select>
 
-    <select id="listByRoleId" resultType="cn.linter.oasys.user.entity.Permission">
+    <select id="listByRoleId" resultMap="PermissionMap">
         select p.id,
                p.name,
                p.type,
@@ -116,6 +116,25 @@
              role_permission rp
         where p.id = rp.permission_id
           and rp.role_id = #{roleId}
+    </select>
+
+    <select id="listByUserId" resultMap="PermissionMap">
+        select distinct p.id,
+                        p.name,
+                        p.type,
+                        p.icon,
+                        p.parent_id,
+                        p.resource_path,
+                        p.request_method,
+                        p.router_name,
+                        p.router_path,
+                        p.component_path,
+                        p.create_time,
+                        p.update_time
+        from permission p
+                 inner join role_permission rp on p.id = rp.permission_id
+                 inner join user_role ur on rp.role_id = ur.role_id
+        where ur.user_id = #{userId}
     </select>
 
     <!--插入单个权限-->

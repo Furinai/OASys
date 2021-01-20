@@ -3,6 +3,7 @@ package cn.linter.oasys.user.controller;
 import cn.linter.oasys.common.entity.Page;
 import cn.linter.oasys.common.entity.Result;
 import cn.linter.oasys.common.entity.ResultStatus;
+import cn.linter.oasys.user.entity.Permission;
 import cn.linter.oasys.user.entity.Role;
 import cn.linter.oasys.user.entity.User;
 import cn.linter.oasys.user.service.RoleService;
@@ -64,6 +65,11 @@ public class UserController {
     public ResultStatus deleteUser(@PathVariable("id") Long id) {
         userService.delete(id);
         return ResultStatus.SUCCESS;
+    }
+
+    @GetMapping("{id}/permissions")
+    public Result<List<Permission>> listPermission(@PathVariable Integer id, @RequestParam(defaultValue = "false") boolean treeMode) {
+        return Result.of(ResultStatus.SUCCESS, userService.listPermission(id, treeMode));
     }
 
 }
