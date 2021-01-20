@@ -67,7 +67,7 @@ public interface RoleService {
      * @param treeMode 是否树形
      * @return 权限列表
      */
-    List<Permission> queryPermissions(Integer id, Boolean treeMode);
+    List<Permission> listPermission(Integer id, Boolean treeMode);
 
     /**
      * 为角色创建权限

@@ -64,7 +64,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public List<Permission> queryPermissions(Integer id, Boolean treeMode) {
+    public List<Permission> listPermission(Integer id, Boolean treeMode) {
         return permissionService.listByRoleId(id, treeMode);
     }
 

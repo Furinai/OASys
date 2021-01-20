@@ -48,8 +48,8 @@ public class RoleController {
     }
 
     @GetMapping("{id}/permissions")
-    public Result<List<Permission>> queryPermission(@PathVariable Integer id, @RequestParam(defaultValue = "false") boolean treeMode) {
-        return Result.of(ResultStatus.SUCCESS, roleService.queryPermissions(id, treeMode));
+    public Result<List<Permission>> listPermission(@PathVariable Integer id, @RequestParam(defaultValue = "false") boolean treeMode) {
+        return Result.of(ResultStatus.SUCCESS, roleService.listPermission(id, treeMode));
     }
 
     @PostMapping("{id}/permissions")
