@@ -1,5 +1,6 @@
 package cn.linter.oasys.auth.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -16,6 +17,10 @@ public class User implements UserDetails {
 
     private static final long serialVersionUID = 8884273058722672541L;
     /**
+     * 主键ID
+     */
+    private Long id;
+    /**
      * 用户名
      */
     private String username;
@@ -24,9 +29,21 @@ public class User implements UserDetails {
      */
     private String password;
     /**
+     * 姓名
+     */
+    private String fullName;
+    /**
      * 权限列表
      */
     private List<? extends GrantedAuthority> authorities;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public void setUsername(String username) {
         this.username = username;
@@ -34,6 +51,14 @@ public class User implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public void setAuthorities(List<GrantedAuthority> authorities) {
@@ -67,6 +92,7 @@ public class User implements UserDetails {
     /**
      * @return 账户是否未过期
      */
+    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -75,6 +101,7 @@ public class User implements UserDetails {
     /**
      * @return 账户是否未锁定
      */
+    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return true;
@@ -83,6 +110,7 @@ public class User implements UserDetails {
     /**
      * @return 凭证是否未过期
      */
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
@@ -91,6 +119,7 @@ public class User implements UserDetails {
     /**
      * @return 是否激活
      */
+    @JsonIgnore
     @Override
     public boolean isEnabled() {
         return true;

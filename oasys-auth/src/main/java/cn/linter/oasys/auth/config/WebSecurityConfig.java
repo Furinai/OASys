@@ -70,7 +70,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             if (user == null) {
                 throw new UsernameNotFoundException(ResultStatus.USER_NOT_FOUND.getMessage());
             }
-            List<Role> roles = userClient.queryRoleOfUser(username).getData();
+            List<Role> roles = userClient.listRoleOfUser(username).getData();
             List<GrantedAuthority> authorities = new ArrayList<>(roles.size());
             for (Role role : roles) {
                 authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));

@@ -6,7 +6,6 @@ import cn.linter.oasys.common.entity.ResultStatus;
 import cn.linter.oasys.user.entity.Permission;
 import cn.linter.oasys.user.entity.Role;
 import cn.linter.oasys.user.entity.User;
-import cn.linter.oasys.user.service.RoleService;
 import cn.linter.oasys.user.service.UserService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.validation.annotation.Validated;
@@ -25,23 +24,25 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
-    private final RoleService roleService;
 
-    public UserController(UserService userService, RoleService roleService) {
+    public UserController(UserService userService){
         this.userService = userService;
-        this.roleService = roleService;
     }
 
     @GetMapping("{username}")
-    public Result<User> queryUser(@PathVariable("username") String username) {
+    public Result<User> queryUser(@PathVariable String username) {
         User user = userService.query(username);
         return Result.of(ResultStatus.SUCCESS, user);
     }
 
     @GetMapping("{username}/roles")
-    public Result<List<Role>> queryRoleOfUser(@PathVariable("username") String username) {
-        List<Role> roles = roleService.listByUsername(username);
-        return Result.of(ResultStatus.SUCCESS, roles);
+    public Result<List<Role>> listRoleOfUser(@PathVariable String username) {
+        return Result.of(ResultStatus.SUCCESS, userService.listRoleByUsername(username));
+    }
+
+    @GetMapping("{username}/permissions")
+    public Result<List<Permission>> listPermissionOfUser(@PathVariable String username, @RequestParam(defaultValue = "false") boolean treeMode) {
+        return Result.of(ResultStatus.SUCCESS, userService.listPermissionByUsername(username, treeMode));
     }
 
     @GetMapping
@@ -62,14 +63,9 @@ public class UserController {
     }
 
     @DeleteMapping("{id}")
-    public ResultStatus deleteUser(@PathVariable("id") Long id) {
+    public ResultStatus deleteUser(@PathVariable Long id) {
         userService.delete(id);
         return ResultStatus.SUCCESS;
-    }
-
-    @GetMapping("{id}/permissions")
-    public Result<List<Permission>> listPermission(@PathVariable Integer id, @RequestParam(defaultValue = "false") boolean treeMode) {
-        return Result.of(ResultStatus.SUCCESS, userService.listPermission(id, treeMode));
     }
 
 }

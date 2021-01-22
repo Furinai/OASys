@@ -1,6 +1,7 @@
 package cn.linter.oasys.user.service;
 
 import cn.linter.oasys.user.entity.Permission;
+import cn.linter.oasys.user.entity.Role;
 import cn.linter.oasys.user.entity.User;
 import com.github.pagehelper.PageInfo;
 
@@ -32,6 +33,23 @@ public interface UserService {
     PageInfo<User> list(int pageNumber, int pageSize);
 
     /**
+     * 通过用户名查询所有角色
+     *
+     * @param username 用户名
+     * @return 角色列表
+     */
+    List<Role> listRoleByUsername(String username);
+
+    /**
+     * 查询用户的权限
+     *
+     * @param username 用户名
+     * @param treeMode 是否树形
+     * @return 权限列表
+     */
+    List<Permission> listPermissionByUsername(String username, Boolean treeMode);
+
+    /**
      * 新增用户
      *
      * @param user 用户实例
@@ -54,14 +72,5 @@ public interface UserService {
      * @return 是否成功
      */
     boolean delete(Long id);
-
-    /**
-     * 查询用户的权限
-     *
-     * @param id       用户ID
-     * @param treeMode 是否树形
-     * @return 权限列表
-     */
-    List<Permission> listPermission(Integer id, Boolean treeMode);
 
 }
