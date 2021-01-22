@@ -36,7 +36,7 @@
         </where>
     </select>
 
-    <!--通过用户ID查询所有角色-->
+    <!--通过用户名查询所有角色-->
     <select id="listByUsername" resultType="cn.linter.oasys.user.entity.Role">
         select r.id, r.name
         from user u,

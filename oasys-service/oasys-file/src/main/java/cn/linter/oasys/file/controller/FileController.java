@@ -46,7 +46,7 @@ public class FileController {
     }
 
     @GetMapping("{id}")
-    public void downloadFile(@PathVariable("id") Long id, HttpServletResponse response) throws IOException, ServerException, InsufficientDataException,
+    public void downloadFile(@PathVariable Long id, HttpServletResponse response) throws IOException, ServerException, InsufficientDataException,
             NoSuchAlgorithmException, InternalException, InvalidResponseException, XmlParserException, InvalidKeyException, ErrorResponseException {
         fileService.getById(id, response);
     }
@@ -59,7 +59,7 @@ public class FileController {
     }
 
     @DeleteMapping("{id}")
-    public ResultStatus deleteFile(@PathVariable("id") Long id) throws IOException, InvalidResponseException, InvalidKeyException,
+    public ResultStatus deleteFile(@PathVariable Long id) throws IOException, InvalidResponseException, InvalidKeyException,
             NoSuchAlgorithmException, ServerException, ErrorResponseException, XmlParserException, InsufficientDataException, InternalException {
         fileService.deleteById(id);
         return ResultStatus.SUCCESS;

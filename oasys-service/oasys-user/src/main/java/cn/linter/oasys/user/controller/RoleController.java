@@ -42,7 +42,7 @@ public class RoleController {
     }
 
     @DeleteMapping("{id}")
-    public ResultStatus deleteRole(@PathVariable("id") Integer id) {
+    public ResultStatus deleteRole(@PathVariable Integer id) {
         roleService.delete(id);
         return ResultStatus.SUCCESS;
     }

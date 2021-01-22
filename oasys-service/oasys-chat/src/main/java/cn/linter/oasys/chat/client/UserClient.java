@@ -22,6 +22,6 @@ public interface UserClient {
      * @return 用户
      */
     @GetMapping("users/{username}")
-    Result<User> queryUser(@PathVariable("username") String username);
+    Result<User> queryUser(@PathVariable String username);
 
 }

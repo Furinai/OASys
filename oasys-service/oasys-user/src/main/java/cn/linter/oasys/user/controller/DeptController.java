@@ -41,7 +41,7 @@ public class DeptController {
     }
 
     @DeleteMapping("{id}")
-    public ResultStatus deleteDept(@PathVariable("id") Integer id) {
+    public ResultStatus deleteDept(@PathVariable Integer id) {
         deptService.delete(id);
         return ResultStatus.SUCCESS;
     }

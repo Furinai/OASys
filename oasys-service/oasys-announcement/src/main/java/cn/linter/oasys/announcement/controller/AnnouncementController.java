@@ -43,7 +43,7 @@ public class AnnouncementController {
     }
 
     @DeleteMapping("{id}")
-    public Result<String> deleteAnnouncement(@PathVariable("id") Long id) {
+    public Result<String> deleteAnnouncement(@PathVariable Long id) {
         announcementService.delete(id);
         return Result.of(ResultStatus.SUCCESS, "删除成功！");
     }
