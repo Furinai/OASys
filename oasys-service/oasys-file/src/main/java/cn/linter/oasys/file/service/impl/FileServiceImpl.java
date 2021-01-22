@@ -9,6 +9,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import io.minio.*;
 import io.minio.errors.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -34,6 +35,7 @@ import java.util.stream.Collectors;
  * @author wangxiaoyang
  * @since 2020/11/10
  */
+@Slf4j
 @Service
 public class FileServiceImpl implements FileService {
 
@@ -111,7 +113,7 @@ public class FileServiceImpl implements FileService {
                 out.write(buffer, 0, len);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("Download file error", e);
         }
     }
 

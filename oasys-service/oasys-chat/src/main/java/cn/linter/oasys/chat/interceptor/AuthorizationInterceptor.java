@@ -4,6 +4,7 @@ import cn.linter.oasys.chat.client.AuthClient;
 import cn.linter.oasys.chat.client.UserClient;
 import cn.linter.oasys.chat.entity.User;
 import feign.FeignException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.lang.Nullable;
@@ -21,6 +22,7 @@ import java.util.regex.Pattern;
  *
  * @author wangxiaoyang
  */
+@Slf4j
 @Component
 public class AuthorizationInterceptor implements HandshakeInterceptor {
 
@@ -54,6 +56,7 @@ public class AuthorizationInterceptor implements HandshakeInterceptor {
         try {
             auth = authClient.queryAuth(token);
         } catch (FeignException e) {
+            log.warn("Websocket authentication failed");
             return false;
         }
         String username = (String) auth.get("user_name");

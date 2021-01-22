@@ -4,6 +4,7 @@ import cn.linter.oasys.chat.entity.Message;
 import cn.linter.oasys.chat.repository.MessageRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +17,7 @@ import java.util.Map;
  * @author wangxiaoyang
  * @date 2021/1/2
  */
+@Slf4j
 @Component
 public class MessagePublisher {
 
@@ -45,7 +47,7 @@ public class MessagePublisher {
             String messageString = objectMapper.writeValueAsString(message);
             kafkaTemplate.send("public-chat", messageString);
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            log.error("Json process error", e);
         }
     }
 

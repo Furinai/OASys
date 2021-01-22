@@ -1,6 +1,7 @@
 package cn.linter.oasys.chat.handler;
 
 import cn.linter.oasys.chat.container.SessionContainer;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
@@ -14,6 +15,7 @@ import java.io.IOException;
  * @author wangxiaoyang
  * @since 2021/1/2
  */
+@Slf4j
 @Component
 public class MessageListener {
 
@@ -24,7 +26,7 @@ public class MessageListener {
             try {
                 session.sendMessage(textMessage);
             } catch (IOException e) {
-                e.printStackTrace();
+                log.error("Message sending error", e);
             }
         });
     }

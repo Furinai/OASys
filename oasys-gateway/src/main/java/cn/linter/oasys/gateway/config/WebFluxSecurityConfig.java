@@ -4,6 +4,7 @@ import cn.linter.oasys.common.entity.ResultStatus;
 import cn.linter.oasys.gateway.manager.AuthorizationManager;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
@@ -30,6 +31,7 @@ import java.nio.charset.StandardCharsets;
  * @author wangxiaoyang
  * @since 2020/11/03
  */
+@Slf4j
 @Configuration
 @EnableWebFluxSecurity
 public class WebFluxSecurityConfig {
@@ -82,6 +84,7 @@ public class WebFluxSecurityConfig {
             body = objectMapper.writeValueAsString(resultStatus);
         } catch (JsonProcessingException e) {
             body = e.getMessage();
+            log.error("Json process error", e);
         }
         byte[] bytes = body.getBytes(StandardCharsets.UTF_8);
         DataBuffer buffer = httpResponse.bufferFactory().wrap(bytes);

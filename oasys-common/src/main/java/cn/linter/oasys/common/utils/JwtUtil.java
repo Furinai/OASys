@@ -1,6 +1,7 @@
 package cn.linter.oasys.common.utils;
 
 import com.nimbusds.jose.JWSObject;
+import lombok.extern.slf4j.Slf4j;
 
 import java.text.ParseException;
 
@@ -10,6 +11,7 @@ import java.text.ParseException;
  * @author wangxiaoyang
  * @since 2020/11/01
  */
+@Slf4j
 public class JwtUtil {
 
     /**
@@ -28,7 +30,7 @@ public class JwtUtil {
         try {
             jwsObject = JWSObject.parse(token.replace(TOKEN_PREFIX, ""));
         } catch (ParseException e) {
-            e.printStackTrace();
+            log.error("Token parse error", e);
         }
         return jwsObject != null ? (String) jwsObject.getPayload().toJSONObject().get("user_name") : null;
     }
