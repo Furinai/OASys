@@ -2,6 +2,7 @@ package cn.linter.oasys.user.controller;
 
 import cn.linter.oasys.common.entity.Result;
 import cn.linter.oasys.common.entity.ResultStatus;
+import cn.linter.oasys.user.dto.PermissionRoleDTO;
 import cn.linter.oasys.user.entity.Permission;
 import cn.linter.oasys.user.service.PermissionService;
 import org.springframework.validation.annotation.Validated;
@@ -30,6 +31,11 @@ public class PermissionController {
         return Result.of(ResultStatus.SUCCESS, permissionService.list(treeMode));
     }
 
+    @GetMapping("roles")
+    public Result<List<PermissionRoleDTO>> listRole() {
+        return Result.of(ResultStatus.SUCCESS, permissionService.listRoleByType(Permission.Type.resource));
+    }
+
     @PostMapping
     public Result<Permission> createPermission(@RequestBody @Validated({Permission.Create.class}) Permission permission) {
         //todo 分类型参数校验
@@ -42,7 +48,7 @@ public class PermissionController {
     }
 
     @DeleteMapping("{id}")
-    public ResultStatus deletePermission(@PathVariable("id") Integer id) {
+    public ResultStatus deletePermission(@PathVariable Integer id) {
         permissionService.delete(id);
         return ResultStatus.SUCCESS;
     }

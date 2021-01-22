@@ -1,5 +1,6 @@
 package cn.linter.oasys.user.service;
 
+import cn.linter.oasys.user.dto.PermissionRoleDTO;
 import cn.linter.oasys.user.entity.Permission;
 
 import java.util.List;
@@ -29,13 +30,13 @@ public interface PermissionService {
     List<Permission> list(boolean treeMode);
 
     /**
-     * 通过用户ID查询所有权限
+     * 通过用户名查询所有权限
      *
-     * @param userId   用户ID
+     * @param username 用户名
      * @param treeMode 是否树形
      * @return 权限列表
      */
-    List<Permission> listByUserId(Integer userId, Boolean treeMode);
+    List<Permission> listByUsername(String username, Boolean treeMode);
 
     /**
      * 通过角色ID查询所有权限
@@ -45,6 +46,14 @@ public interface PermissionService {
      * @return 权限列表
      */
     List<Permission> listByRoleId(Integer roleId, boolean treeMode);
+
+    /**
+     * 通过类型查询所有权限和角色的映射
+     *
+     * @param type 类型
+     * @return 权限和角色的映射集合
+     */
+    List<PermissionRoleDTO> listRoleByType(Permission.Type type);
 
     /**
      * 新增权限

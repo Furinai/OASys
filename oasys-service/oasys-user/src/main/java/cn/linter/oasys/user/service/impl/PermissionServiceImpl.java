@@ -1,6 +1,7 @@
 package cn.linter.oasys.user.service.impl;
 
 import cn.linter.oasys.user.dao.PermissionDao;
+import cn.linter.oasys.user.dto.PermissionRoleDTO;
 import cn.linter.oasys.user.entity.Permission;
 import cn.linter.oasys.user.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,11 @@ import java.util.Map;
 @Service
 public class PermissionServiceImpl implements PermissionService {
 
-    @Autowired
-    private PermissionDao permissionDao;
+    private final PermissionDao permissionDao;
+
+    public PermissionServiceImpl(PermissionDao permissionDao) {
+        this.permissionDao = permissionDao;
+    }
 
     @Override
     public Permission queryById(Integer id) {
@@ -39,8 +43,8 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
-    public List<Permission> listByUserId(Integer userId, Boolean treeMode) {
-        List<Permission> permissions = permissionDao.listByUserId(userId);
+    public List<Permission> listByUsername(String username, Boolean treeMode) {
+        List<Permission> permissions = permissionDao.listByUsername(username);
         if (treeMode) {
             return convertListToTree(permissions);
         }
@@ -54,6 +58,11 @@ public class PermissionServiceImpl implements PermissionService {
             return convertListToTree(permissions);
         }
         return permissions;
+    }
+
+    @Override
+    public List<PermissionRoleDTO> listRoleByType(Permission.Type type) {
+        return permissionDao.listRoleByType(type);
     }
 
     @Override

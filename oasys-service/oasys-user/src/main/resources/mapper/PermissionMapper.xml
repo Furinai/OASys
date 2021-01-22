@@ -15,6 +15,17 @@
         <result property="componentPath" column="component_path"/>
     </resultMap>
 
+    <resultMap id="PermissionRoleMap" type="cn.linter.oasys.user.dto.PermissionRoleDTO">
+        <id column="id"/>
+        <association property="permission" javaType="cn.linter.oasys.user.entity.Permission">
+            <result property="requestMethod" column="request_method"/>
+            <result property="resourcePath" column="resource_path"/>
+        </association>
+        <collection property="roles" ofType="cn.linter.oasys.user.entity.Role">
+            <result property="name" column="role_name"/>
+        </collection>
+    </resultMap>
+
     <!--通过ID查询单个权限-->
     <select id="selectById" resultMap="PermissionMap">
         select id,
@@ -118,7 +129,8 @@
           and rp.role_id = #{roleId}
     </select>
 
-    <select id="listByUserId" resultMap="PermissionMap">
+    <!--通过用户名查询所有权限-->
+    <select id="listByUsername" resultMap="PermissionMap">
         select distinct p.id,
                         p.name,
                         p.type,
@@ -132,9 +144,22 @@
                         p.create_time,
                         p.update_time
         from permission p
-                 inner join role_permission rp on p.id = rp.permission_id
-                 inner join user_role ur on rp.role_id = ur.role_id
-        where ur.user_id = #{userId}
+                 join role_permission rp on p.id = rp.permission_id
+                 join user_role ur on rp.role_id = ur.role_id
+                 join user u on ur.user_id = u.id
+        where u.username = #{username}
+    </select>
+
+    <!--通过类型查询所有权限和角色的映射-->
+    <select id="listRoleByType" resultMap="PermissionRoleMap">
+        select p.id,
+               p.request_method,
+               p.resource_path,
+               concat('ROLE_', r.name) as role_name
+        from permission p
+                 join role_permission rp on p.id = rp.permission_id
+                 join role r on rp.role_id = r.id
+        where type = #{type}
     </select>
 
     <!--插入单个权限-->
@@ -146,7 +171,8 @@
         </if>
         <if test="type == @cn.linter.oasys.user.entity.Permission$Type@menu">
             (name, type, icon, parent_id, router_name, router_path, component_path, create_time, update_time)
-            values (#{name}, #{type}, #{icon}, #{parentId}, #{routerName}, #{routerPath}, #{componentPath}, #{createTime}, #{updateTime})
+            values (#{name}, #{type}, #{icon}, #{parentId}, #{routerName}, #{routerPath}, #{componentPath},
+            #{createTime}, #{updateTime})
         </if>
         <if test="type == @cn.linter.oasys.user.entity.Permission$Type@resource">
             (name, type, parent_id, resource_path, request_method, create_time, update_time)

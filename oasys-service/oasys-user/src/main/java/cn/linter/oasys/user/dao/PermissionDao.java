@@ -1,5 +1,6 @@
 package cn.linter.oasys.user.dao;
 
+import cn.linter.oasys.user.dto.PermissionRoleDTO;
 import cn.linter.oasys.user.entity.Permission;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -30,12 +31,12 @@ public interface PermissionDao {
     List<Permission> list();
 
     /**
-     * 通过用户ID查询所有权限
+     * 通过用户名查询所有权限
      *
-     * @param userId 用户ID
+     * @param username 用户名
      * @return 权限列表
      */
-    List<Permission> listByUserId(Integer userId);
+    List<Permission> listByUsername(String username);
 
     /**
      * 通过角色ID查询所有权限
@@ -52,6 +53,14 @@ public interface PermissionDao {
      * @return 权限列表
      */
     List<Permission> listByEntity(Permission permission);
+
+    /**
+     * 通过类型查询所有权限和角色的映射
+     *
+     * @param type 类型
+     * @return 权限和角色的映射集合
+     */
+    List<PermissionRoleDTO> listRoleByType(Permission.Type type);
 
     /**
      * 新增权限
