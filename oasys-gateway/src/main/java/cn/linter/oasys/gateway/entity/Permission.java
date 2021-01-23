@@ -37,4 +37,5 @@ public class Permission implements Serializable {
     public void setRequestMethod(HttpMethod requestMethod) {
         this.requestMethod = requestMethod;
     }
+
 }

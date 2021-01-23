@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Permission> listPermissionByUsername(String username, Boolean treeMode) {
+    public List<Permission> listPermissionByUsername(String username, boolean treeMode) {
         return permissionService.listByUsername(username, treeMode);
     }
 

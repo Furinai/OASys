@@ -36,7 +36,7 @@ public interface PermissionService {
      * @param treeMode 是否树形
      * @return 权限列表
      */
-    List<Permission> listByUsername(String username, Boolean treeMode);
+    List<Permission> listByUsername(String username, boolean treeMode);
 
     /**
      * 通过角色ID查询所有权限

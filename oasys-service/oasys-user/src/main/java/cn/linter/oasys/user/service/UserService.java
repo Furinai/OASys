@@ -47,7 +47,7 @@ public interface UserService {
      * @param treeMode 是否树形
      * @return 权限列表
      */
-    List<Permission> listPermissionByUsername(String username, Boolean treeMode);
+    List<Permission> listPermissionByUsername(String username, boolean treeMode);
 
     /**
      * 新增用户
