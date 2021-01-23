@@ -4,7 +4,7 @@ import cn.linter.oasys.user.dao.PermissionDao;
 import cn.linter.oasys.user.dto.PermissionRoleDTO;
 import cn.linter.oasys.user.entity.Permission;
 import cn.linter.oasys.user.service.PermissionService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -43,7 +43,7 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
-    public List<Permission> listByUsername(String username, Boolean treeMode) {
+    public List<Permission> listByUsername(String username, boolean treeMode) {
         List<Permission> permissions = permissionDao.listByUsername(username);
         if (treeMode) {
             return convertListToTree(permissions);
@@ -60,6 +60,7 @@ public class PermissionServiceImpl implements PermissionService {
         return permissions;
     }
 
+    @Cacheable(value = "permission-role", key = "#type.toString()")
     @Override
     public List<PermissionRoleDTO> listRoleByType(Permission.Type type) {
         return permissionDao.listRoleByType(type);

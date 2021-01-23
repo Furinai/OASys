@@ -5,6 +5,7 @@ import cn.linter.oasys.user.entity.Permission;
 import cn.linter.oasys.user.entity.Role;
 import cn.linter.oasys.user.service.PermissionService;
 import cn.linter.oasys.user.service.RoleService;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -64,10 +65,11 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public List<Permission> listPermission(Integer id, Boolean treeMode) {
+    public List<Permission> listPermission(Integer id, boolean treeMode) {
         return permissionService.listByRoleId(id, treeMode);
     }
 
+    @CacheEvict(value = "permission-role", allEntries = true)
     @Override
     public void createPermission(Integer id, List<Permission> permissions) {
         if (!permissions.isEmpty()) {
@@ -75,6 +77,7 @@ public class RoleServiceImpl implements RoleService {
         }
     }
 
+    @CacheEvict(value = "permission-role", allEntries = true)
     @Override
     public void updatePermission(Integer id, List<Permission> permissions) {
         if (!permissions.isEmpty()) {
