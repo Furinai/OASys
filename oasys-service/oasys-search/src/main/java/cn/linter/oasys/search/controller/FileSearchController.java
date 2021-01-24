@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2021/1/10
  */
 @RestController
-@RequestMapping("search/file")
+@RequestMapping("searches/files")
 public class FileSearchController {
 
     private final FileSearchService fileSearchService;

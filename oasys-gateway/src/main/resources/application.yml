@@ -54,4 +54,4 @@ spring:
         - id: search-service
           uri: lb://search-service
           predicates:
-            - Path=/api/search/**
+            - Path=/api/searches/**
