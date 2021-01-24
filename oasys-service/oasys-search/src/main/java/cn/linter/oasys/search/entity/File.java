@@ -33,7 +33,7 @@ public class File implements Serializable {
     /**
      * 文件名
      */
-    @Field(name = "name", type = FieldType.Text)
+    @Field(analyzer = "ik_max_word", name = "name", type = FieldType.Text)
     private String name;
     /**
      * 路径
