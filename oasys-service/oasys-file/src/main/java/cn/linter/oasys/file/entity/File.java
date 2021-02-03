@@ -76,6 +76,10 @@ public class File implements Serializable {
      */
     private String contentType;
 
+    public boolean isFolder() {
+        return "文件夹".equals(this.type);
+    }
+
     public interface CreateFile {
     }
 
@@ -83,10 +87,6 @@ public class File implements Serializable {
     }
 
     public interface Update {
-    }
-
-    public boolean isFolder() {
-        return "文件夹".equals(this.type);
     }
 
 }
