@@ -45,24 +45,12 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getFullName() {
         return fullName;
     }
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
-    }
-
-    public void setAuthorities(List<GrantedAuthority> authorities) {
-        this.authorities = authorities;
     }
 
     /**
@@ -73,6 +61,10 @@ public class User implements UserDetails {
         return this.username;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     /**
      * @return 密码
      */
@@ -81,12 +73,20 @@ public class User implements UserDetails {
         return this.password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     /**
      * @return 权限列表
      */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.authorities;
+    }
+
+    public void setAuthorities(List<GrantedAuthority> authorities) {
+        this.authorities = authorities;
     }
 
     /**
