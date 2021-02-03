@@ -14,9 +14,9 @@ public interface FileSearchService {
     /**
      * 通过文件名搜索文件列表
      *
-     * @param name     文件名
-     * @param pageNumber  页数
-     * @param pageSize 页大小
+     * @param name       文件名
+     * @param pageNumber 页数
+     * @param pageSize   页大小
      * @return 文件列表
      */
     Page<File> findAllByName(String name, int pageNumber, int pageSize);

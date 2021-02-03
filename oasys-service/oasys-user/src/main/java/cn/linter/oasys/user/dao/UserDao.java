@@ -74,7 +74,7 @@ public interface UserDao {
     /**
      * 删除用户的角色
      *
-     * @param id    用户ID
+     * @param id 用户ID
      */
     void deleteRole(@Param("userId") Long id);
 
