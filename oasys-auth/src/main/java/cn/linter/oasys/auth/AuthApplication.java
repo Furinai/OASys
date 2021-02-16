@@ -3,7 +3,6 @@ package cn.linter.oasys.auth;
 import org.springframework.boot.SpringApplication;
 import org.springframework.cloud.client.SpringCloudApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 
 /**
  * 认证服务启动类
@@ -12,7 +11,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
  * @since 2020/11/01
  */
 @SpringCloudApplication
-@EnableAuthorizationServer
 @EnableFeignClients
 public class AuthApplication {
 
