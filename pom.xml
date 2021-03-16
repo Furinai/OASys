@@ -29,7 +29,7 @@
         <spring-security-oauth2.version>2.5.0.RELEASE</spring-security-oauth2.version>
         <mybatis.version>2.1.4</mybatis.version>
         <pagehelper.version>1.3.0</pagehelper.version>
-        <minio.version>8.0.2</minio.version>
+        <minio.version>8.1.0</minio.version>
     </properties>
 
     <dependencies>
