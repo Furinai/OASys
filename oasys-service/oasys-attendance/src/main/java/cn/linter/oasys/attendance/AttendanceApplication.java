@@ -1,7 +1,8 @@
 package cn.linter.oasys.attendance;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.cloud.client.SpringCloudApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
  * 考勤服务启动类
@@ -9,7 +10,8 @@ import org.springframework.cloud.client.SpringCloudApplication;
  * @author wangxiaoyang
  * @since 2020/11/11
  */
-@SpringCloudApplication
+@SpringBootApplication
+@EnableDiscoveryClient
 public class AttendanceApplication {
 
     public static void main(String[] args) {

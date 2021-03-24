@@ -1,7 +1,8 @@
 package cn.linter.oasys.user;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.cloud.client.SpringCloudApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
  * 用户服务启动类
@@ -9,7 +10,8 @@ import org.springframework.cloud.client.SpringCloudApplication;
  * @author wangxiaoyang
  * @since 2020/11/12
  */
-@SpringCloudApplication
+@SpringBootApplication
+@EnableDiscoveryClient
 public class UserApplication {
 
     public static void main(String[] args) {

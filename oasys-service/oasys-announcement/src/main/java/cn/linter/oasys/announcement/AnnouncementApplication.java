@@ -1,13 +1,15 @@
 package cn.linter.oasys.announcement;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.cloud.client.SpringCloudApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
  * @author wangxiaoyang
  * @since 2020/11/11
  */
-@SpringCloudApplication
+@SpringBootApplication
+@EnableDiscoveryClient
 public class AnnouncementApplication {
 
     public static void main(String[] args) {
