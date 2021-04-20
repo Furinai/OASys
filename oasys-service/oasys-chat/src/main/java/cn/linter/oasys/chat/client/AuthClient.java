@@ -1,7 +1,7 @@
 package cn.linter.oasys.chat.client;
 
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
@@ -21,7 +21,7 @@ public interface AuthClient {
      * @param token Token
      * @return 授权信息
      */
-    @GetMapping("oauth/check_token")
+    @PostMapping("oauth/check_token")
     Map<String, Object> queryAuth(@RequestParam("token") String token);
 
 }
