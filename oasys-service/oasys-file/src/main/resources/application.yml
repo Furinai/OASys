@@ -24,5 +24,5 @@ minio:
   endpoint: http://localhost:9000
   access-key: minioadmin
   secret-key: minioadmin
-  file-bucket-name: file
-  profile-picture-bucket-name: profile-picture
+  file-bucket-name: files
+  profile-picture-bucket-name: profile-pictures
