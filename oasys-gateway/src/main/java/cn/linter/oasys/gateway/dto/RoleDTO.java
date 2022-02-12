@@ -1,4 +1,4 @@
-package cn.linter.oasys.gateway.entity;
+package cn.linter.oasys.gateway.dto;
 
 import lombok.Data;
 
@@ -9,7 +9,7 @@ import lombok.Data;
  * @since 2020/12/20
  */
 @Data
-public class Role {
+public class RoleDTO {
 
     /**
      * 角色名

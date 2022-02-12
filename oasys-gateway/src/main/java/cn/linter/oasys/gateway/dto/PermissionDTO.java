@@ -1,4 +1,4 @@
-package cn.linter.oasys.gateway.entity;
+package cn.linter.oasys.gateway.dto;
 
 import lombok.Data;
 import org.springframework.http.HttpMethod;
@@ -10,7 +10,7 @@ import org.springframework.http.HttpMethod;
  * @since 2021/01/14
  */
 @Data
-public class Permission {
+public class PermissionDTO {
 
     /**
      * 资源路径

@@ -2,8 +2,8 @@ package cn.linter.oasys.gateway.manager;
 
 import cn.linter.oasys.common.entity.Result;
 import cn.linter.oasys.gateway.dto.PermissionRoleDTO;
-import cn.linter.oasys.gateway.entity.Permission;
-import cn.linter.oasys.gateway.entity.Role;
+import cn.linter.oasys.gateway.dto.PermissionDTO;
+import cn.linter.oasys.gateway.dto.RoleDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -73,12 +73,12 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
             }
         }
         for (PermissionRoleDTO permissionRoleDTO : permissionRoleDTOList) {
-            Permission permission = permissionRoleDTO.getPermission();
+            PermissionDTO permission = permissionRoleDTO.getPermission();
             boolean isPathMatch = pathMatcher.match(permission.getResourcePath(), requestPath);
             boolean isMethodMatch = permission.getRequestMethod().matches(requestMethod);
             if (isPathMatch && isMethodMatch) {
-                List<Role> roles = permissionRoleDTO.getRoles();
-                for (Role role : roles) {
+                List<RoleDTO> roles = permissionRoleDTO.getRoles();
+                for (RoleDTO role : roles) {
                     authorities.add(role.getName());
                 }
                 break;

@@ -1,7 +1,5 @@
 package cn.linter.oasys.gateway.dto;
 
-import cn.linter.oasys.gateway.entity.Permission;
-import cn.linter.oasys.gateway.entity.Role;
 import lombok.Data;
 import lombok.ToString;
 
@@ -17,8 +15,8 @@ import java.util.List;
 @ToString
 public class PermissionRoleDTO {
 
-    private Permission permission;
+    private PermissionDTO permission;
 
-    private List<Role> roles;
+    private List<RoleDTO> roles;
 
 }
