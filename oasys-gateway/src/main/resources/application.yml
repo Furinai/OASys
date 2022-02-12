@@ -21,6 +21,13 @@ spring:
           enabled: true
       default-filters:
         - StripPrefix=1
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: http://localhost:3000
+            allowedHeaders: Content-Type, Authorization
+            allowedMethods: GET, POST, PUT, DELETE, OPTIONS
       routes:
         - id: auth-service
           uri: lb://auth-service
