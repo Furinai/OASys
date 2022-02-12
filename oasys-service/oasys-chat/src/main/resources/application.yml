@@ -15,7 +15,7 @@ spring:
   jackson:
     default-property-inclusion: non_null
     time-zone: GMT+8
-  kafka:
-    consumer:
-      group-id: chat
-      auto-offset-reset: earliest
+pulsar:
+  host: localhost:6650
+  topic: chat
+  subscription: chat

@@ -5,7 +5,7 @@ import cn.linter.oasys.chat.repository.MessageRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.kafka.core.KafkaTemplate;
+import org.apache.pulsar.client.api.Producer;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -19,15 +19,15 @@ import java.util.Map;
  */
 @Slf4j
 @Component
-public class MessagePublisher {
+public class ChatMessagePublisher {
 
     private final MessageRepository messageRepository;
-    private final KafkaTemplate<String, String> kafkaTemplate;
+    private final Producer<String> pulsarPublisher;
     private final ObjectMapper objectMapper;
 
-    public MessagePublisher(MessageRepository messageRepository, KafkaTemplate<String, String> kafkaTemplate, ObjectMapper objectMapper) {
+    public ChatMessagePublisher(MessageRepository messageRepository, Producer<String> pulsarPublisher, ObjectMapper objectMapper) {
         this.messageRepository = messageRepository;
-        this.kafkaTemplate = kafkaTemplate;
+        this.pulsarPublisher = pulsarPublisher;
         this.objectMapper = objectMapper;
     }
 
@@ -45,7 +45,7 @@ public class MessagePublisher {
         }
         try {
             String messageString = objectMapper.writeValueAsString(message);
-            kafkaTemplate.send("public-chat", messageString);
+            pulsarPublisher.sendAsync(messageString);
         } catch (JsonProcessingException e) {
             log.error("Json process error", e);
         }

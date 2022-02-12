@@ -22,10 +22,10 @@ import java.util.Map;
 @Component
 public class ChatWebSocketHandler extends TextWebSocketHandler {
 
-    private final MessagePublisher messagePublisher;
+    private final ChatMessagePublisher chatMessagePublisher;
 
-    public ChatWebSocketHandler(MessagePublisher messagePublisher) {
-        this.messagePublisher = messagePublisher;
+    public ChatWebSocketHandler(ChatMessagePublisher chatMessagePublisher) {
+        this.chatMessagePublisher = chatMessagePublisher;
     }
 
     @Override
@@ -33,12 +33,12 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
         SessionContainer.add(session);
         Map<String, Object> attributes = session.getAttributes();
         String content = attributes.get("fullName") + "进入了聊天室";
-        messagePublisher.publish(attributes, Message.Type.SYSTEM, content);
+        chatMessagePublisher.publish(attributes, Message.Type.SYSTEM, content);
     }
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) {
-        messagePublisher.publish(session.getAttributes(), Message.Type.PUBLIC, message.getPayload());
+        chatMessagePublisher.publish(session.getAttributes(), Message.Type.PUBLIC, message.getPayload());
     }
 
     @Override
@@ -46,7 +46,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
         SessionContainer.remove(session);
         Map<String, Object> attributes = session.getAttributes();
         String content = attributes.get("fullName") + "离开了聊天室";
-        messagePublisher.publish(attributes, Message.Type.SYSTEM, content);
+        chatMessagePublisher.publish(attributes, Message.Type.SYSTEM, content);
     }
 
 }

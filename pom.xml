@@ -30,6 +30,7 @@
         <spring-security-oauth2.version>2.5.0.RELEASE</spring-security-oauth2.version>
         <mybatis.version>2.2.2</mybatis.version>
         <pagehelper.version>1.4.1</pagehelper.version>
+        <pulsar.version>2.9.1</pulsar.version>
         <minio.version>8.3.5</minio.version>
         <nimbus.version>9.18</nimbus.version>
     </properties>

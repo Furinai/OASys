@@ -1,0 +1,19 @@
+{
+  "properties": [
+    {
+      "name": "pulsar.host",
+      "type": "java.lang.String",
+      "description": "Pulsar服务IP."
+    },
+    {
+      "name": "pulsar.topic",
+      "type": "java.lang.String",
+      "description": "topic."
+    },
+    {
+      "name": "pulsar.subscription",
+      "type": "java.lang.String",
+      "description": "subscription."
+    }
+  ]
+}
