@@ -21,7 +21,7 @@
         <dependency>
             <groupId>com.nimbusds</groupId>
             <artifactId>nimbus-jose-jwt</artifactId>
-            <optional>true</optional>
+            <version>${nimbus.version}</version>
         </dependency>
     </dependencies>
 

@@ -27,10 +27,11 @@
         <java.version>1.8</java.version>
         <spring-cloud.version>2021.0.0</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
-        <spring-security-oauth2.version>2.5.1.RELEASE</spring-security-oauth2.version>
+        <spring-security-oauth2.version>2.5.0.RELEASE</spring-security-oauth2.version>
         <mybatis.version>2.2.2</mybatis.version>
         <pagehelper.version>1.4.1</pagehelper.version>
         <minio.version>8.3.5</minio.version>
+        <nimbus.version>9.18</nimbus.version>
     </properties>
 
     <dependencies>
