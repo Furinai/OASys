@@ -5,7 +5,6 @@ spring:
     name: gateway
   jackson:
     default-property-inclusion: non_null
-    date-format: yyyy-MM-dd HH:mm
     time-zone: GMT+8
   security:
     oauth2:

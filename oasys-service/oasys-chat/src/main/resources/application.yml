@@ -14,7 +14,6 @@ spring:
       database: chat_record
   jackson:
     default-property-inclusion: non_null
-    date-format: yyyy-MM-dd HH:mm
     time-zone: GMT+8
   kafka:
     consumer:

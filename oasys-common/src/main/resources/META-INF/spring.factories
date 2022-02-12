@@ -1,3 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-    cn.linter.oasys.common.handler.GlobalExceptionHandler,\
-    cn.linter.oasys.common.config.DateTimeFormatterConfig
+    cn.linter.oasys.common.handler.GlobalExceptionHandler
