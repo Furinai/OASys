@@ -15,7 +15,6 @@ import java.util.List;
  */
 public class User implements UserDetails {
 
-    private static final long serialVersionUID = 8884273058722672541L;
     /**
      * 主键ID
      */
