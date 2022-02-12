@@ -14,7 +14,6 @@ spring:
       database: chat_record
   jackson:
     default-property-inclusion: non_null
-    time-zone: GMT+8
 pulsar:
   host: localhost:6650
   topic: chat

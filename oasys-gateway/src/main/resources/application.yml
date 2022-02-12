@@ -5,7 +5,6 @@ spring:
     name: gateway
   jackson:
     default-property-inclusion: non_null
-    time-zone: GMT+8
   security:
     oauth2:
       resourceserver:

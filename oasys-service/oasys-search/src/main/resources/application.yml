@@ -9,4 +9,3 @@ spring:
         server-addr: localhost:8848
   jackson:
     default-property-inclusion: non_null
-    time-zone: GMT+8

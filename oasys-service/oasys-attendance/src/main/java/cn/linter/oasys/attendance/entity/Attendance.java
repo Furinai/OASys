@@ -1,5 +1,6 @@
 package cn.linter.oasys.attendance.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -29,6 +30,7 @@ public class Attendance {
     /**
      * 打卡日期
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDate clockDate;
     /**
      * 签到时间
@@ -41,10 +43,10 @@ public class Attendance {
     /**
      * 迟到分钟数
      */
-    private Short comeLateMinutes;
+    private Integer comeLateMinutes;
     /**
      * 早退分钟数
      */
-    private Short leaveEarlyMinutes;
+    private Integer leaveEarlyMinutes;
 
 }

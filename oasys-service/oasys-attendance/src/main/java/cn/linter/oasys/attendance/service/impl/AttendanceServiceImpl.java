@@ -48,7 +48,7 @@ public class AttendanceServiceImpl implements AttendanceService {
         Duration duration = Duration.between(LocalTime.parse(workingHoursStart), LocalTime.now());
         long lateMinutes = duration.toMinutes();
         if (lateMinutes > 0) {
-            attendance.setComeLateMinutes((short) lateMinutes);
+            attendance.setComeLateMinutes((int) lateMinutes);
         }
         attendance.setClockDate(LocalDate.now());
         attendance.setClockInTime(LocalTime.now());
@@ -69,7 +69,7 @@ public class AttendanceServiceImpl implements AttendanceService {
         Duration duration = Duration.between(LocalTime.now(), LocalTime.parse(workingHoursEnd));
         long earlyMinutes = duration.toMinutes();
         if (earlyMinutes > 0) {
-            attendance.setLeaveEarlyMinutes((short) earlyMinutes);
+            attendance.setLeaveEarlyMinutes((int) earlyMinutes);
         }
         attendance.setClockOutTime(LocalTime.now());
         attendanceDao.updateById(attendance);
