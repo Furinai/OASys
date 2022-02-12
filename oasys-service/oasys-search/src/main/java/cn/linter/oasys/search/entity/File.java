@@ -9,7 +9,6 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -22,9 +21,8 @@ import java.time.LocalDateTime;
 @ToString
 @EqualsAndHashCode
 @Document(indexName = "file")
-public class File implements Serializable {
+public class File {
 
-    private static final long serialVersionUID = 223089641003572200L;
     /**
      * 主键ID
      */

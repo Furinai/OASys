@@ -19,9 +19,8 @@ import java.time.LocalDateTime;
 @Data
 @ToString
 @EqualsAndHashCode
-public class Role implements Serializable {
+public class Role {
 
-    private static final long serialVersionUID = -44062214609899076L;
     /**
      * 主键ID
      */

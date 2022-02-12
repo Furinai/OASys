@@ -8,7 +8,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -22,9 +21,8 @@ import java.time.LocalDateTime;
 @ToString
 @EqualsAndHashCode
 @Document
-public class Message implements Serializable {
+public class Message {
 
-    private static final long serialVersionUID = -4484722387608220685L;
     /**
      * ID
      */

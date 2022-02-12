@@ -16,8 +16,6 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 public class BusinessException extends RuntimeException {
 
-    private static final long serialVersionUID = 4494482667405812688L;
-
     /**
      * 状态
      */

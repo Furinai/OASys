@@ -1,8 +1,7 @@
 package cn.linter.oasys.gateway.entity;
 
+import lombok.Data;
 import org.springframework.http.HttpMethod;
-
-import java.io.Serializable;
 
 /**
  * 权限实体类
@@ -10,9 +9,9 @@ import java.io.Serializable;
  * @author wangxiaoyang
  * @since 2021/01/14
  */
-public class Permission implements Serializable {
+@Data
+public class Permission {
 
-    private static final long serialVersionUID = 799092423622491007L;
     /**
      * 资源路径
      */
@@ -21,21 +20,5 @@ public class Permission implements Serializable {
      * 请求方法
      */
     private HttpMethod requestMethod;
-
-    public String getResourcePath() {
-        return resourcePath;
-    }
-
-    public void setResourcePath(String resourcePath) {
-        this.resourcePath = resourcePath;
-    }
-
-    public HttpMethod getRequestMethod() {
-        return requestMethod;
-    }
-
-    public void setRequestMethod(HttpMethod requestMethod) {
-        this.requestMethod = requestMethod;
-    }
 
 }

@@ -8,7 +8,6 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -20,9 +19,8 @@ import java.time.LocalDateTime;
 @Data
 @ToString
 @EqualsAndHashCode
-public class Dept implements Serializable {
+public class Dept {
 
-    private static final long serialVersionUID = 504314419569182280L;
     /**
      * 主键ID
      */

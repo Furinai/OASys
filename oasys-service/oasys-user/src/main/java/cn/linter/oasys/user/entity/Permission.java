@@ -21,9 +21,8 @@ import java.util.List;
 @Data
 @ToString
 @EqualsAndHashCode
-public class Permission implements Serializable {
+public class Permission {
 
-    private static final long serialVersionUID = 799092423622491007L;
     /**
      * 主键ID
      */

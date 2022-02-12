@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -17,9 +16,8 @@ import java.time.LocalTime;
 @Data
 @ToString
 @EqualsAndHashCode
-public class Attendance implements Serializable {
+public class Attendance {
 
-    private static final long serialVersionUID = 627660542130177717L;
     /**
      * 主键ID
      */

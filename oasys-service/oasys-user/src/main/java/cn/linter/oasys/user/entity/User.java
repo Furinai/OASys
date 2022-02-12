@@ -22,9 +22,8 @@ import java.util.List;
 @Data
 @ToString
 @EqualsAndHashCode
-public class User implements Serializable {
+public class User {
 
-    private static final long serialVersionUID = -21242857091255014L;
     /**
      * 用户ID
      */

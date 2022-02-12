@@ -4,8 +4,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import java.io.Serializable;
-
 /**
  * 用户实体类
  *
@@ -15,9 +13,8 @@ import java.io.Serializable;
 @Data
 @ToString
 @EqualsAndHashCode
-public class User implements Serializable {
+public class User {
 
-    private static final long serialVersionUID = 3590006581560556909L;
     /**
      * 用户名
      */
