@@ -22,6 +22,10 @@
 
 [https://github.com/citrucn/OASys/wiki/document](https://github.com/citrucn/OASys/wiki/document)
 
+或
+
+[https://gitee.com/citru/OASys/wikis/document](https://gitee.com/citru/OASys/wikis/document)
+
 ## 演示截图
 
 ### 登录
