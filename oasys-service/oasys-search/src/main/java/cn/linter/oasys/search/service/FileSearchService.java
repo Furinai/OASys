@@ -12,6 +12,20 @@ import org.springframework.data.domain.Page;
 public interface FileSearchService {
 
     /**
+     * 保存文件到 ES
+     *
+     * @param file 文件实体
+     */
+    void saveFile(File file);
+
+    /**
+     * 通过 ID 从 ES 删除文件
+     *
+     * @param id 文件ID
+     */
+    void deleteFileById(Long id);
+
+    /**
      * 通过文件名搜索文件列表
      *
      * @param name       文件名

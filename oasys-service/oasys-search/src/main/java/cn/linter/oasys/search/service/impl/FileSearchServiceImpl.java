@@ -24,6 +24,16 @@ public class FileSearchServiceImpl implements FileSearchService {
     }
 
     @Override
+    public void saveFile(File file) {
+        fileSearchRepository.save(file);
+    }
+
+    @Override
+    public void deleteFileById(Long id) {
+        fileSearchRepository.deleteById(id);
+    }
+
+    @Override
     public Page<File> findAllByName(String name, int pageNumber, int pageSize) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
         return fileSearchRepository.findAllByName(name, pageable);

@@ -71,13 +71,13 @@ public class File {
     /**
      * 创建时间
      */
-    @Field(name = "create_time", type = FieldType.Date, format = {}, pattern = "uuuu-MM-dd'T'HH:mm:ssXXX")
+    @Field(name = "create_time", type = FieldType.Date, format = {}, pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime createTime;
     /**
      * 修改时间
      */
-    @Field(name = "update_time", type = FieldType.Date, format = {}, pattern = "uuuu-MM-dd'T'HH:mm:ssXXX")
+    @Field(name = "update_time", type = FieldType.Date, format = {}, pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime updateTime;
     /**

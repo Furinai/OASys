@@ -2,6 +2,7 @@ package cn.linter.oasys.file.service.impl;
 
 import cn.linter.oasys.common.entity.ResultStatus;
 import cn.linter.oasys.common.exception.BusinessException;
+import cn.linter.oasys.file.client.SearchClient;
 import cn.linter.oasys.file.dao.FileDao;
 import cn.linter.oasys.file.entity.File;
 import cn.linter.oasys.file.service.FileService;
@@ -41,13 +42,15 @@ public class FileServiceImpl implements FileService {
 
     private final FileDao fileDao;
     private final MinioClient minioClient;
+    private final SearchClient searchClient;
 
     @Value("${minio.file-bucket-name}")
     private String bucketName;
 
-    public FileServiceImpl(FileDao fileDao, MinioClient minioClient) {
+    public FileServiceImpl(FileDao fileDao, MinioClient minioClient, SearchClient searchClient) {
         this.fileDao = fileDao;
         this.minioClient = minioClient;
+        this.searchClient = searchClient;
     }
 
     @Override
@@ -91,6 +94,7 @@ public class FileServiceImpl implements FileService {
         file.setCreateTime(LocalDateTime.now());
         file.setUpdateTime(LocalDateTime.now());
         fileDao.insert(file);
+        searchClient.saveFile(file);
         return file;
     }
 
@@ -122,6 +126,7 @@ public class FileServiceImpl implements FileService {
         //todo 处理非共享文件夹下的共享文件
         file.setUpdateTime(LocalDateTime.now());
         fileDao.update(file);
+        searchClient.saveFile(file);
         return fileDao.selectById(file.getId());
     }
 
@@ -134,6 +139,7 @@ public class FileServiceImpl implements FileService {
             minioClient.removeObject(RemoveObjectArgs.builder().bucket(bucketName).object(file.getPath()).build());
         }
         fileDao.deleteById(id);
+        searchClient.deleteFileById(id);
     }
 
     public String formatSize(long size) {
