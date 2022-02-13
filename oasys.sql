@@ -182,11 +182,11 @@ CREATE TABLE `permission`  (
 -- ----------------------------
 -- Records of permission
 -- ----------------------------
-INSERT INTO `permission` VALUES (1, '考勤', 'category', 'el-icon-date', 0, NULL, NULL, NULL, NULL, NULL, '2021-01-23 22:56:29', '2021-01-23 22:56:34');
-INSERT INTO `permission` VALUES (2, '公告', 'category', 'el-icon-bell', 0, NULL, NULL, NULL, NULL, NULL, '2021-01-23 22:57:16', '2021-01-23 22:57:20');
-INSERT INTO `permission` VALUES (3, '聊天', 'category', 'el-icon-chat-round', 0, NULL, NULL, NULL, NULL, NULL, '2021-01-23 22:57:55', '2021-01-23 22:57:58');
-INSERT INTO `permission` VALUES (4, '网盘', 'category', 'el-icon-box', 0, NULL, NULL, NULL, NULL, NULL, '2021-01-23 22:58:31', '2021-01-23 22:58:35');
-INSERT INTO `permission` VALUES (5, '用户', 'category', 'el-icon-user', 0, NULL, NULL, NULL, NULL, NULL, '2021-01-23 22:59:06', '2021-01-23 22:59:12');
+INSERT INTO `permission` VALUES (1, '考勤', 'category', 'alarm-clock', 0, NULL, NULL, NULL, NULL, NULL, '2021-01-23 22:56:29', '2021-01-23 22:56:34');
+INSERT INTO `permission` VALUES (2, '公告', 'category', 'bell', 0, NULL, NULL, NULL, NULL, NULL, '2021-01-23 22:57:16', '2021-01-23 22:57:20');
+INSERT INTO `permission` VALUES (3, '聊天', 'category', 'chat-round', 0, NULL, NULL, NULL, NULL, NULL, '2021-01-23 22:57:55', '2021-01-23 22:57:58');
+INSERT INTO `permission` VALUES (4, '网盘', 'category', 'box', 0, NULL, NULL, NULL, NULL, NULL, '2021-01-23 22:58:31', '2021-01-23 22:58:35');
+INSERT INTO `permission` VALUES (5, '用户', 'category', 'user', 0, NULL, NULL, NULL, NULL, NULL, '2021-01-23 22:59:06', '2021-01-23 22:59:12');
 INSERT INTO `permission` VALUES (6, '考勤打卡', 'menu', NULL, 1, NULL, NULL, 'Attendance-Clock', '/attendance/clock', 'Attendance-Clock', '2021-01-23 23:02:33', '2021-01-23 23:02:32');
 INSERT INTO `permission` VALUES (7, '考勤记录', 'menu', NULL, 1, NULL, NULL, 'Attendance-Record-View', '/attendance/record/view', 'Attendance-Record-View', '2021-01-23 23:06:02', '2021-01-23 23:06:05');
 INSERT INTO `permission` VALUES (8, '查看公告', 'menu', NULL, 2, NULL, NULL, 'Announcement-View', '/announcement/view', 'Announcement-View', '2021-01-23 23:08:33', '2021-01-23 23:08:36');
