@@ -1,8 +1,7 @@
 package cn.linter.oasys.gateway.manager;
 
-import cn.linter.oasys.common.entity.Result;
-import cn.linter.oasys.gateway.dto.PermissionRoleDTO;
 import cn.linter.oasys.gateway.dto.PermissionDTO;
+import cn.linter.oasys.gateway.dto.PermissionRoleDTO;
 import cn.linter.oasys.gateway.dto.RoleDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -23,8 +22,10 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 /**
  * 认证管理器
@@ -56,13 +57,13 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
         List<PermissionRoleDTO> permissionRoleDTOList = new ArrayList<>();
         String cacheValue = stringRedisTemplate.opsForValue().get("permission-role::resource");
         if (cacheValue == null) {
-            Optional<Result<List<PermissionRoleDTO>>> optionalResult = webClientBuilder.build()
-                    .get().uri("http://user-service/permissions/roles").retrieve()
-                    .bodyToMono(new ParameterizedTypeReference<Result<List<PermissionRoleDTO>>>() {
-                    })
-                    .blockOptional();
-            if (optionalResult.isPresent()) {
-                permissionRoleDTOList = optionalResult.get().getData();
+            try {
+                CompletableFuture.supplyAsync(() ->
+                        webClientBuilder.build().get().uri("http://user-service/permissions/roles").retrieve()
+                                .bodyToMono(new ParameterizedTypeReference<List<PermissionRoleDTO>>() {
+                                }).blockOptional().orElse(Collections.emptyList())).get();
+            } catch (InterruptedException | ExecutionException e) {
+                log.error("获取权限角色信息失败", e);
             }
         } else {
             try {

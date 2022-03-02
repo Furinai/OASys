@@ -32,8 +32,8 @@ public class PermissionController {
     }
 
     @GetMapping("roles")
-    public Result<List<PermissionRoleDTO>> listRole() {
-        return Result.of(ResultStatus.SUCCESS, permissionService.listRoleByType(Permission.Type.resource));
+    public List<PermissionRoleDTO> listRole() {
+        return permissionService.listRoleByType(Permission.Type.resource);
     }
 
     @PostMapping
