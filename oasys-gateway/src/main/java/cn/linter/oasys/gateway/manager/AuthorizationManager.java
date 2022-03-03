@@ -58,7 +58,7 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
         String cacheValue = stringRedisTemplate.opsForValue().get("permission-role::resource");
         if (cacheValue == null) {
             try {
-                CompletableFuture.supplyAsync(() ->
+                permissionRoleDTOList = CompletableFuture.supplyAsync(() ->
                         webClientBuilder.build().get().uri("http://user-service/permissions/roles").retrieve()
                                 .bodyToMono(new ParameterizedTypeReference<List<PermissionRoleDTO>>() {
                                 }).blockOptional().orElse(Collections.emptyList())).get();
