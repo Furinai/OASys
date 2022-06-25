@@ -47,7 +47,7 @@ spring:
         - id: user-service
           uri: lb://user-service
           predicates:
-            - Path=/api/users/**,/api/depts/**,/api/roles/**,/api/permissions
+            - Path=/api/users/**,/api/depts/**,/api/roles/**,/api/permissions/**
         - id: message-service
           uri: lb://chat-service
           predicates:
